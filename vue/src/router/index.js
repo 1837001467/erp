@@ -10,6 +10,40 @@ let routes = [{
 			},
 			{
 			path: "/",
+			name: "采购管理",
+			component: home,
+			meta: {
+			title: "采购管理"
+			},
+			children: [
+				{
+					path: '/cgbj',
+					component: () => import('@/view/cg/cgbj.vue'),
+					name: "采购报价",
+					meta: {
+						title: '采购报价'
+					}
+				},
+				{
+					path: '/cgorder',
+					component: () => import('@/view/cg/cgorder.vue'),
+					name: "采购订单",
+					meta: {
+						title: '采购订单'
+					}
+				},
+				{
+					path: '/cgstorage',
+					component: () => import('@/view/cg/cgstorage.vue'),
+					name: "采购入库",
+					meta: {
+						title: '采购入库'
+					}
+				}
+			]
+			},
+			{
+			path: "/",
 			name: "系统管理",
 			component: home,
 			meta: {
@@ -92,7 +126,7 @@ let routes = [{
 					},
 					{
 						path: '/kcbd',
-						component: () => import('@/view/storage/ckbd.vue'),
+						component: () => import('@/view/storage/kcbd.vue'),
 						name: "库存变动",
 						meta: {
 							title: '库存变动'

@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
  * 权限表格 服务类
  * </p>
  *
- * @author zzl
+ * @author
  * @since 2021-11-06
  */
 @Service

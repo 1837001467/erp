@@ -11,7 +11,7 @@ import java.io.Serializable;
  * 职位权限中间表格
  * </p>
  *
- * @author zzl
+ * @author 
  * @since 2021-11-06
  */
 @Data

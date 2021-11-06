@@ -12,7 +12,7 @@ import java.io.Serializable;
  * 部门表
  * </p>
  *
- * @author zzl
+ * @author 
  * @since 2021-11-06
  */
 @Data

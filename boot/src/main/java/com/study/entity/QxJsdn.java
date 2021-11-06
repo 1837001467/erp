@@ -12,7 +12,7 @@ import java.io.Serializable;
  * 权限表格
  * </p>
  *
- * @author zzl
+ * @author 
  * @since 2021-11-06
  */
 @Data

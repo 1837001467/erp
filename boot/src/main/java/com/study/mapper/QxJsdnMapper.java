@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
  * 权限表格 Mapper 接口
  * </p>
  *
- * @author zzl
+ * @author 
  * @since 2021-11-06
  */
 @Mapper

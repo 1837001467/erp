@@ -18,6 +18,10 @@ import 'dayjs/locale/zh-cn'
 
 import locale from 'element-plus/lib/locale/lang/zh-cn'
 
+
+axios.defaults.baseURL = "http://localhost:8095/"
+axios.defaults.timeout = 20000
+
 router.beforeEach((to, from, next)=> {
 	console.log("即将要去的地方",to)
 	

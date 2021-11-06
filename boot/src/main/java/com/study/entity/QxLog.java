@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
  * 日志表
  * </p>
  *
- * @author zzl
+ * @author
  * @since 2021-11-06
  */
 @Data
