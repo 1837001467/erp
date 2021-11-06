@@ -1,6 +1,9 @@
 package com.study.mapper;
 
+import com.study.entity.JcGoods;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 /**
  * <p>
@@ -12,5 +15,6 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface JcGoodsMapper{
-
+    //根据商品id查询
+    List<JcGoods> selectById(Integer goid);
 }
