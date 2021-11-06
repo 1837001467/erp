@@ -1,16 +1,13 @@
 package com.study.mapper;
 
+import com.study.entity.XsOrderdetails;
 import org.apache.ibatis.annotations.Mapper;
 
-/**
- * <p>
- *  Mapper 接口
- * </p>
- *
- * @author 
- * @since 2021-11-06
- */
+import java.util.List;
+
+
 @Mapper
 public interface XsOrderdetailsMapper{
-
+        //根据销售订单id或销售单id查询订单详情表
+        List<XsOrderdetails> selectById(Integer salesId,Integer orderId);
 }

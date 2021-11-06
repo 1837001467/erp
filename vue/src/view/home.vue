@@ -1,3 +1,4 @@
+<template>
 	<el-container>
 		<!-- height顶栏高度-->
 		<el-header height="80px">
@@ -22,6 +23,13 @@
 						<el-menu-item index="1-1"><router-link to="/cgbj"><i class="el-icon-user-solid"></i>采购报价</router-link></el-menu-item>
 						<el-menu-item index="1-2"><i class="el-icon-user-solid"></i><router-link to="/cgorder">采购订单</router-link></el-menu-item>
 						<el-menu-item index="1-3"><i class="el-icon-user-solid"></i><router-link to="/cgstorage">采购入库</router-link></el-menu-item>
+						<template #title><i class="el-icon-s-help"></i>采购</template>
+						<el-menu-item index="5-1"><i class="el-icon-user-solid"></i>
+							<router-link to="/rk">入库</router-link>
+						</el-menu-item>
+						<el-menu-item index="5-2">
+							<router-link to="/ck"><i class="el-icon-user-solid"></i>出库</router-link>
+						</el-menu-item>
 					</el-submenu>
 					<!-- 可展开的菜单选项-->
 					<el-submenu index="2">
@@ -48,6 +56,32 @@
 						</el-menu-item>
 						<el-menu-item index="4-2">
 							<router-link style="text-decoration: none" to="/rksq"><i class="el-icon-user-solid"></i>入库申请
+						<el-menu-item index="2-1">
+							<router-link style="text-decoration: none" to="/salesorder"><i class="el-icon-user-solid"></i>销售订单
+							</router-link>
+						</el-menu-item>
+						<el-menu-item index="2-2">
+							<router-link style="text-decoration: none" to="/salesorder"><i class="el-icon-user-solid"></i>销售单
+							</router-link>
+						</el-menu-item>
+						<el-menu-item index="2-3">
+							<router-link style="text-decoration: none" to="/salesorder"><i class="el-icon-user-solid"></i>收款单
+							</router-link>
+						</el-menu-item>
+						<el-menu-item index="2-4">
+							<router-link style="text-decoration: none" to="/salesorder"><i class="el-icon-user-solid"></i>发票管理
+							</router-link>
+						</el-menu-item>
+						<el-menu-item index="2-5">
+							<router-link style="text-decoration: none" to="/salesorder"><i class="el-icon-user-solid"></i>销售退货
+							</router-link>
+						</el-menu-item>
+						<el-menu-item index="2-6">
+							<router-link style="text-decoration: none" to="/salesorder"><i class="el-icon-user-solid"></i>应收记账
+							</router-link>
+						</el-menu-item>
+						<el-menu-item index="2-7">
+							<router-link style="text-decoration: none" to="/salesorder"><i class="el-icon-user-solid"></i>入库申请
 							</router-link>
 						</el-menu-item>
 
@@ -133,7 +167,6 @@
 			</el-container>
 		</el-container>
 	</el-container>
->>>>>>> 0b6e5a034439b1ee9d8a4d9744ed8b29b4271f30
 </template>
 
 <script>

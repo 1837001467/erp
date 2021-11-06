@@ -158,6 +158,24 @@ let routes = [{
 					title: "登陆"
 				}
 			},
+			{
+				path: "/",
+				name: "销售管理",
+				component: home,
+				meta: {
+					title: "销售管理"
+				},
+				children: [
+					{
+						path: '/salesorder',
+						component: () => import('@/view/sell/salesorder.vue'),
+						name: "销售订单",
+						meta: {
+							title: '销售订单'
+						},
+					},
+				]
+			},
 		]
 
 		import {
