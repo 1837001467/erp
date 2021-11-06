@@ -9,6 +9,7 @@
         <result column="sup_name" property="supName" />
         <result column="sup_tel" property="supTel" />
         <result column="sup_bian" property="supBian" />
+        <result column="sup_status" property="supStatus" />
     </resultMap>
 
 </mapper>

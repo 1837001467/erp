@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
+import javax.persistence.Id;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
@@ -21,7 +22,7 @@ import java.math.BigDecimal;
 public class JcGoods implements Serializable {
 
     private static final long serialVersionUID=1L;
-
+    @Id
     private Integer goId;
 
     private Integer gfId;
@@ -34,5 +35,5 @@ public class JcGoods implements Serializable {
 
     private Integer gBian;
 
-
+    private Integer gStatus;
 }

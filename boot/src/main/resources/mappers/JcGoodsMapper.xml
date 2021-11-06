@@ -10,6 +10,11 @@
         <result column="g_price" property="gPrice" />
         <result column="g_unit" property="gUnit" />
         <result column="g_bian" property="gBian" />
+        <result column="g_status" property="gStatus" />
     </resultMap>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        select * from jc_goods where g_status=0 order by go_id
+    </select>
 
 </mapper>

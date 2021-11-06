@@ -11,6 +11,7 @@
         <result column="kh_address" property="khAddress" />
         <result column="kh_bian" property="khBian" />
         <result column="kh_city" property="khCity" />
+        <result column="kh_status" property="khStatus" />
     </resultMap>
 
 </mapper>
