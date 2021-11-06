@@ -2,10 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.study.mapper.QxDepartmentMapper">
 
-    <!-- 通用查询映射结果 -->
+    <!-- 部门 -->
     <resultMap id="BaseResultMap" type="com.study.entity.QxDepartment">
         <id column="bm_id" property="bmId" />
         <result column="bm_name" property="bmName" />
     </resultMap>
+
+    <select id="qxbm" resultMap="BaseResultMap">
+        select * from qx_department
+        <where>
+            <if test ="seach !=null and '' !=seach"> /*部门名字*/
+                bm_name like'%${bmName}%'
+            </if>
+        </where>
+        ORDER BY bm_id desc
+    </select>
 
 </mapper>

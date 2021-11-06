@@ -1,5 +1,8 @@
 package com.study.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -16,16 +19,12 @@ import java.io.Serializable;
  * @since 2021-11-06
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
-public class QxPost implements Serializable {
-
-    private static final long serialVersionUID=1L;
+public class QxPost{
 
     /**
      * 职位id
      */
-    @Id
+    @TableId(value = "pos_id",type = IdType.AUTO)
     private Integer posId;
 
     /**
@@ -37,6 +36,7 @@ public class QxPost implements Serializable {
      * 部门id
      */
     private String bmId;
-
-
+    //部门
+    @TableField(exist = false)
+    private QxDepartment bm;
 }
