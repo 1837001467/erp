@@ -23,39 +23,10 @@
 						<el-menu-item index="1-1"><router-link to="/cgbj"><i class="el-icon-user-solid"></i>采购报价</router-link></el-menu-item>
 						<el-menu-item index="1-2"><i class="el-icon-user-solid"></i><router-link to="/cgorder">采购订单</router-link></el-menu-item>
 						<el-menu-item index="1-3"><i class="el-icon-user-solid"></i><router-link to="/cgstorage">采购入库</router-link></el-menu-item>
-						<template #title><i class="el-icon-s-help"></i>采购</template>
-						<el-menu-item index="5-1"><i class="el-icon-user-solid"></i>
-							<router-link to="/rk">入库</router-link>
-						</el-menu-item>
-						<el-menu-item index="5-2">
-							<router-link to="/ck"><i class="el-icon-user-solid"></i>出库</router-link>
-						</el-menu-item>
 					</el-submenu>
 					<!-- 可展开的菜单选项-->
 					<el-submenu index="2">
 						<template #title><i class="el-icon-s-help"></i>销售</template>
-						<el-menu-item index="4-2">
-							<router-link style="text-decoration: none" to="/rksq"><i class="el-icon-user-solid"></i>入库申请
-							</router-link>
-						</el-menu-item>
-						<el-menu-item index="4-2">
-							<router-link style="text-decoration: none" to="/rksq"><i class="el-icon-user-solid"></i>入库申请
-							</router-link>
-						</el-menu-item>
-						<el-menu-item index="4-2">
-							<router-link style="text-decoration: none" to="/rksq"><i class="el-icon-user-solid"></i>入库申请
-							</router-link>
-						</el-menu-item>
-						<el-menu-item index="4-2">
-							<router-link style="text-decoration: none" to="/rksq"><i class="el-icon-user-solid"></i>入库申请
-							</router-link>
-						</el-menu-item>
-						<el-menu-item index="4-2">
-							<router-link style="text-decoration: none" to="/rksq"><i class="el-icon-user-solid"></i>入库申请
-							</router-link>
-						</el-menu-item>
-						<el-menu-item index="4-2">
-							<router-link style="text-decoration: none" to="/rksq"><i class="el-icon-user-solid"></i>入库申请
 						<el-menu-item index="2-1">
 							<router-link style="text-decoration: none" to="/salesorder"><i class="el-icon-user-solid"></i>销售订单
 							</router-link>
