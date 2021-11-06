@@ -35,24 +35,15 @@
         </el-table-column>
 
       </el-table>
+
       <!--分页插件-->
-<!--      <el-pagination-->
-<!--          @size-change="handleSizeChange"-->
-<!--          @current-change="handleCurrentChange"-->
-<!--          :current-page="1"-->
-<!--          :page-sizes="[2,4,6,8,10]"-->
-<!--          :page-size="pagesize"-->
-<!--          layout="total, sizes, prev, pager, next, jumper"-->
-<!--          :total="bmji.length">-->
-<!--      </el-pagination>-->
-      <el-pagination
-          v-model:currentPage="bmji"
-          :page-size="100"
-          layout="prev, pager, next, jumper"
-          :total="bmji.length"
-          @size-change="handleSizeChange"
-          @current-change="handleCurrentChange"
-      >
+      <el-pagination  @size-change="handleSizeChange" @current-change="handleCurrentChange"
+                      style="text-align: center; margin-top: 10px"
+                      :current-page="currentPage"
+                      :page-sizes="[2,4,6,8]"
+                      :page-size="pagesize"
+                      layout="total, sizes, prev, pager, next, jumper"
+                      :total="bmji.length">
       </el-pagination>
     </el-col>
   </el-row>
