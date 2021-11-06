@@ -1,18 +1,18 @@
 package com.study.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import java.io.Serializable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import javax.persistence.Id;
+import java.io.Serializable;
 
 /**
  * <p>
  * 
  * </p>
  *
- * @author zzl
+ * @author
  * @since 2021-11-06
  */
 @Data
@@ -22,7 +22,7 @@ public class RkDetails implements Serializable {
 
     private static final long serialVersionUID=1L;
 
-    @TableId(value = "rkd_id", type = IdType.AUTO)
+    @Id
     private Integer rkdId;
 
     private Integer gId;

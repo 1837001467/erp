@@ -1,6 +1,8 @@
 package com.study.entity;
 
 import java.io.Serializable;
+import java.util.List;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -10,7 +12,7 @@ import lombok.experimental.Accessors;
  * 
  * </p>
  *
- * @author zzl
+ * @author
  * @since 2021-11-06
  */
 @Data
@@ -28,5 +30,5 @@ public class XsOrderdetails implements Serializable {
 
     private Integer detailsNum;
 
-
+    private List<JcGoods> goId;
 }

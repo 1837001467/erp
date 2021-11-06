@@ -1,16 +1,13 @@
 package com.study.mapper;
 
 import com.study.entity.XsOrderdetails;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Mapper;
 
-/**
- * <p>
- *  Mapper 接口
- * </p>
- *
- * @author zzl
- * @since 2021-11-06
- */
-public interface XsOrderdetailsMapper extends BaseMapper<XsOrderdetails> {
+import java.util.List;
 
+
+@Mapper
+public interface XsOrderdetailsMapper{
+        //根据销售订单id或销售单id查询订单详情表
+        List<XsOrderdetails> selectById(Integer salesId,Integer orderId);
 }

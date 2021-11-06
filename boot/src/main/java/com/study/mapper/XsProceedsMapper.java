@@ -1,16 +1,16 @@
 package com.study.mapper;
 
-import com.study.entity.XsProceeds;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * <p>
  *  Mapper 接口
  * </p>
  *
- * @author zzl
+ * @author 
  * @since 2021-11-06
  */
-public interface XsProceedsMapper extends BaseMapper<XsProceeds> {
+@Mapper
+public interface XsProceedsMapper{
 
 }

@@ -1,21 +1,49 @@
 package com.study.controller;
 
 
-import org.springframework.web.bind.annotation.RequestMapping;
+import com.github.pagehelper.PageInfo;
+import com.study.entity.CgOrder;
+import com.study.entity.CgPrice;
+import com.study.service.CgPriceService;
+import com.study.vo.SearchOrderAndPage;
+import com.study.vo.SearchPriceByPager;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import org.springframework.stereotype.Controller;
+
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.util.List;
 
 /**
  * <p>
  *  前端控制器
  * </p>
  *
- * @author zzl
+ * @author 
  * @since 2021-11-06
  */
-@Controller
+@RestController
 @RequestMapping("/study/cgPrice")
 public class CgPriceController {
+
+    @Autowired
+    CgPriceService service;
+
+    //查询带条件分页
+    @PostMapping("selectByPager")
+    public List<CgPrice> selectByPager(@RequestBody SearchPriceByPager vo) throws ParseException {
+        System.out.println("实体---------------------------："+vo);
+        return service.SearchPriceByPager(vo);
+    }
+
+//    //审批采购报价
+//    public Integer examine(@RequestParam(value = "prid") Integer prid,
+//                           @RequestParam(value = "spidea") String spidea,
+//                           @RequestParam(value = "applystate") String applystate){
+//        service.examine(prid,spidea,applystate);
+//    }
 
 }
 

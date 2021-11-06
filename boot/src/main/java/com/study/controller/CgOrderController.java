@@ -1,14 +1,15 @@
 package com.study.controller;
 
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+
+import com.github.pagehelper.PageInfo;
 import com.study.entity.CgOrder;
-import com.study.service.impl.CgOrderServiceImpl;
+import com.study.service.CgOrderService;
 import com.study.utils.MyResult;
+import com.study.vo.SearchOrderAndPage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import org.springframework.stereotype.Controller;
 
 import java.text.ParseException;
 import java.util.List;
@@ -18,21 +19,27 @@ import java.util.List;
  *  前端控制器
  * </p>
  *
- * @author zzl
+ * @author 
  * @since 2021-11-06
  */
-@RestController
-@RequestMapping("/study/cgOrder")
+//@RestController
+//@RequestMapping("/study/cgOrder")
 public class CgOrderController {
     MyResult myResult=new MyResult();
     @Autowired
-    CgOrderServiceImpl impl;
+    CgOrderService service;
 
-    @PostMapping("allcgorder")
-    public List<CgOrder> selectAllorder(){
-        System.out.println("进入selectAllorder");
-        List<CgOrder> list=impl.list();
-        return  list;
+//    @PostMapping("allcgorder")
+//    public List<CgOrder> selectAllorder(){
+//        System.out.println("进入selectAllorder");
+//        List<CgOrder> list=service.selectlist();
+//        return  list;
+//    }
+
+    @PostMapping("selectByPager")
+    public PageInfo<CgOrder> selectByPager(@RequestBody SearchOrderAndPage vo) throws ParseException {
+        System.out.println("实体---------------------------："+vo);
+        return service.selectByPager(vo);
     }
 
 

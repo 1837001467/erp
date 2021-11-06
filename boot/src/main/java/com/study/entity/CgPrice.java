@@ -1,20 +1,21 @@
 package com.study.entity;
 
-import java.math.BigDecimal;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import java.time.LocalDateTime;
-import java.io.Serializable;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import javax.persistence.Id;
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.sql.Timestamp;
 
 /**
  * <p>
  * 
  * </p>
  *
- * @author zzl
+ * @author
  * @since 2021-11-06
  */
 @Data
@@ -24,25 +25,8 @@ public class CgPrice implements Serializable {
 
     private static final long serialVersionUID=1L;
 
-    @TableId(value = "pr_id", type = IdType.AUTO)
+    @Id
     private Integer prId;
-
-    /**
-     * 经手人
-     */
-    private Integer yhId;
-
-    /**
-     * 审批人
-     */
-    private Integer spyhId;
-
-    /**
-     * 采购部门
-     */
-    private Integer bmId;
-
-    private Integer supId;
 
     /**
      * 报价编码
@@ -54,19 +38,27 @@ public class CgPrice implements Serializable {
      */
     private String prName;
 
-    private LocalDateTime prTime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    private Timestamp prTime;
 
     private BigDecimal prPrice;
 
     private String prExplain;
 
-    private LocalDateTime prZdtime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    private Timestamp prZdtime;
 
-    private LocalDateTime prSptime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    private Timestamp prSptime;
 
     private String prSpopinon;
 
     private Integer prState;
+
+    private QxUser qxUser;//经手人
+    private JcSupplier jcSupplier;//供应商
+    private QxDepartment qxDepartment;//部门
+    private QxUser sppeo;//审批人
 
 
 }

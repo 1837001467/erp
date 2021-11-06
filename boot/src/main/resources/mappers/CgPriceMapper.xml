@@ -5,10 +5,6 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.study.entity.CgPrice">
         <id column="pr_id" property="prId" />
-        <result column="yh_id" property="yhId" />
-        <result column="spyh_id" property="spyhId" />
-        <result column="bm_id" property="bmId" />
-        <result column="sup_id" property="supId" />
         <result column="pr_code" property="prCode" />
         <result column="pr_name" property="prName" />
         <result column="pr_time" property="prTime" />
@@ -18,6 +14,57 @@
         <result column="pr_sptime" property="prSptime" />
         <result column="pr_spopinon" property="prSpopinon" />
         <result column="pr_state" property="prState" />
+        <association property="qxUser" javaType="com.study.entity.QxUser">
+            <id column="yh_id" property="yhId" />
+            <result column="yh_card" property="yhCard" />
+            <result column="yh_name" property="yhName" />
+            <result column="yh_pswd" property="yhPswd" />
+            <result column="yh_phone" property="yhPhone" />
+            <result column="yh_state" property="yhState" />
+        </association>
+        <association property="qxDepartment" javaType="com.study.entity.QxDepartment">
+            <id column="bm_id" property="bmId" />
+            <result column="bm_name" property="bmName" />
+        </association>
+        <association property="sppeo" javaType="com.study.entity.QxUser">
+            <id column="yh_id2" property="yhId" />
+            <result column="yh_card2" property="yhCard" />
+            <result column="yh_name2" property="yhName" />
+            <result column="yh_pswd" property="yhPswd" />
+            <result column="yh_phone2" property="yhPhone" />
+            <result column="yh_state2" property="yhState" />
+        </association>
+        <association property="jcSupplier" javaType="com.study.entity.JcSupplier">
+            <id column="sup_id" property="supId" />
+            <result column="sup_name" property="supName" />
+            <result column="sup_tel" property="supTel" />
+            <result column="sup_bian" property="supBian" />
+        </association>
     </resultMap>
+    <select id="selectByKeyword" resultMap="BaseResultMap">
+        select cp.pr_id,cp. yh_id,cp. spyh_id,cp. bm_id,cp. sup_id,cp. pr_code,cp. pr_name,cp. pr_time,cp. pr_price,cp. pr_explain,cp. pr_zdtime,cp. pr_sptime,
+               cp. pr_spopinon,cp. pr_state,
+               js.sup_id,js. cp_id,js. sup_name,js. sup_tel,
+               js. sup_bian,qu.yh_id,qu. yh_card,qu. yh_name,qu. yh_pswd,qu. yh_phone,qu. pos_id,qu. yh_state,
+               qu2.yh_id as yh_id2,qu2. yh_card as yh_card2,qu2. yh_name yh_name2,qu2. yh_phone as yh_phone2,qu. pos_id,qu. yh_state as yh_state2,
+               qd.bm_id, qd.bm_name
+        from cg_price cp
+                 left join jc_supplier js on cp.sup_id = js.sup_id
+                 left join qx_user qu on cp.yh_id = qu.yh_id
+                 left join qx_user qu2 on cp.spyh_id = qu2.yh_id
+                 left join qx_department qd on cp.bm_id = qd.bm_id
+        <where>
+            <if test="xmname!=null">
+                and cp.pr_name like concat('%',#{xmname},'%')
+            </if>
+            <if test="cgbm!=null">
+                and cp.bmid=#{cgbm}
+            </if>
+            <if test="jsr!=null">
+                and cp.yh_id=#{jsr}
+            </if>
+        </where>
+        order by cp.pr_id desc
+    </select>
 
 </mapper>

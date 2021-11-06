@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.mapper.JcSupplierMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.study.entity.JcSupplier">
+        <id column="sup_id" property="supId" />
+        <result column="cp_id" property="cpId" />
+        <result column="sup_name" property="supName" />
+        <result column="sup_tel" property="supTel" />
+        <result column="sup_bian" property="supBian" />
+        <result column="sup_status" property="supStatus" />
+    </resultMap>
+
+</mapper>

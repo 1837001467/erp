@@ -1,16 +1,16 @@
 package com.study.mapper;
 
-import com.study.entity.CkDetails;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * <p>
  *  Mapper 接口
  * </p>
  *
- * @author zzl
+ * @author
  * @since 2021-11-06
  */
-public interface CkDetailsMapper extends BaseMapper<CkDetails> {
+@Mapper
+public interface CkDetailsMapper{
 
 }

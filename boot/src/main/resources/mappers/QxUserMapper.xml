@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.mapper.QxUserMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.study.entity.QxUser">
+        <id column="yh_id" property="yhId" />
+        <result column="yh_card" property="yhCard" />
+        <result column="yh_name" property="yhName" />
+        <result column="yh_pswd" property="yhPswd" />
+        <result column="yh_phone" property="yhPhone" />
+        <result column="pos_id" property="posId" />
+        <result column="yh_state" property="yhState" />
+        <association property="ybm" javaType="com.study.entity.QxPost">
+            <id column="pos_id"  property="posId" />
+            <result column="pos_name"   property="posName" />
+            <result column="bm_id"   property="bmId" />
+            <association property="bm" javaType="com.study.entity.QxDepartment">
+                <id column="bm_id"  property="bmId" />
+                <result column="bm_name"   property="bmName" />
+            </association>
+        </association>
+    </resultMap>
+    <select id="selectUser" resultMap="BaseResultMap">
+        select * from qx_user a inner join qx_post b on a.pos_id=b.pos_id
+        inner join qx_department c on b.bm_id=c.bm_id
+        <where>
+
+            <if test ="seach !=null and '' !=seach"> /*部门名字*/
+                and yh_name like'%${yhName}%'
+            </if>
+            <if test ="seach !=null and '' !=seach"> /*部门名字*/
+                or yh_phone like'%${yhPhone}%'
+            </if>
+            <if test ="seach !=null and '' !=seach"> /*部门名字*/
+                or yh_card like'%${yhCard}%'
+            </if>
+        </where>
+    </select>
+
+</mapper>

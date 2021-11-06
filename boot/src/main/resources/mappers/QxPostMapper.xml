@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.mapper.QxPostMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.study.entity.QxPost">
+        <id column="pos_id" property="posId" />
+        <result column="pos_name" property="posName" />
+        <result column="bm_id" property="bmId" />
+        <association property="bm" javaType="com.study.entity.QxDepartment">
+            <id column="bm_id"  property="bmId" />
+            <result column="bm_name"   property="bmName" />
+        </association>
+    </resultMap>
+    <select id="pstcx" resultMap="BaseResultMap">
+        select * from qx_post
+        <where>
+            <if test ="seach !=null and '' !=seach"> /*部门名字*/
+                pos_name like'%${posName}%'
+            </if>
+        </where>
+        ORDER BY pos_id desc
+    </select>
+</mapper>

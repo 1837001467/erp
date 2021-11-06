@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.mapper.QxJsdnMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.study.entity.QxJsdn">
+        <id column="jsdn_id" property="jsdnId" />
+        <result column="jsdn_name" property="jsdnName" />
+        <result column="jsdn_zname" property="jsdnZname" />
+        <result column="jsdn_path" property="jsdnPath" />
+        <result column="jsdn_tpath" property="jsdnTpath" />
+        <result column="jsdn_zt" property="jsdnZt" />
+        <result column="jsdn_zid" property="jsdnZid" />
+    </resultMap>
+
+</mapper>

@@ -1,16 +1,17 @@
 package com.study.mapper;
 
-import com.study.entity.KcStock;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * <p>
  *  Mapper 接口
  * </p>
  *
- * @author zzl
+ * @author 
  * @since 2021-11-06
  */
-public interface KcStockMapper extends BaseMapper<KcStock> {
+@Mapper
+public interface KcStockMapper {
+
 
 }

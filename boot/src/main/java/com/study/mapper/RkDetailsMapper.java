@@ -1,16 +1,16 @@
 package com.study.mapper;
 
-import com.study.entity.RkDetails;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * <p>
  *  Mapper 接口
  * </p>
  *
- * @author zzl
+ * @author 
  * @since 2021-11-06
  */
-public interface RkDetailsMapper extends BaseMapper<RkDetails> {
+@Mapper
+public interface RkDetailsMapper{
 
 }

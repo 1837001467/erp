@@ -1,16 +1,18 @@
 package com.study.service;
 
-import com.study.entity.XsBill;
-import com.baomidou.mybatisplus.extension.service.IService;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * <p>
  *  服务类
  * </p>
  *
- * @author zzl
+ * @author
  * @since 2021-11-06
  */
-public interface XsBillService extends IService<XsBill> {
+@Service
+@Transactional(rollbackFor = Exception.class)
+public class XsBillService{
 
 }

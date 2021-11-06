@@ -1,19 +1,22 @@
 package com.study.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.io.Serializable;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import javax.persistence.Id;
 
 /**
  * <p>
  * 
  * </p>
  *
- * @author zzl
+ * @author 
  * @since 2021-11-06
  */
 @Data
@@ -23,28 +26,29 @@ public class ZcClaim implements Serializable {
 
     private static final long serialVersionUID=1L;
 
-    @TableId(value = "zc_id", type = IdType.AUTO)
+    @Id
     private Integer zcId;
 
-    private Integer bmId;
+    private QxDepartment bm;
 
-    private Integer yhId;
+    private QxUser yh;
 
-    private LocalDateTime zcApplicationtime;
+    @JsonFormat(pattern = "yyyy-MM-dd hh:ss",timezone="Asia/Shanghai")//将数据库的类型返回成指定类型
+    private Timestamp zcApplicationtime;
 
     private String zcText;
 
-    private Integer whId;
+    private JcWhinformation wh;
 
-    private Integer yhShen;
+    private QxUser shen;
 
-    private LocalDateTime zcApprovaltime;
+    @JsonFormat(pattern = "yyyy-MM-dd hh:ss",timezone="Asia/Shanghai")
+    private Timestamp zcApprovaltime;
 
     private Integer zcState;
 
     private String zcBian;
 
     private String zcExplain;
-
 
 }
