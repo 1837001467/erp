@@ -15,7 +15,7 @@
 <el-container>
   <el-aside width="200px">
 	  <!-- el-menu导航菜单 -->
-	<el-menu :default-active="2" :unique-opened="true" class="el-menu-vertical-demo" 
+	<el-menu :default-active="2" :unique-opened="true" class="el-menu-vertical-demo"
 	  background-color="#545c64"
       text-color="#fff"
       active-text-color="#ffd04b">
@@ -109,7 +109,7 @@
 	.el-submenu__title i{
 		color: yellowgreen;
 	}
-	
+
 	.el-submenu__title i.el-icon-arrow-down{
 		color:yellow
 	}

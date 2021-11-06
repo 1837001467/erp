@@ -7,6 +7,18 @@
         <id column="pos_id" property="posId" />
         <result column="pos_name" property="posName" />
         <result column="bm_id" property="bmId" />
+        <association property="bm" javaType="com.study.entity.QxDepartment">
+            <id column="bm_id"  property="bmId" />
+            <result column="bm_name"   property="bmName" />
+        </association>
     </resultMap>
-
+    <select id="pstcx" resultMap="BaseResultMap">
+        select * from qx_post
+        <where>
+            <if test ="seach !=null and '' !=seach"> /*部门名字*/
+                pos_name like'%${posName}%'
+            </if>
+        </where>
+        ORDER BY pos_id desc
+    </select>
 </mapper>

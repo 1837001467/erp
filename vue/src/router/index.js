@@ -92,7 +92,7 @@ let routes = [{
 					},
 					{
 						path: '/kcbd',
-						component: () => import('@/view/storage/ckbd.vue'),
+						component: () => import('@/view/storage/kcbd.vue'),
 						name: "库存变动",
 						meta: {
 							title: '库存变动'

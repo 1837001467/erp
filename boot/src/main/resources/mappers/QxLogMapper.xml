@@ -9,5 +9,13 @@
         <result column="yh_id" property="yhId" />
         <result column="log_time" property="logTime" />
     </resultMap>
-
+    <select id="rzcx" resultMap="BaseResultMap">
+        select * from qx_log
+        <where>
+            <if test ="seach !=null and '' !=seach"> /*部门名字*/
+                log_action like'%${logAction}%'
+            </if>
+        </where>
+        ORDER BY log_id desc
+    </select>
 </mapper>

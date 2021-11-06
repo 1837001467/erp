@@ -1,5 +1,7 @@
 package com.study.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -16,18 +18,12 @@ import java.io.Serializable;
  * @since 2021-11-06
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
-public class QxDepartment implements Serializable {
-
-    private static final long serialVersionUID=1L;
-
+public class QxDepartment{
     /**
      * 部门id
      */
-    @Id
-    private Integer bmId;
-
+    @TableId(value = "bm_id",type = IdType.AUTO)
+    private Long bmId;
     /**
      * 部门名称
      */
