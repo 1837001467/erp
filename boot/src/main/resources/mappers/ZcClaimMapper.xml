@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.mapper.ZcClaimMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.study.entity.ZcClaim">
+        <id column="zc_id" property="zcId" />
+        <result column="bm_id" property="bmId" />
+        <result column="yh_id" property="yhId" />
+        <result column="zc_applicationtime" property="zcApplicationtime" />
+        <result column="zc_text" property="zcText" />
+        <result column="wh_id" property="whId" />
+        <result column="yh_shen" property="yhShen" />
+        <result column="zc_approvaltime" property="zcApprovaltime" />
+        <result column="zc_state" property="zcState" />
+        <result column="zc_bian" property="zcBian" />
+        <result column="zc_explain" property="zcExplain" />
+    </resultMap>
+
+</mapper>

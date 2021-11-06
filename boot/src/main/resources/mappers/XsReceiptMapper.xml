@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.mapper.XsReceiptMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.study.entity.XsReceipt">
+        <id column="receipt_id" property="receiptId" />
+        <result column="yh_id" property="yhId" />
+        <result column="qx__yh_id" property="qxYhId" />
+        <result column="receipt_yary" property="receiptYary" />
+        <result column="receipt_money" property="receiptMoney" />
+        <result column="receipt_type" property="receiptType" />
+        <result column="receipt_acount" property="receiptAcount" />
+        <result column="receipt_time" property="receiptTime" />
+        <result column="receipt_times" property="receiptTimes" />
+        <result column="receipt_state" property="receiptState" />
+    </resultMap>
+
+</mapper>
