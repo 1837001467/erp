@@ -37,18 +37,18 @@
 
     </el-submenu>
     <!-- 可展开的菜单选项-->
-    <el-submenu index="4">
+    <el-submenu index="3">
       <template #title><i class="el-icon-s-help"></i>仓库</template>
-      <el-menu-item index="4-1"><i class="el-icon-user-solid"></i><router-link style="text-decoration: none" to="/cksq">出库申请</router-link></el-menu-item>
-      <el-menu-item index="4-2"><router-link style="text-decoration: none" to="/rksq"><i class="el-icon-user-solid"></i>入库申请</router-link></el-menu-item>
-      <el-menu-item index="4-3"><router-link style="text-decoration: none"  to="/ckdb"><i class="el-icon-user-solid"></i>库存调拨</router-link></el-menu-item>
-      <el-menu-item index="4-4"><router-link style="text-decoration: none" to="/ckpd"><i class="el-icon-user-solid"></i>仓库盘点</router-link></el-menu-item>
-      <el-menu-item index="4-4"><router-link style="text-decoration: none" to="/kcbd"><i class="el-icon-user-solid"></i>库存变动</router-link></el-menu-item>
-      <el-menu-item index="4-4"><router-link style="text-decoration: none" to="/zcly"><i class="el-icon-user-solid"></i>资产领用</router-link></el-menu-item>
-      <el-menu-item index="4-4"><router-link style="text-decoration: none" to="/tl"><i class="el-icon-user-solid"></i>退料</router-link></el-menu-item>
+      <el-menu-item index="3-1"><i class="el-icon-user-solid"></i><router-link style="text-decoration: none" to="/cksq">出库申请</router-link></el-menu-item>
+      <el-menu-item index="3-2"><router-link style="text-decoration: none" to="/rksq"><i class="el-icon-user-solid"></i>入库申请</router-link></el-menu-item>
+      <el-menu-item index="3-3"><router-link style="text-decoration: none"  to="/ckdb"><i class="el-icon-user-solid"></i>库存调拨</router-link></el-menu-item>
+      <el-menu-item index="3-4"><router-link style="text-decoration: none" to="/ckpd"><i class="el-icon-user-solid"></i>仓库盘点</router-link></el-menu-item>
+      <el-menu-item index="3-5"><router-link style="text-decoration: none" to="/kcbd"><i class="el-icon-user-solid"></i>库存变动</router-link></el-menu-item>
+      <el-menu-item index="3-6"><router-link style="text-decoration: none" to="/zcly"><i class="el-icon-user-solid"></i>资产领用</router-link></el-menu-item>
+      <el-menu-item index="3-7"><router-link style="text-decoration: none" to="/tl"><i class="el-icon-user-solid"></i>退料</router-link></el-menu-item>
     </el-submenu>
     <!-- 可展开的菜单选项-->
-    <el-submenu index="5">
+    <el-submenu index="4">
       <template #title><i class="el-icon-s-help"></i>资料</template>
       <el-menu-item index="5-1"><i class="el-icon-user-solid"></i><router-link to="/rk">入库</router-link></el-menu-item>
       <el-menu-item index="5-2"><router-link to="/ck"><i class="el-icon-user-solid"></i>出库</router-link></el-menu-item>
@@ -57,7 +57,7 @@
       <el-menu-item index="5-2"><router-link to="/ck"><i class="el-icon-user-solid"></i>出库</router-link></el-menu-item>
     </el-submenu>
     <!-- 可展开的菜单选项-->
-    <el-submenu index="6">
+    <el-submenu index="5">
       <template #title><i class="el-icon-s-help"></i>系统设置</template>
       <el-menu-item index="5-1"><i class="el-icon-user-solid"></i><router-link to="/bm">部门</router-link></el-menu-item>
       <el-menu-item index="5-2"><router-link style="text-decoration: none" to="/yg"><i class="el-icon-user-solid"></i>员工</router-link></el-menu-item>

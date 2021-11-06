@@ -1,6 +1,10 @@
 package com.study.mapper;
 
+import com.study.entity.ZcClaim;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * <p>
@@ -12,5 +16,9 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface ZcClaimMapper{
+    List<ZcClaim>  selectAll();
 
+    Integer  update(@Param("zcId") Integer  zcId,@Param("zcState") Integer  zcState);
+
+    ZcClaim  selectById(Integer zcId);
 }
