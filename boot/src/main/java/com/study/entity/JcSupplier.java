@@ -31,5 +31,7 @@ public class JcSupplier implements Serializable {
 
     private Integer supBian;
 
+    private Integer supStatus;
+
 
 }

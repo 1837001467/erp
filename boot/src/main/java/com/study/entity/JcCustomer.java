@@ -35,5 +35,7 @@ public class JcCustomer implements Serializable {
 
     private String khCity;
 
+    private  Integer khStatus;
+
 
 }
