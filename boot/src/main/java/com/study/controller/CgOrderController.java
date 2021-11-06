@@ -2,13 +2,16 @@ package com.study.controller;
 
 
 
+import com.github.pagehelper.PageInfo;
 import com.study.entity.CgOrder;
 import com.study.service.CgOrderService;
 import com.study.utils.MyResult;
+import com.study.vo.SearchOrderAndPage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.text.ParseException;
 import java.util.List;
 
 /**
@@ -16,7 +19,7 @@ import java.util.List;
  *  前端控制器
  * </p>
  *
- * @author zzl
+ * @author 
  * @since 2021-11-06
  */
 //@RestController
@@ -32,6 +35,12 @@ public class CgOrderController {
 //        List<CgOrder> list=service.selectlist();
 //        return  list;
 //    }
+
+    @PostMapping("selectByPager")
+    public PageInfo<CgOrder> selectByPager(@RequestBody SearchOrderAndPage vo) throws ParseException {
+        System.out.println("实体---------------------------："+vo);
+        return service.selectByPager(vo);
+    }
 
 
 }

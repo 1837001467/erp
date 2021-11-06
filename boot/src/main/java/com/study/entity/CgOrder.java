@@ -1,17 +1,22 @@
 package com.study.entity;
 
-import java.time.LocalDateTime;
-import java.io.Serializable;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import java.io.Serializable;
+import java.sql.Timestamp;
 
 /**
  * <p>
  * 
  * </p>
  *
- * @author zzl
+ * @author 
  * @since 2021-11-06
  */
 @Data
@@ -21,27 +26,29 @@ public class CgOrder implements Serializable {
 
     private static final long serialVersionUID=1L;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)//主键自增
     private Integer orId;
-
-    private Integer supId;
-
-    private Integer yhId;
-
-    private Integer bmId;
-
-    private Integer spyhId;
 
     private String orCode;
 
     private String orExplain;
 
-    private LocalDateTime orTime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    private Timestamp orTime;
 
-    private LocalDateTime orSptime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    private Timestamp orSptime;
 
     private String orSpopinon;
 
     private Integer orState;
+
+    private QxUser qxUser;//经手人
+    private JcSupplier jcSupplier;//供应商
+    private QxDepartment qxDepartment;//部门
+    private QxUser sppeo;//审批人
+
 
 
 }
