@@ -93,6 +93,7 @@ let routes = [{
 					{
 						path: '/kcbd',
 						component: () => import('@/view/storage/ckbd.vue'),
+						component: () => import('@/view/storage/kcbd.vue'),
 						name: "库存变动",
 						meta: {
 							title: '库存变动'
@@ -123,6 +124,24 @@ let routes = [{
 				meta: {
 					title: "登陆"
 				}
+			},
+			{
+				path: "/",
+				name: "销售管理",
+				component: home,
+				meta: {
+					title: "销售管理"
+				},
+				children: [
+					{
+						path: '/salesorder',
+						component: () => import('@/view/sell/salesorder.vue'),
+						name: "销售订单",
+						meta: {
+							title: '销售订单'
+						},
+					},
+				]
 			},
 		]
 
