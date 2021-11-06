@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.mapper.XsSalesticketMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.study.entity.XsSalesticket">
+        <id column="sales_id" property="salesId" />
+        <result column="yh_id" property="yhId" />
+        <result column="proceeds_id" property="proceedsId" />
+        <result column="wh_id" property="whId" />
+        <result column="kh_id" property="khId" />
+        <result column="return_id" property="returnId" />
+        <result column="qx__yh_id" property="qxYhId" />
+        <result column="bill_id" property="billId" />
+        <result column="sales_yard" property="salesYard" />
+        <result column="sales_account" property="salesAccount" />
+        <result column="sales_way" property="salesWay" />
+        <result column="sales_time" property="salesTime" />
+        <result column="sales_times" property="salesTimes" />
+        <result column="sales_state" property="salesState" />
+        <result column="goods_type" property="goodsType" />
+    </resultMap>
+
+</mapper>
