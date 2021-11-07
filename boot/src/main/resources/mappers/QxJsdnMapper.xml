@@ -11,6 +11,37 @@
         <result column="jsdn_tpath" property="jsdnTpath" />
         <result column="jsdn_zt" property="jsdnZt" />
         <result column="jsdn_zid" property="jsdnZid" />
+        <association property="pos" javaType="com.study.entity.QxPost">
+            <id column="pos_id" property="posId" />
+            <result column="pos_name" property="posName" />
+            <result column="bm_id" property="bmId" />
+            <association property="bm" javaType="com.study.entity.QxDepartment">
+                <id column="bm_id"  property="bmId" />
+                <result column="bm_name"   property="bmName" />
+            </association>
+        </association>
+        <association property="yh" javaType="com.study.entity.QxUser">
+            <id column="yh_id" property="yhId" />
+            <result column="yh_card" property="yhCard" />
+            <result column="yh_name" property="yhName" />
+            <result column="yh_pswd" property="yhPswd" />
+            <result column="yh_phone" property="yhPhone" />
+            <result column="pos_id" property="posId" />
+            <result column="yh_state" property="yhState" />
+        </association>
     </resultMap>
-
+<!--    角色授权查询-->
+    <select id="sqcx" resultMap="BaseResultMap">
+        select f.jsdn_id from qx_jsdn f
+           inner join qx_middle_post rf on f.jsdn_id = rf.jsdn_id
+        where rf.pos_id =#{posId} and f.jsdn_zid is not null
+    </select>
+<!--    登录权限查询-->
+    <select id="dlqx" resultMap="BaseResultMap">
+        select  * from qx_jsdn p
+                           inner join qx_middle_post f on f.jsdn_id = p.jsdn_id
+                           inner join qx_post rf on f.pos_id = rf.pos_id
+                           inner join qx_user ur on rf.pos_id = ur.pos_id
+        where ur.yh_id =#{yhId}
+    </select>
 </mapper>

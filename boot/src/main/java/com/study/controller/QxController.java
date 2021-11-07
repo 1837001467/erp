@@ -1,9 +1,6 @@
 package com.study.controller;
 
-import com.study.entity.QxDepartment;
-import com.study.entity.QxLog;
-import com.study.entity.QxPost;
-import com.study.entity.QxUser;
+import com.study.entity.*;
 import com.study.service.QxService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +23,16 @@ public class QxController {
     public List<QxLog> logCx(String seach){
         return  qx.selcrz(seach);
     }
+    //查询角色权限
+    @RequestMapping("jsqx")
+    public List<QxJsdn> selcJsdnj(Integer posId){
+        return qx.selcJsdnj(posId);
+    }
+    //查询用户权限
+    @RequestMapping("dlqx")
+    public List<QxJsdn> selcJsdnuser(Integer yhId){
+        return qx.selcJsdnuser(yhId);
+    }
     //角色模糊查询
     @RequestMapping("action")
     public List<QxPost> jsCx(String seach){
@@ -40,5 +47,10 @@ public class QxController {
     @PostMapping("add-rz")
     public int addlist(@RequestBody QxLog log){
         return qx.addlist(log);
+    }
+    //新增日志
+    @PostMapping("upd-yhps")
+    public String addlist(@RequestBody Integer yhId,String yhPswd){
+        return qx.updUserpsw(yhId,yhPswd);
     }
 }

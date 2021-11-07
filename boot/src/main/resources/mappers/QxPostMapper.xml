@@ -13,12 +13,13 @@
         </association>
     </resultMap>
     <select id="pstcx" resultMap="BaseResultMap">
-        select * from qx_post
+        select * from qx_post a inner join qx_department b on a.bm_id=b.bm_id
         <where>
-            <if test ="seach !=null and '' !=seach"> /*部门名字*/
+            <if test ="seach !=null and '' !=seach"> /*角色名字*/
                 pos_name like'%${posName}%'
             </if>
         </where>
         ORDER BY pos_id desc
     </select>
+
 </mapper>
