@@ -1,4 +1,4 @@
-<template>
+<template> 
 	<el-container>
 		<!-- height顶栏高度-->
 		<el-header height="80px">
@@ -59,8 +59,8 @@
 					<!-- 可展开的菜单选项-->
 					<el-submenu index="4">
 						<template #title><i class="el-icon-s-help"></i>仓库</template>
-						<el-menu-item index="4-1"><i class="el-icon-user-solid"></i>
-							<router-link style="text-decoration: none" to="/cksq">出库申请</router-link>
+						<el-menu-item index="4-1">
+							<router-link style="text-decoration: none" to="/cksq"><i class="el-icon-user-solid"></i>出库申请</router-link>
 						</el-menu-item>
 						<el-menu-item index="4-2">
 							<router-link style="text-decoration: none" to="/rksq"><i class="el-icon-user-solid"></i>入库申请
@@ -70,19 +70,19 @@
 							<router-link style="text-decoration: none" to="/ckdb"><i class="el-icon-user-solid"></i>库存调拨
 							</router-link>
 						</el-menu-item>
-						<el-menu-item index="4-4">
+						<el-menu-item index="4-4"> 
 							<router-link style="text-decoration: none" to="/ckpd"><i class="el-icon-user-solid"></i>仓库盘点
 							</router-link>
 						</el-menu-item>
-						<el-menu-item index="4-4">
+						<el-menu-item index="4-5">
 							<router-link style="text-decoration: none" to="/kcbd"><i class="el-icon-user-solid"></i>库存变动
 							</router-link>
 						</el-menu-item>
-						<el-menu-item index="4-4">
+						<el-menu-item index="4-6">
 							<router-link style="text-decoration: none" to="/zcly"><i class="el-icon-user-solid"></i>资产领用
 							</router-link>
 						</el-menu-item>
-						<el-menu-item index="4-4">
+						<el-menu-item index="4-7">
 							<router-link style="text-decoration: none" to="/tl"><i class="el-icon-user-solid"></i>退料
 							</router-link>
 						</el-menu-item>

@@ -28,7 +28,7 @@
             </if>
         </where>
     </select>
-    <select id="selectOwn" resultType="com.study.entity.JcGoods">
+    <select id="selectOwn" resultMap="BaseResultMap">
         select go_id,g_name from jc_goods
     </select>
 

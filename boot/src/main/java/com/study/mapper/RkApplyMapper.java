@@ -1,5 +1,6 @@
 package com.study.mapper;
 
+import com.study.entity.CgStorage;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -12,5 +13,5 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface RkApplyMapper {
-
+    CgStorage  selectBystCode(String stCode);
 }

@@ -1,5 +1,5 @@
 <template>
-  style="text-decoration: none"
+ <div>入库</div>
 </template>
 
 <script>

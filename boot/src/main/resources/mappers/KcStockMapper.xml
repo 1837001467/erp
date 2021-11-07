@@ -6,10 +6,42 @@
     <resultMap id="BaseResultMap" type="com.study.entity.KcStock">
         <id column="kc_id" property="kcId" />
         <result column="kc_bian" property="kcBian" />
-        <result column="wh_id" property="whId" />
         <result column="kc_type" property="kcType" />
-        <result column="g_id" property="gId" />
         <result column="kc_num" property="kcNum" />
+        <result column="kc_time" property="kcTime"/>
     </resultMap>
+    <resultMap id="all" type="com.study.entity.KcStock" extends="BaseResultMap">
+        <association property="goods" javaType="com.study.entity.JcGoods">
+            <id property="goId" column="g_id" ></id>
+            <result column="g_name" property="gName"></result>
+        </association>
+        <association property="user" javaType="com.study.entity.QxUser">
+            <id property="yhId" column="yh_id" ></id>
+            <result column="yh_name" property="yhName"></result>
+        </association>
+        <association property="wh" javaType="com.study.entity.JcWhinformation">
+            <id property="whId" column="wh_id"></id>
+            <result property="whName" column="wh_name"></result>
+        </association>
+    </resultMap>
+    <insert id="change">
+      insert into  kc_stock(kc_id, kc_bian, wh_id, kc_type, g_id, kc_num,kc_time,yh_id)  value
+      (null,#{kcBian},#{wh.whId},#{kcType},#{goods.gId},#{kcNum},#{kcTime},#{user.yhId})
+    </insert>
+    <select id="selectAll" resultMap="all">
+    select kc_id, kc_bian, wh_id, kc_type, g_id, kc_num from kc_stock  order  by kc_id  desc
+    </select>
+
+    <select id="selectPager" resultMap="all">
+    SELECT  *   from  kc_stock kc  left join  jc_goods g on kc.g_id = g.go_id
+    left JOIN jc_whinformation  wh on wh.wh_id=kc.wh_id
+    left JOIN qx_user  u on u.yh_id=kc.yh_id
+        <where>
+            <if test="kcBian !=null and kcBian !=''">
+                and kc_bian like concat('%',#{kcBian},'%')
+            </if>
+        </where>
+     order  by kc_id  desc
+    </select>
 
 </mapper>

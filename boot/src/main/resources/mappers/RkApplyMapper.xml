@@ -15,5 +15,8 @@
         <result column="rk_state" property="rkState" />
         <result column="rk_explain" property="rkExplain" />
     </resultMap>
+    <select id="selectBystCode" resultType="com.study.entity.CgStorage">
+
+    </select>
 
 </mapper>

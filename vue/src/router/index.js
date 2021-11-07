@@ -257,9 +257,9 @@ let routes = [{
 					{
 						path: '/putapply',
 						component: () => import('@/view/sell/putapply.vue'),
-						name: "入库申请",
+						name: "入库",
 						meta: {
-							title: '入库申请'
+							title: '入库'
 						},
 					},
 				]
