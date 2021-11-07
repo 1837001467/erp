@@ -23,13 +23,6 @@
 						<el-menu-item index="1-1"><router-link to="/cgbj"><i class="el-icon-user-solid"></i>采购报价</router-link></el-menu-item>
 						<el-menu-item index="1-2"><i class="el-icon-user-solid"></i><router-link to="/cgorder">采购订单</router-link></el-menu-item>
 						<el-menu-item index="1-3"><i class="el-icon-user-solid"></i><router-link to="/cgstorage">采购入库</router-link></el-menu-item>
-						<el-menu-item index="1-4"><i class="el-icon-user-solid"></i><router-link to="/tuihuo">采购退货</router-link></el-menu-item>
-						<!-- <el-menu-item index="1-4"><i class="el-icon-user-solid"></i><router-link to="/goodtype">商品分类</router-link></el-menu-item> -->
-						<el-menu-item index="1-5"><i class="el-icon-user-solid"></i><router-link to="/fkd">付款单</router-link></el-menu-item>
-						<el-menu-item index="1-6"><i class="el-icon-user-solid"></i><router-link to="/yinpay">应付记账</router-link></el-menu-item>
-						<el-menu-item index="1-7"><i class="el-icon-user-solid"></i><router-link to="/ticket">收票管理</router-link></el-menu-item>
-												
-												
 					</el-submenu>
 					<!-- 可展开的菜单选项-->
 					<el-submenu index="2">
@@ -39,27 +32,27 @@
 							</router-link>
 						</el-menu-item>
 						<el-menu-item index="2-2">
-							<router-link style="text-decoration: none" to="/salesticket"><i class="el-icon-user-solid"></i>销售单
+							<router-link style="text-decoration: none" to="/salesorder"><i class="el-icon-user-solid"></i>销售单
 							</router-link>
 						</el-menu-item>
 						<el-menu-item index="2-3">
-							<router-link style="text-decoration: none" to="/receipt"><i class="el-icon-user-solid"></i>收款单
+							<router-link style="text-decoration: none" to="/salesorder"><i class="el-icon-user-solid"></i>收款单
 							</router-link>
 						</el-menu-item>
 						<el-menu-item index="2-4">
-							<router-link style="text-decoration: none" to="/bill"><i class="el-icon-user-solid"></i>发票管理
+							<router-link style="text-decoration: none" to="/salesorder"><i class="el-icon-user-solid"></i>发票管理
 							</router-link>
 						</el-menu-item>
 						<el-menu-item index="2-5">
-							<router-link style="text-decoration: none" to="/sellreturn"><i class="el-icon-user-solid"></i>销售退货
+							<router-link style="text-decoration: none" to="/salesorder"><i class="el-icon-user-solid"></i>销售退货
 							</router-link>
 						</el-menu-item>
 						<el-menu-item index="2-6">
-							<router-link style="text-decoration: none" to="/selltally"><i class="el-icon-user-solid"></i>应收记账
+							<router-link style="text-decoration: none" to="/salesorder"><i class="el-icon-user-solid"></i>应收记账
 							</router-link>
 						</el-menu-item>
 						<el-menu-item index="2-7">
-							<router-link style="text-decoration: none" to="/putapply"><i class="el-icon-user-solid"></i>入库申请
+							<router-link style="text-decoration: none" to="/salesorder"><i class="el-icon-user-solid"></i>入库申请
 							</router-link>
 						</el-menu-item>
 					</el-submenu>
