@@ -38,12 +38,13 @@ public class CgPriceController {
         return service.SearchPriceByPager(vo);
     }
 
-//    //审批采购报价
-//    public Integer examine(@RequestParam(value = "prid") Integer prid,
-//                           @RequestParam(value = "spidea") String spidea,
-//                           @RequestParam(value = "applystate") String applystate){
-//        service.examine(prid,spidea,applystate);
-//    }
+    //审批采购报价
+    @PostMapping("examine")
+    public Integer examine(@RequestParam(value = "prid") Integer prid,
+                           @RequestParam(value = "spidea") String spidea,
+                           @RequestParam(value = "applystate") String applystate){
+        return service.examine(prid,spidea,applystate);
+    }
 
 }
 

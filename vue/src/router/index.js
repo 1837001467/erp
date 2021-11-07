@@ -39,6 +39,46 @@ let routes = [{
 					meta: {
 						title: '采购入库'
 					}
+				},
+				{
+					path: '/goodtype',
+					component: () => import('@/view/cg/allgoods.vue'),
+					name: "商品分类",
+					meta: {
+						title: '商品分类'
+					}
+				},
+				{
+					path: '/tuihuo',
+					component: () => import('@/view/cg/tuihuo.vue'),
+					name: "采购退货",
+					meta: {
+						title: '采购退货'
+					}
+				},
+				{
+					path: '/fkd',
+					component: () => import('@/view/cg/fkd.vue'),
+					name: "付款单",
+					meta: {
+						title: '付款单'
+					}
+				},
+				{
+					path: '/yinpay',
+					component: () => import('@/view/cg/yinpay.vue'),
+					name: "应付记账",
+					meta: {
+						title: '应付记账'
+					}
+				},
+				{
+					path: '/ticket',
+					component: () => import('@/view/cg/ticket.vue'),
+					name: "收票管理",
+					meta: {
+						title: '收票管理'
+					}
 				}
 			]
 			},
