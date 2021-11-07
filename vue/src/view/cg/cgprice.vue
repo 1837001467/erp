@@ -1,33 +1,8 @@
 <template>
 	<div>
-		<el-row>
-			<el-form :label-position="labelPosition" label-width="80px">
-				<el-form-item label="项目名称:" size="medium" style="float: left;">
-					<el-input placeholder="项目名称" v-model="searchform.xmname" clearable style="width: 120px;">
-					</el-input>
-				</el-form-item>
-				<el-form-item label="采购部门:" size="medium" style="float: left;">
-					<el-select v-model="searchform.cgbm" clearable>
-						<el-option v-for="ct in depts" :label="ct.bmName" :value="ct.bmId" :key="ct.bmId">
-						</el-option>
-					</el-select>
-				</el-form-item>
-				<el-form-item label="经手人:" size="medium" style="float: left;margin-right: 50px;">
-					<el-select v-model="searchform.cgbm" clearable>
-						<el-option v-for="ct in users" :label="ct.yhName" :value="ct.yhId" :key="ct.yhId">
-						</el-option>
-					</el-select>
-				</el-form-item>
-				<el-button @click="search()">查询</el-button>
-				<el-button @click="add()">新增</el-button>
-			</el-form>
-		</el-row>
-
 		<div>
 			<el-table :data="tableData" :header-cell-style="{'text-align':'center'}"
 				:cell-style="{'text-align':'center'}">
-				<el-table-column type="index" label="序号" width="80px">
-				</el-table-column>
 				<el-table-column prop="prCode" label="订单编码">
 				</el-table-column>
 				<el-table-column prop="prName" label="项目名称">
@@ -46,24 +21,20 @@
 					<template #default="scope">
 						<el-tag size="medium" type="danger" v-show="scope.row.prState==0">未审核</el-tag>
 						<el-tag size="medium" type="success" v-show="scope.row.prState==1">已审核未生成订单</el-tag>
+						<el-tag size="medium" type="info" v-show="scope.row.prState==2">已审核已生成订单</el-tag>
 						<el-tag size="medium" type="warning" v-show="scope.row.prState==3">已驳回</el-tag>
 					</template>
 				</el-table-column>
-				<el-table-column label="执行">
+				<el-table-column label="操作">
 					<template #default="scope">
-						<el-button type="success" plain @click="caigou()" :disabled="scope.row.prState==1?false:true"
+						<el-button type="success" plain @click="caigou(scope.row.prId)" :disabled="scope.row.prState==1?false:true"
 							v-show="scope.row.prState==1">
 							生成采购单</el-button>
 						<el-button type="primary" plain @click="examine(scope.row)"
 							:disabled="scope.row.prState==0?false:true" v-show="scope.row.prState==0">审核
 						</el-button>
 					</template>
-				</el-table-column>
-				<el-table-column label="操作" width="200px">
-					<template #default="scope">
-						<el-button @click="edit()">编辑</el-button>
-					</template>
-				</el-table-column>
+				</el-table-column>				
 			</el-table>
 			<el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="pageNo"
 				:page-sizes="[2, 5, 10, 15]" :page-size="pageSize" layout="total, sizes, prev, pager, next, jumper"
@@ -105,7 +76,7 @@
 							</el-descriptions-item>
 							<el-descriptions-item width="300px">
 								<el-form-item label="采购部门" prop="cgbm">
-									<el-select v-model="form.cgbm">
+									<el-select v-model="form.bm.bmId">
 										<el-option v-for="ct in depts" :label="ct.bmName" :value="ct.bmId"
 											:key="ct.bmId">
 										</el-option>
@@ -113,8 +84,8 @@
 								</el-form-item>
 							</el-descriptions-item>
 							<el-descriptions-item width="300px">
-								<el-form-item label="采购员" prop="cgyid">
-									<el-select v-model="form.cgyid">
+								<el-form-item label="采购员">
+									<el-select v-model="form.user.yhId">
 										<el-option v-for="ct in users" :label="ct.yhName" :value="ct.yhId"
 											:key="ct.yhId">
 										</el-option>
@@ -122,8 +93,8 @@
 								</el-form-item>
 							</el-descriptions-item>
 							<el-descriptions-item width="400px">
-								<el-form-item label="供应商" prop="gys">
-									<el-select v-model="form.gys" @change="changeTel">
+								<el-form-item label="供应商">
+									<el-select v-model="form.gys.supId" @change="changeTel">
 										<el-option v-for="ct in suppliers" :label="ct.supName" :value="ct.supId"
 											:key="ct.supId">
 										</el-option>
@@ -131,7 +102,7 @@
 								</el-form-item>
 							</el-descriptions-item>
 							<el-descriptions-item width="500px">
-								<el-form-item label="联系电话" prop="tel">
+								<el-form-item label="联系电话">
 									<el-input v-model="form.tel" disabled=""></el-input>
 								</el-form-item>
 							</el-descriptions-item>
@@ -227,7 +198,20 @@
 				depts: [],
 				users: [],
 				order: {},
-				form: {},
+				form: {
+					user:{
+						yhId:''
+					},
+					cgcode:"",
+					gys:{
+						supId:''
+					},
+					bm:{
+						bmId:''
+					},
+					explain:'',
+					prId:''
+				},
 				dialogTableVisible: true,
 				ExaminedialogVisible: false,
 				spopinion: {
@@ -244,7 +228,7 @@
 				pageSize: 5,
 				total: 0,
 				typeData: [], //用品分类
-				spudata: [],
+				spudata: [],//商品数据
 				gfId: 0,
 				multipleSelection: []
 			}
@@ -262,18 +246,21 @@
 				}
 				let params = {
 					ddcode: $this.form.cgcode,
-					cgyid: this.form.cgyid,
+					user: this.form.user,
 					gys: this.form.gys,
-					cgbm: this.form.cgbm,
+					bm: this.form.bm,
 					tableData: $this.xzData,
-					explain:this.sform.explain
+					explain:this.form.explain,
+					prid:this.form.prId
 				}
 				console.log("params=", params);
-				this.axios.post("/addorder",
+				this.axios.post("/study/cgOrder/addorder",
 					params
 				).then(res => {
 					console.log("res=", res)
-					$this.spudata = res.data;
+					if(res.data==1){
+						this.$router.push("/cgorder");	
+					}
 				})
 			},
 			//商品渲染
@@ -341,12 +328,13 @@
 				this.loadSpuType();
 				this.allgoods();
 			},
-			caigou() { //生成采购单
+			caigou(prid) { //生成采购单
 				let $this = this;
 				this.CgdialogVisible = true;
-				this.form.cgyid = this.users[0].yhId;
-				this.form.gys = this.suppliers[0].supId;
-				this.form.cgbm = this.depts[0].bmId;
+				this.form.user.yhId = this.users[0].yhId;
+				this.form.gys.supId = this.suppliers[0].supId;
+				this.form.bm.bmId = this.depts[0].bmId;
+				this.form.prId=prid;
 				this.changeTel();
 				$this.form.cgcode = 'CGD' + this.getProjectNum() + Math.floor(Math.random() *
 					10000) // 如果是6位或者8位随机数，相应的 *1000000或者 *100000000就行了
@@ -377,8 +365,8 @@
 				let $this = this;
 				if ($this.suppliers) {
 					$this.suppliers.forEach(v => {
-						if ($this.form.gys) {
-							if (v.supId == $this.form.gys) {
+						if ($this.form.gys.supId) {
+							if (v.supId == $this.form.gys.supId) {
 								$this.form.tel = v.jcContactperson.cpTel;
 							}
 						} else {
@@ -416,10 +404,7 @@
 				this.ExaminedialogVisible = false;
 				this.spopinion.radio = "1";
 				this.spopinion.opinion = "";
-			},
-			add() {
-
-			},
+			},			
 			//每页请求的页码数发生改变时触发
 			handleSizeChange(size) {
 				this.pageSize = size;

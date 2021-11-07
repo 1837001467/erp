@@ -1,9 +1,2 @@
-<template>
-	<h2>付款单</h2>
-</template>
+<el-button>确定</el-button>
 
-<script>
-</script>
-
-<style>
-</style>

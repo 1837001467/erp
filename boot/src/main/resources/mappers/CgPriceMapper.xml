@@ -44,6 +44,9 @@
     <update id="updateCgPrice">
         update cg_price set pr_sptime=#{prSptime},pr_spopinon=#{prSpopinon},pr_state=#{prState},spyh_id=#{sppeo.yhId} where pr_id=#{prId}
     </update>
+    <update id="updateStateById">
+        update cg_price cg set cg.pr_state=2 where cg.pr_id=#{prId}
+    </update>
     <select id="selectByKeyword" resultMap="BaseResultMap">
         select cp.pr_id,cp. yh_id,cp. spyh_id,cp. bm_id,cp. sup_id,cp. pr_code,cp. pr_name,cp. pr_time,cp. pr_price,cp. pr_explain,cp. pr_zdtime,cp. pr_sptime,
                cp. pr_spopinon,cp. pr_state,

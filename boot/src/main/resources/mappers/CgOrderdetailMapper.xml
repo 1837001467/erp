@@ -5,10 +5,11 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.study.entity.CgOrderdetail">
         <id column="od_id" property="odId" />
-        <result column="g_id" property="gId" />
-        <result column="or_id" property="orId" />
         <result column="od_count" property="odCount" />
         <result column="od_price" property="odPrice" />
     </resultMap>
+    <insert id="addOrderDetail" useGeneratedKeys="true" keyProperty="odId">
+        insert into cg_orderdetail values(null,#{goods.goId},#{order.orId},#{odCount},#{odPrice})
+    </insert>
 
 </mapper>

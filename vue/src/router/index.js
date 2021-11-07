@@ -17,8 +17,8 @@ let routes = [{
 			},
 			children: [
 				{
-					path: '/cgbj',
-					component: () => import('@/view/cg/cgbj.vue'),
+					path: '/cgprice',
+					component: () => import('@/view/cg/cgprice.vue'),
 					name: "采购报价",
 					meta: {
 						title: '采购报价'

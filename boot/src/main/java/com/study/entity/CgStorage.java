@@ -7,6 +7,7 @@ import lombok.experimental.Accessors;
 
 import javax.persistence.Id;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 /**
@@ -27,14 +28,6 @@ public class CgStorage implements Serializable {
     @Id
     private Integer stId;
 
-    private Integer supId;
-
-    private Integer yhId;
-
-    private Integer spyhId;
-
-    private Integer whId;
-
     private String stCode;
 
     private String stExplain;
@@ -51,5 +44,25 @@ public class CgStorage implements Serializable {
 
     private Integer stState;
 
+    private BigDecimal stTotalmoney;
 
+    private QxUser qxUser;//采购员
+    private JcSupplier jcSupplier;//供应商
+    private QxUser sppeo;//审批人
+    private JcWhinformation ck;//仓库
+
+    public CgStorage() {
+    }
+
+    public CgStorage(Integer stId, String stCode, String stExplain, String stAccount, Timestamp stTime, Timestamp stSptime, String stSpopinon, Integer stState, BigDecimal stTotalmoney) {
+        this.stId = stId;
+        this.stCode = stCode;
+        this.stExplain = stExplain;
+        this.stAccount = stAccount;
+        this.stTime = stTime;
+        this.stSptime = stSptime;
+        this.stSpopinon = stSpopinon;
+        this.stState = stState;
+        this.stTotalmoney = stTotalmoney;
+    }
 }

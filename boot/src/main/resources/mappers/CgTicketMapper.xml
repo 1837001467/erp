@@ -5,8 +5,27 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.study.entity.CgTicket">
         <id column="ti_id" property="tiId" />
-        <result column="pa_id" property="paId" />
         <result column="ti_time" property="tiTime" />
+        <result column="ti_state" property="tiState"/>
+        <association property="cgYinpay" javaType="com.study.entity.CgYinpay">
+            <id column="yi_id" property="yiId" />
+            <result column="yi_account" property="yiAccount" />
+            <result column="yi_type" property="yiType" />
+            <result column="yi_way" property="yiWay" />
+            <result column="yi_price" property="yiPrice" />
+            <result column="yi_time" property="yiTime" />
+            <result column="yi_state" property="yiState" />
+        </association>
     </resultMap>
+    <insert id="addTicket" useGeneratedKeys="true" keyProperty="tiId">
+        insert into cg_ticket values(null,#{cgYinpay.yiId},#{tiTime},#{tiState})
+    </insert>
+    <delete id="updateTickt">
+        update cg_ticket set ti_state=#{tiState} where ti_id=#{tiId}
+    </delete>
+    <select id="selectAll" resultMap="BaseResultMap">
+        select * from cg_ticket ck
+        left join cg_yinpay yp on ck.pa_id=yp.yi_id
+    </select>
 
 </mapper>

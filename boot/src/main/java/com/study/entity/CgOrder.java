@@ -44,11 +44,21 @@ public class CgOrder implements Serializable {
 
     private Integer orState;
 
-    private QxUser qxUser;//经手人
+    private QxUser qxUser;//采购员
     private JcSupplier jcSupplier;//供应商
     private QxDepartment qxDepartment;//部门
     private QxUser sppeo;//审批人
 
+    public CgOrder() {
+    }
 
-
+    public CgOrder(Integer orId, String orCode, String orExplain, Timestamp orTime, Timestamp orSptime, String orSpopinon, Integer orState) {
+        this.orId = orId;
+        this.orCode = orCode;
+        this.orExplain = orExplain;
+        this.orTime = orTime;
+        this.orSptime = orSptime;
+        this.orSpopinon = orSpopinon;
+        this.orState = orState;
+    }
 }

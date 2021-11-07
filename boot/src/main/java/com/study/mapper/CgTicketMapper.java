@@ -1,6 +1,9 @@
 package com.study.mapper;
 
+import com.study.entity.CgTicket;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 /**
  * <p>
@@ -12,5 +15,10 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface CgTicketMapper{
+    Integer addTicket(CgTicket cgTicket);//新增
+
+    List<CgTicket> selectAll();
+
+    Integer updateTickt(CgTicket ticket);
 
 }
