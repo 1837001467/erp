@@ -45,8 +45,8 @@ public class CgPriceService{
             cgPrice.setPrState(3);
         }
         //采购部门主管
-//        QxUser qxUser=qxUserMapper.selectCgZg();
-//        cgPrice.setSppeo(qxUser);
+        QxUser qxUser=qxUserMapper.selectCgZg();
+        cgPrice.setSppeo(qxUser);
         return mapper.updateCgPrice(cgPrice);
     }
 

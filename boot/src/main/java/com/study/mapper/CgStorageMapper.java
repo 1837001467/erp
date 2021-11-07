@@ -1,6 +1,9 @@
 package com.study.mapper;
 
+import com.study.entity.CgStorage;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 /**
  * <p>
@@ -12,5 +15,10 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface CgStorageMapper {
+    List<CgStorage> all();//所有
+
+    Integer addstorage(CgStorage cgStorage);//新增入库单
+
+    Integer updateCgStorage(CgStorage cgStorage);//修改审核相关数据
 
 }

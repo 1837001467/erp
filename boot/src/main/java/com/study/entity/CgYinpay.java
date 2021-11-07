@@ -9,6 +9,10 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 /**
  * <p>
  * 
@@ -24,11 +28,9 @@ public class CgYinpay implements Serializable {
 
     private static final long serialVersionUID=1L;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)//主键自增
     private Integer yiId;
-
-    private Integer yhId;
-
-    private Integer supId;
 
     private String yiAccount;
 
@@ -43,5 +45,19 @@ public class CgYinpay implements Serializable {
 
     private Integer yiState;
 
+    private JcSupplier supplier;
+    private QxUser user;
 
+    public CgYinpay() {
+    }
+
+    public CgYinpay(Integer yiId, String yiAccount, String yiType, String yiWay, BigDecimal yiPrice, Timestamp yiTime, Integer yiState) {
+        this.yiId = yiId;
+        this.yiAccount = yiAccount;
+        this.yiType = yiType;
+        this.yiWay = yiWay;
+        this.yiPrice = yiPrice;
+        this.yiTime = yiTime;
+        this.yiState = yiState;
+    }
 }

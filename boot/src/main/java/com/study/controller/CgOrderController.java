@@ -6,11 +6,13 @@ import com.github.pagehelper.PageInfo;
 import com.study.entity.CgOrder;
 import com.study.service.CgOrderService;
 import com.study.utils.MyResult;
+import com.study.vo.AddOrder;
 import com.study.vo.SearchOrderAndPage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.util.List;
 
@@ -42,12 +44,18 @@ public class CgOrderController {
         return service.selectByPager(vo);
     }
 
-//    @PostMapping("addorder")//新增订单
-//    public Integer addorder(@RequestBody ){
-//        System.out.println("进入addorder");
-//        List<CgOrder> list=service.selectlist();
-//        return  list;
-//    }
+    @PostMapping("addorder")//新增订单
+    public Integer addorder(@RequestBody AddOrder vo){
+        return service.addorder(vo);
+    }
+
+    //审批采购报价
+    @PostMapping("examine")
+    public Integer examine(@RequestParam(value = "orid") Integer orid,
+                           @RequestParam(value = "spidea") String spidea,
+                           @RequestParam(value = "applystate") String applystate){
+        return service.examine(orid,spidea,applystate);
+    }
 
 
 }

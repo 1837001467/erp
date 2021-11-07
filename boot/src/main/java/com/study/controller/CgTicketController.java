@@ -1,10 +1,15 @@
 package com.study.controller;
 
 
-import org.springframework.web.bind.annotation.RequestMapping;
+import com.study.entity.CgTicket;
+import com.study.mapper.CgTicketMapper;
+import com.study.service.CgTicketService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * <p>
@@ -15,8 +20,19 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2021-11-06
  */
 @RestController
-@RequestMapping("/study/cgTicket")
+@RequestMapping("/cgTicket")
 public class CgTicketController {
+    @Autowired
+    CgTicketService service;
 
+    @GetMapping("/all")//查询所有
+    public List<CgTicket> all() {
+        return service.all();
+    }
+
+    @PostMapping("/delticket")
+    public Integer updateTicket(@RequestParam(value = "tiid") Integer tiid, @RequestParam("tistate") Integer tistate) {
+        return service.updateTicket(tiid, tistate);
+    }
 }
 

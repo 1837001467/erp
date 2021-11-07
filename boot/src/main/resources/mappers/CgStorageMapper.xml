@@ -5,10 +5,6 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.study.entity.CgStorage">
         <id column="st_id" property="stId" />
-        <result column="sup_id" property="supId" />
-        <result column="yh_id" property="yhId" />
-        <result column="spyh_id" property="spyhId" />
-        <result column="wh_id" property="whId" />
         <result column="st_code" property="stCode" />
         <result column="st_explain" property="stExplain" />
         <result column="st_account" property="stAccount" />
@@ -16,6 +12,47 @@
         <result column="st_sptime" property="stSptime" />
         <result column="st_spopinon" property="stSpopinon" />
         <result column="st_state" property="stState" />
+        <result column="st_totalmoney" property="stTotalmoney"/>
+        <association property="qxUser" javaType="com.study.entity.QxUser">
+            <id column="yh_id" property="yhId" />
+            <result column="yh_card" property="yhCard" />
+            <result column="yh_name" property="yhName" />
+            <result column="yh_pswd" property="yhPswd" />
+            <result column="yh_phone" property="yhPhone" />
+            <result column="yh_state" property="yhState" />
+        </association>
+        <association property="sppeo" javaType="com.study.entity.QxUser">
+            <id column="yh_id" property="yhId" />
+            <result column="yh_card" property="yhCard" />
+            <result column="yh_name" property="yhName" />
+            <result column="yh_pswd" property="yhPswd" />
+            <result column="yh_phone" property="yhPhone" />
+            <result column="yh_state" property="yhState" />
+        </association>
+        <association property="jcSupplier" javaType="com.study.entity.JcSupplier">
+            <id column="sup_id" property="supId" />
+            <result column="sup_name" property="supName" />
+            <result column="sup_tel" property="supTel" />
+            <result column="sup_bian" property="supBian" />
+        </association>
+        <association property="ck" javaType="com.study.entity.JcWhinformation">
+            <id column="wh_id" property="whId" />
+            <result column="wh_name" property="whName" />
+            <result column="wh_bian" property="whBian" />
+        </association>
     </resultMap>
+    <insert id="addstorage" useGeneratedKeys="true" keyProperty="stId">
+        insert into cg_storage values(null,#{jcSupplier.supId},#{qxUser.yhId},null,#{ck.whId},#{stCode},#{stExplain},#{stAccount},#{stTime},null,null,#{stState},#{stTotalmoney})
+    </insert>
+    <update id="updateCgStorage">
+        update cg_storage set st_sptime=#{stSptime},st_spopinon=#{stSpopinon},st_state=#{stState},spyh_id=#{sppeo.yhId} where st_id=#{stId}
+    </update>
+    <select id="all" resultMap="BaseResultMap">
+        select * from cg_storage cs
+      left join qx_user qu on cs.yh_id = qu.yh_id
+      left join jc_supplier js on cs.sup_id = js.sup_id
+      left join jc_whinformation jw on cs.wh_id = jw.wh_id
+        order by cs.st_id desc
+    </select>
 
 </mapper>

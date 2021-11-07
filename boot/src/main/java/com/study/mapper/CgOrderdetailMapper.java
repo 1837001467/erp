@@ -1,6 +1,8 @@
 package com.study.mapper;
 
+import com.study.entity.CgOrderdetail;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * <p>
@@ -12,5 +14,6 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface CgOrderdetailMapper{
+    Integer addOrderDetail(CgOrderdetail orderdetail);
 
 }

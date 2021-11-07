@@ -38,6 +38,15 @@
             <result column="sup_bian" property="supBian" />
         </association>
     </resultMap>
+    <insert id="addOrder" useGeneratedKeys="true" keyProperty="orId">
+        insert into cg_order values(null,#{jcSupplier.supId},#{qxUser.yhId},#{qxDepartment.bmId},null,#{orCode},#{orExplain},#{orTime},null,null,#{orState})
+    </insert>
+    <update id="updateCgOrder">
+        update cg_order set or_sptime=#{orSptime},or_spopinon=#{orSpopinon},or_state=#{orState},spyh_id=#{sppeo.yhId} where or_id=#{orId}
+    </update>
+    <update id="updataCgStateById">
+        update cg_order set or_state=2 where or_id=#{orId}
+    </update>
     <select id="list" resultMap="BaseResultMap">
         select * from cg_order
     </select>

@@ -19,4 +19,12 @@ public interface CgOrderMapper{
     List<CgOrder> list();
 
     List<CgOrder> searchByKeyword(SearchOrderAndPage vo);
+
+    Integer addOrder(CgOrder cgOrder);//新增
+
+    Integer updateCgOrder(CgOrder cgOrder);//修改审批相关数据
+
+    Integer updataCgStateById(Integer orId);//根据订单id修改订单状态
+
+
 }

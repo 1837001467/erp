@@ -20,13 +20,13 @@
 					<!-- 可展开的菜单选项-->
 					<el-submenu index="1">
 						<template #title><i class="el-icon-s-help"></i>采购</template>						
-						<el-menu-item index="1-1"><router-link to="/cgbj"><i class="el-icon-user-solid"></i>采购报价</router-link></el-menu-item>
+						<el-menu-item index="1-1"><router-link to="/cgprice"><i class="el-icon-user-solid"></i>采购报价</router-link></el-menu-item>
 						<el-menu-item index="1-2"><i class="el-icon-user-solid"></i><router-link to="/cgorder">采购订单</router-link></el-menu-item>
 						<el-menu-item index="1-3"><i class="el-icon-user-solid"></i><router-link to="/cgstorage">采购入库</router-link></el-menu-item>
 						<el-menu-item index="1-4"><i class="el-icon-user-solid"></i><router-link to="/tuihuo">采购退货</router-link></el-menu-item>
 						<!-- <el-menu-item index="1-4"><i class="el-icon-user-solid"></i><router-link to="/goodtype">商品分类</router-link></el-menu-item> -->
-						<el-menu-item index="1-5"><i class="el-icon-user-solid"></i><router-link to="/fkd">付款单</router-link></el-menu-item>
-						<el-menu-item index="1-6"><i class="el-icon-user-solid"></i><router-link to="/yinpay">应付记账</router-link></el-menu-item>
+						<!-- <el-menu-item index="1-5"><i class="el-icon-user-solid"></i><router-link to="/fkd">付款单</router-link></el-menu-item> -->
+						<el-menu-item index="1-6"><i class="el-icon-user-solid"></i><router-link to="/yinpay">付款记录</router-link></el-menu-item>
 						<el-menu-item index="1-7"><i class="el-icon-user-solid"></i><router-link to="/ticket">收票管理</router-link></el-menu-item>
 												
 												

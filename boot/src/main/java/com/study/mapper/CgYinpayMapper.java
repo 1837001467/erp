@@ -1,6 +1,9 @@
 package com.study.mapper;
 
+import com.study.entity.CgYinpay;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 /**
  * <p>
@@ -12,6 +15,11 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface CgYinpayMapper {
+    Integer addYinPay(CgYinpay yinpay);//新增
+
+    List<CgYinpay> selectAll();
+
+    Integer updateById(CgYinpay cgYinpay);
 
 
 }

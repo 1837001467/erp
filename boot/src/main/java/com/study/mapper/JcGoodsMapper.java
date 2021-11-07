@@ -1,6 +1,8 @@
 package com.study.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.study.entity.JcGoods;
+import com.study.entity.JcSupplier;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

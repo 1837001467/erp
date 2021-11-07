@@ -5,8 +5,6 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.study.entity.CgYinpay">
         <id column="yi_id" property="yiId" />
-        <result column="yh_id" property="yhId" />
-        <result column="sup_id" property="supId" />
         <result column="yi_account" property="yiAccount" />
         <result column="yi_type" property="yiType" />
         <result column="yi_way" property="yiWay" />
@@ -14,5 +12,14 @@
         <result column="yi_time" property="yiTime" />
         <result column="yi_state" property="yiState" />
     </resultMap>
+    <insert id="addYinPay" useGeneratedKeys="true" keyProperty="yiId">
+        insert into cg_yinpay values(null,#{user.yhId},#{supplier.supId},#{yiType},#{yiWay},#{yiPrice},#{yiTime},#{yiState})
+    </insert>
+    <update id="updateById">
+        update cg_yinpay set yi_way=#{yiWay},yi_type=#{yiType},yi_state=#{yiState} where yi_id=#{yiId}
+    </update>
+    <select id="selectAll" resultMap="BaseResultMap">
+        select * from cg_yinpay
+    </select>
 
 </mapper>
