@@ -39,27 +39,27 @@
 							</router-link>
 						</el-menu-item>
 						<el-menu-item index="2-2">
-							<router-link style="text-decoration: none" to="/salesorder"><i class="el-icon-user-solid"></i>销售单
+							<router-link style="text-decoration: none" to="/salesticket"><i class="el-icon-user-solid"></i>销售单
 							</router-link>
 						</el-menu-item>
 						<el-menu-item index="2-3">
-							<router-link style="text-decoration: none" to="/salesorder"><i class="el-icon-user-solid"></i>收款单
+							<router-link style="text-decoration: none" to="/receipt"><i class="el-icon-user-solid"></i>收款单
 							</router-link>
 						</el-menu-item>
 						<el-menu-item index="2-4">
-							<router-link style="text-decoration: none" to="/salesorder"><i class="el-icon-user-solid"></i>发票管理
+							<router-link style="text-decoration: none" to="/bill"><i class="el-icon-user-solid"></i>发票管理
 							</router-link>
 						</el-menu-item>
 						<el-menu-item index="2-5">
-							<router-link style="text-decoration: none" to="/salesorder"><i class="el-icon-user-solid"></i>销售退货
+							<router-link style="text-decoration: none" to="/sellreturn"><i class="el-icon-user-solid"></i>销售退货
 							</router-link>
 						</el-menu-item>
 						<el-menu-item index="2-6">
-							<router-link style="text-decoration: none" to="/salesorder"><i class="el-icon-user-solid"></i>应收记账
+							<router-link style="text-decoration: none" to="/selltally"><i class="el-icon-user-solid"></i>应收记账
 							</router-link>
 						</el-menu-item>
 						<el-menu-item index="2-7">
-							<router-link style="text-decoration: none" to="/salesorder"><i class="el-icon-user-solid"></i>入库申请
+							<router-link style="text-decoration: none" to="/putapply"><i class="el-icon-user-solid"></i>入库申请
 							</router-link>
 						</el-menu-item>
 					</el-submenu>

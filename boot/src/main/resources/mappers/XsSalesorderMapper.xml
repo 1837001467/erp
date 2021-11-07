@@ -27,6 +27,7 @@
         order_site, order_goods, order_linkman, order_phone, order_money,
         order_time, order_times, order_state
         from xs_salesorder
+        order by order_id desc
     </select>
 <!--    销售订单表多条件查询-->
     <select id="selectById" resultMap="BaseResultMap" parameterType="com.study.entity.XsSalesorder">

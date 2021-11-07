@@ -214,6 +214,54 @@ let routes = [{
 							title: '销售订单'
 						},
 					},
+					{
+						path: '/salesticket',
+						component: () => import('@/view/sell/salesticket.vue'),
+						name: "销售单",
+						meta: {
+							title: '销售单'
+						},
+					},
+					{
+						path: '/receipt',
+						component: () => import('@/view/sell/receipt.vue'),
+						name: "收款单",
+						meta: {
+							title: '收款单'
+						},
+					},
+					{
+						path: '/bill',
+						component: () => import('@/view/sell/bill.vue'),
+						name: "发票管理",
+						meta: {
+							title: '发票管理'
+						},
+					},
+					{
+						path: '/sellreturn',
+						component: () => import('@/view/sell/sellreturn.vue'),
+						name: "销售退货",
+						meta: {
+							title: '销售退货'
+						},
+					},
+					{
+						path: '/selltally',
+						component: () => import('@/view/sell/selltally.vue'),
+						name: "应收记账",
+						meta: {
+							title: '应收记账'
+						},
+					},
+					{
+						path: '/putapply',
+						component: () => import('@/view/sell/putapply.vue'),
+						name: "入库申请",
+						meta: {
+							title: '入库申请'
+						},
+					},
 				]
 			},
 		]
