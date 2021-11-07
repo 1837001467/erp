@@ -1,5 +1,6 @@
 package com.study.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -57,6 +58,11 @@ public class QxJsdn implements Serializable {
      * 自链接
      */
     private Integer jsdnZid;
-
+    @TableField(exist = false)
+    private QxPost pos;
+    @TableField(exist = false)
+    private QxDepartment bm;
+    @TableField(exist = false)
+    private QxUser yh;
 
 }

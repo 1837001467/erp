@@ -8,12 +8,24 @@
         <result column="log_action" property="logAction" />
         <result column="yh_id" property="yhId" />
         <result column="log_time" property="logTime" />
+        <association property="yh" javaType="com.study.entity.QxUser">
+            <id column="yh_id" property="yhId" />
+            <result column="yh_card" property="yhCard" />
+            <result column="yh_name" property="yhName" />
+            <result column="yh_pswd" property="yhPswd" />
+            <result column="yh_phone" property="yhPhone" />
+            <result column="pos_id" property="posId" />
+            <result column="yh_state" property="yhState" />
+        </association>
     </resultMap>
     <select id="rzcx" resultMap="BaseResultMap">
-        select * from qx_log
+        select * from qx_log a inner join qx_user b on a.yh_id=b.yh_id
         <where>
             <if test ="seach !=null and '' !=seach"> /*部门名字*/
-                log_action like'%${logAction}%'
+                a.log_action like'%${logAction}%'
+            </if>
+            <if test ="seach !=null and '' !=seach"> /*部门名字*/
+                or  b.yh_name like'%${yhName}%'
             </if>
         </where>
         ORDER BY log_id desc

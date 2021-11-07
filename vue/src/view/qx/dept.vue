@@ -25,7 +25,7 @@
         </el-table-column>
         <el-table-column
             prop="bmName"
-            label="性别">
+            label="部门">
         </el-table-column>
         <el-table-column
             label="操作">
@@ -93,6 +93,28 @@ export default {
       }).then((res) => {
         this.bmji = res.data;
       }).catch()
+    }
+  },
+  computed:{
+    //获取当前时间
+    getNowFormatDate() {
+      var date = new Date();
+      var seperator1 = "-";
+      var seperator2 = ":";
+      var year = date.getFullYear();
+      var month = date.getMonth() + 1;
+      var strDate = date.getDate();
+      if (month >= 1 && month <= 9) {
+        month = "0" + month;
+      }
+      if (strDate >= 0 && strDate <= 9) {
+        strDate = "0" + strDate;
+      }
+      let hh = new Date().getHours();
+      let mf = new Date().getMinutes()<10 ? '0'+new Date().getMinutes() : new Date().getMinutes();
+      let ss = new Date().getSeconds()<10 ? '0'+new Date().getSeconds() : new Date().getSeconds();
+      var currentdate = year + seperator1 + month + seperator1 + strDate+' '+ +hh+seperator2+mf+seperator2+ss;
+      return currentdate;
     }
   },created() {
     this.getData()
