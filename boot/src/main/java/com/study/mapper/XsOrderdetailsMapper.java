@@ -10,4 +10,6 @@ import java.util.List;
 public interface XsOrderdetailsMapper{
         //根据销售订单id或销售单id查询订单详情表
         List<XsOrderdetails> selectById(Integer salesId,Integer orderId);
+        //新增销售订单详情表
+        Integer addDetails(XsOrderdetails xsOrderdetails);
 }

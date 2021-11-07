@@ -1,10 +1,14 @@
 package com.study.controller;
 
 
-import org.springframework.web.bind.annotation.RequestMapping;
+import com.study.entity.XsProceeds;
+import com.study.service.XsProceedsService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * <p>
@@ -17,6 +21,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/study/xsProceeds")
 public class XsProceedsController {
-
+    @Autowired private XsProceedsService xsProceedsService;
+    //查询所有收款单
+    @GetMapping
+    public List<XsProceeds> selectAll(){
+        return xsProceedsService.selectAll();
+    }
+    //收款单审核
+    @PostMapping("update")
+    public void updateProceeds(@RequestBody XsProceeds xsProceeds){
+        System.out.println("开始修改收款单");
+        xsProceedsService.updateProceeds(xsProceeds.getProceedsState(),xsProceeds.getQxYhId(),xsProceeds.getProceedsId());
+    }
 }
 
