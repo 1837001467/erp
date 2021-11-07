@@ -11,7 +11,7 @@ import lombok.experimental.Accessors;
  * 
  * </p>
  *
- * @author zzl
+ * @author 
  * @since 2021-11-06
  */
 @Data
@@ -51,5 +51,7 @@ public class XsSalesticket implements Serializable {
 
     private String goodsType;
 
+    private Integer orderId;
 
+    private Integer detailsId;
 }

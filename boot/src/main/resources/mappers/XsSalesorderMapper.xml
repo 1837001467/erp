@@ -21,5 +21,42 @@
         <result column="order_times" property="orderTimes" />
         <result column="order_state" property="orderState" />
     </resultMap>
-
+    <!--    销售订单表查询所有-->
+    <select id="selectAll" resultMap="BaseResultMap" parameterType="com.study.entity.XsSalesorder">
+        select order_id, yh_id, sales_id, kh_id, qx__yh_id, order_yard, order_name, goods_time,
+        order_site, order_goods, order_linkman, order_phone, order_money,
+        order_time, order_times, order_state
+        from xs_salesorder
+        order by order_id desc
+    </select>
+<!--    销售订单表多条件查询-->
+    <select id="selectById" resultMap="BaseResultMap" parameterType="com.study.entity.XsSalesorder">
+        select order_id, yh_id, sales_id, kh_id, qx__yh_id, order_yard, order_name, goods_time,
+               order_site, order_goods, order_linkman, order_phone, order_money,
+               order_time, order_times, order_state
+        from xs_salesorder
+        <where>
+            <if test="orderId!=null and orderId!=''">
+                and order_id = #{orderId}
+            </if>
+            <if test="khId!=null and khId!=''">
+                and kh_id = #{khId}
+            </if>
+            <if test="qxYhId!=null and qxYhId!=''">
+                and yh_id = #{qxYhId}
+            </if>
+            <if test="date1!=null and date1!='' and date2!=null and date2!=''">
+                and order_time > #{date1} and #{date2} > order_time
+            </if>
+        </where>
+    </select>
+<!--    销售订单表新增-->
+    <insert id="addOrder" useGeneratedKeys="true" keyProperty="order_id">
+        insert into xs_salesorder values (null,#{yhId},#{salesId},#{khId},#{qxYhId},#{orderYard},#{orderName},#{goodsTime},
+            #{orderSite},#{orderGoods},#{orderLinkman},#{orderPhone},#{orderMoney},#{orderTime},#{orderTimes},#{orderState})
+    </insert>
+    <!--    查询最大索引-->
+    <select id="selectIdMax" resultType="java.lang.Integer">
+        select max(order_id) from xs_salesorder
+    </select>
 </mapper>

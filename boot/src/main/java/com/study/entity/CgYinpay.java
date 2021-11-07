@@ -1,8 +1,10 @@
 package com.study.entity;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 import java.io.Serializable;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -12,7 +14,7 @@ import lombok.experimental.Accessors;
  * 
  * </p>
  *
- * @author zzl
+ * @author
  * @since 2021-11-06
  */
 @Data
@@ -36,7 +38,8 @@ public class CgYinpay implements Serializable {
 
     private BigDecimal yiPrice;
 
-    private LocalDateTime yiTime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    private Timestamp yiTime;
 
     private Integer yiState;
 

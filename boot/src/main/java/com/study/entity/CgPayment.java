@@ -1,18 +1,19 @@
 package com.study.entity;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.io.Serializable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.sql.Timestamp;
 
 /**
  * <p>
  * 
  * </p>
  *
- * @author zzl
+ * @author 
  * @since 2021-11-06
  */
 @Data
@@ -42,9 +43,9 @@ public class CgPayment implements Serializable {
 
     private BigDecimal paPrice;
 
-    private LocalDateTime paTime;
+    private Timestamp paTime;
 
-    private LocalDateTime paSptime;
+    private Timestamp paSptime;
 
     private String paSpopinon;
 

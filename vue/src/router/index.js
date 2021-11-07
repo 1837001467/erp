@@ -10,6 +10,80 @@ let routes = [{
 			},
 			{
 			path: "/",
+			name: "采购管理",
+			component: home,
+			meta: {
+			title: "采购管理"
+			},
+			children: [
+				{
+					path: '/cgbj',
+					component: () => import('@/view/cg/cgbj.vue'),
+					name: "采购报价",
+					meta: {
+						title: '采购报价'
+					}
+				},
+				{
+					path: '/cgorder',
+					component: () => import('@/view/cg/cgorder.vue'),
+					name: "采购订单",
+					meta: {
+						title: '采购订单'
+					}
+				},
+				{
+					path: '/cgstorage',
+					component: () => import('@/view/cg/cgstorage.vue'),
+					name: "采购入库",
+					meta: {
+						title: '采购入库'
+					}
+				},
+				{
+					path: '/goodtype',
+					component: () => import('@/view/cg/allgoods.vue'),
+					name: "商品分类",
+					meta: {
+						title: '商品分类'
+					}
+				},
+				{
+					path: '/tuihuo',
+					component: () => import('@/view/cg/tuihuo.vue'),
+					name: "采购退货",
+					meta: {
+						title: '采购退货'
+					}
+				},
+				{
+					path: '/fkd',
+					component: () => import('@/view/cg/fkd.vue'),
+					name: "付款单",
+					meta: {
+						title: '付款单'
+					}
+				},
+				{
+					path: '/yinpay',
+					component: () => import('@/view/cg/yinpay.vue'),
+					name: "应付记账",
+					meta: {
+						title: '应付记账'
+					}
+				},
+				{
+					path: '/ticket',
+					component: () => import('@/view/cg/ticket.vue'),
+					name: "收票管理",
+					meta: {
+						title: '收票管理'
+					}
+				}
+			]
+			},
+			{
+			path: "/",
 			name: "系统管理",
 			component: home,
 			meta: {
@@ -123,6 +197,72 @@ let routes = [{
 				meta: {
 					title: "登陆"
 				}
+			},
+			{
+				path: "/",
+				name: "销售管理",
+				component: home,
+				meta: {
+					title: "销售管理"
+				},
+				children: [
+					{
+						path: '/salesorder',
+						component: () => import('@/view/sell/salesorder.vue'),
+						name: "销售订单",
+						meta: {
+							title: '销售订单'
+						},
+					},
+					{
+						path: '/salesticket',
+						component: () => import('@/view/sell/salesticket.vue'),
+						name: "销售单",
+						meta: {
+							title: '销售单'
+						},
+					},
+					{
+						path: '/receipt',
+						component: () => import('@/view/sell/receipt.vue'),
+						name: "收款单",
+						meta: {
+							title: '收款单'
+						},
+					},
+					{
+						path: '/bill',
+						component: () => import('@/view/sell/bill.vue'),
+						name: "发票管理",
+						meta: {
+							title: '发票管理'
+						},
+					},
+					{
+						path: '/sellreturn',
+						component: () => import('@/view/sell/sellreturn.vue'),
+						name: "销售退货",
+						meta: {
+							title: '销售退货'
+						},
+					},
+					{
+						path: '/selltally',
+						component: () => import('@/view/sell/selltally.vue'),
+						name: "应收记账",
+						meta: {
+							title: '应收记账'
+						},
+					},
+					{
+						path: '/putapply',
+						component: () => import('@/view/sell/putapply.vue'),
+						name: "入库申请",
+						meta: {
+							title: '入库申请'
+						},
+					},
+				]
 			},
 		]
 

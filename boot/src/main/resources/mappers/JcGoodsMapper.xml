@@ -5,7 +5,6 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.study.entity.JcGoods">
         <id column="go_id" property="goId" />
-        <result column="gf_id" property="gfId" />
         <result column="g_name" property="gName" />
         <result column="g_price" property="gPrice" />
         <result column="g_unit" property="gUnit" />
@@ -13,8 +12,24 @@
         <result column="g_status" property="gStatus" />
     </resultMap>
 
+        <select id="selectById" resultMap="BaseResultMap" parameterType="com.study.entity.JcGoods">
+            select go_id, gf_id, g_name, g_price, g_unit, g_bian from where go_id = #{goId}
+        </select>
+
     <select id="selectAll" resultMap="BaseResultMap">
         select * from jc_goods where g_status=0 order by go_id
+    </select>
+    <select id="selectByTypeId" resultMap="BaseResultMap">
+        select * from jc_goods jg
+        left join jc_goodsfen j on jg.gf_id = j.gf_id
+        <where>
+            <if test="gfid!=0">
+                j.gf_id=#{gfid}
+            </if>
+        </where>
+    </select>
+    <select id="selectOwn" resultType="com.study.entity.JcGoods">
+        select go_id,g_name from jc_goods
     </select>
 
 </mapper>

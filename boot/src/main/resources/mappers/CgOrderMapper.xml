@@ -5,19 +5,57 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.study.entity.CgOrder">
         <id column="or_id" property="orId" />
-        <result column="sup_id" property="supId" />
-        <result column="yh_id" property="yhId" />
-        <result column="bm_id" property="bmId" />
-        <result column="spyh_id" property="spyhId" />
         <result column="or_code" property="orCode" />
         <result column="or_explain" property="orExplain" />
         <result column="or_time" property="orTime" />
         <result column="or_sptime" property="orSptime" />
         <result column="or_spopinon" property="orSpopinon" />
         <result column="or_state" property="orState" />
+        <association property="qxUser" javaType="com.study.entity.QxUser">
+            <id column="yh_id" property="yhId" />
+            <result column="yh_card" property="yhCard" />
+            <result column="yh_name" property="yhName" />
+            <result column="yh_pswd" property="yhPswd" />
+            <result column="yh_phone" property="yhPhone" />
+            <result column="yh_state" property="yhState" />
+        </association>
+        <association property="qxDepartment" javaType="com.study.entity.QxDepartment">
+            <id column="bm_id" property="bmId" />
+            <result column="bm_name" property="bmName" />
+        </association>
+        <association property="sppeo" javaType="com.study.entity.QxUser">
+            <id column="yh_id2" property="yhId" />
+            <result column="yh_card2" property="yhCard" />
+            <result column="yh_name2" property="yhName" />
+            <result column="yh_pswd" property="yhPswd" />
+            <result column="yh_phone2" property="yhPhone" />
+            <result column="yh_state2" property="yhState" />
+        </association>
+        <association property="jcSupplier" javaType="com.study.entity.JcSupplier">
+            <id column="sup_id" property="supId" />
+            <result column="sup_name" property="supName" />
+            <result column="sup_tel" property="supTel" />
+            <result column="sup_bian" property="supBian" />
+        </association>
     </resultMap>
     <select id="list" resultMap="BaseResultMap">
         select * from cg_order
+    </select>
+    <select id="searchByKeyword" resultMap="BaseResultMap">
+        select od.or_id,od. sup_id,od. yh_id,od. bm_id,od. spyh_id,od. or_code,
+        od. or_explain,od. or_time,od. or_sptime,od. or_spopinon,od. or_state,js.sup_id,js. cp_id,js. sup_name,js. sup_tel,
+        js. sup_bian,qu.yh_id,qu. yh_card,qu. yh_name,qu. yh_pswd,qu. yh_phone,qu. pos_id,qu. yh_state,
+        qu2.yh_id as yh_id2,qu2. yh_card as yh_card2,qu2. yh_name yh_name2,qu2. yh_phone as yh_phone2,qu. pos_id,qu. yh_state as yh_state2,qd.bm_id, qd.bm_name from cg_order od
+        left join jc_supplier js on od.sup_id = js.sup_id
+        left join qx_user qu on od.yh_id = qu.yh_id
+        left join qx_user qu2 on od.spyh_id = qu2.yh_id
+        left join qx_department qd on od.bm_id = qd.bm_id
+        <where>
+            <if test="ordercode!=null">
+                and od.or_code like concat('%',#{ordercode},'%')
+            </if>
+        </where>
+        order by or_id desc
     </select>
 
 </mapper>

@@ -12,7 +12,7 @@ import java.io.Serializable;
  * 
  * </p>
  *
- * @author zzl
+ * @author 
  * @since 2021-11-06
  */
 @Data
@@ -25,9 +25,10 @@ public class LyDetails implements Serializable {
     @Id
     private Integer lyId;
 
-    private Integer gId;
+    private JcGoods goods;
 
     private Integer zcId;
 
+    private Integer lyNum;
 
 }
