@@ -22,18 +22,23 @@ import java.util.List;
 @Transactional(rollbackFor = Exception.class)
 public class JcGoodsService{
     @Autowired
-    JcGoodsMapper maper;
+    JcGoodsMapper mapper;
+
+    //查找所有
     public PageInfo<JcGoods> selectAll(Integer no, Integer size, String find) {
         PageHelper.startPage(no,size);
-        List<JcGoods> list = maper.selectAll(no,size,find);
-
+        List<JcGoods> list = mapper.selectAll(no,size,find);
         return new PageInfo(list) ;
     }
 
+    //根据商品类别找商品
+    public List<JcGoods> selectByTypeId(Integer gfid){
+        System.out.println("gfid="+gfid);
+        return mapper.selectByTypeId(gfid);
+    }
 
 
-
-
-
-
+    public List<JcGoods> selectOwn() {
+        return  mapper.selectOwn();
+    }
 }

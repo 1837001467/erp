@@ -26,4 +26,8 @@ public interface JcGoodsMapper{
                             @Param("find") String find
     );
 
+    List<JcGoods> selectByTypeId(Integer gfid);//根基分类找商品
+
+    List<JcGoods> selectOwn();
+
 }

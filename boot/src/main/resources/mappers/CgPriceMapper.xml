@@ -41,6 +41,9 @@
             <result column="sup_bian" property="supBian" />
         </association>
     </resultMap>
+    <update id="updateCgPrice">
+        update cg_price set pr_sptime=#{prSptime},pr_spopinon=#{prSpopinon},pr_state=#{prState},spyh_id=#{sppeo.yhId} where pr_id=#{prId}
+    </update>
     <select id="selectByKeyword" resultMap="BaseResultMap">
         select cp.pr_id,cp. yh_id,cp. spyh_id,cp. bm_id,cp. sup_id,cp. pr_code,cp. pr_name,cp. pr_time,cp. pr_price,cp. pr_explain,cp. pr_zdtime,cp. pr_sptime,
                cp. pr_spopinon,cp. pr_state,
@@ -58,13 +61,16 @@
                 and cp.pr_name like concat('%',#{xmname},'%')
             </if>
             <if test="cgbm!=null">
-                and cp.bmid=#{cgbm}
+                and cp.bm_id=#{cgbm}
             </if>
             <if test="jsr!=null">
                 and cp.yh_id=#{jsr}
             </if>
         </where>
         order by cp.pr_id desc
+    </select>
+    <select id="selectByPrid" resultMap="BaseResultMap">
+        select * from cg_price cp where cp.pr_id=#{prid}
     </select>
 
 </mapper>

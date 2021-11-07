@@ -18,5 +18,9 @@ import java.util.List;
 public interface CgPriceMapper{
     List<CgPrice> selectByKeyword(SearchPriceByPager vo);
 
+    CgPrice selectByPrid(Integer prid);
+
+    Integer updateCgPrice(CgPrice cgPrice);
+
 
 }

@@ -5,11 +5,22 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.study.entity.JcSupplier">
         <id column="sup_id" property="supId" />
-        <result column="cp_id" property="cpId" />
         <result column="sup_name" property="supName" />
         <result column="sup_tel" property="supTel" />
         <result column="sup_bian" property="supBian" />
         <result column="sup_status" property="supStatus" />
+        <association property="jcContactperson" javaType="com.study.entity.JcContactperson">
+            <id column="cp_id" property="cpId" />
+            <result column="cp_name" property="cpName" />
+            <result column="cp_tel" property="cpTel" />
+        </association>
     </resultMap>
+    <select id="allSuppliers" resultMap="BaseResultMap">
+        select * from jc_supplier js
+        left join jc_contactperson jc on js.cp_id = jc.cp_id
+    </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+        select * from jc_supplier where sup_status0
+    </select>
 
 </mapper>

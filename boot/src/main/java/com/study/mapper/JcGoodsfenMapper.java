@@ -1,6 +1,9 @@
 package com.study.mapper;
 
+import com.study.entity.JcGoodsfen;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 /**
  * <p>
@@ -12,5 +15,7 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface JcGoodsfenMapper{
+    List<JcGoodsfen> selectAll();
+
 
 }
