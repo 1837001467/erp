@@ -2,6 +2,7 @@ package com.study.controller;
 
 
 import com.github.pagehelper.PageInfo;
+import com.study.entity.LyDetails;
 import com.study.entity.ZcClaim;
 import com.study.service.ZcClaimService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * <p>
@@ -43,8 +46,8 @@ public class ZcClaimController {
 
     //通过Id查看某条领用记录的详情
     @GetMapping("look")
-    public ZcClaim lookDailts(@RequestParam("zcId") Integer zxId){
-        return null;
+    public List<LyDetails> lookDailts(@RequestParam("zcId") Integer zxId){
+        return zs.lookDetails(zxId);
     }
 }
 

@@ -30,8 +30,14 @@
             <result property="whName" column="wh_name"></result>
         </association>
     </resultMap>
-    <resultMap id="selectById" type="com.study.entity.ZcClaim" extends="BaseResultMap">
-
+    <resultMap id="selectById" type="com.study.entity.LyDetails" >
+        <id column="ly_id" property="lyId" />
+        <result column="zc_id" property="zcId" />
+        <result column="ly_num" property="lyNum"/>
+        <collection property="goods" ofType="com.study.entity.JcGoods">
+            <id column="go_id" property="goId" />
+            <result column="g_name" property="gName" />
+        </collection>
     </resultMap>
     <update id="update">
        UPDATE  zc_claim  set  zc_state = #{zcState} where zc_id = #{zcId}
@@ -39,8 +45,9 @@
     <select id="selectAll"  resultMap="All">
         select *  from  lyall
     </select>
-    <select id="selectById" resultMap="selectById">
 
+    <select id="selectById" resultMap="selectById">
+        select  ly_id,g_id,zc_id,ly_num,go_id,g_name  from  ly_details ly left join jc_goods jc  on ly.g_id = jc.go_id where zc_id =#{zcId}
     </select>
 
 

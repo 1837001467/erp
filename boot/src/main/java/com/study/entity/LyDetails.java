@@ -25,9 +25,10 @@ public class LyDetails implements Serializable {
     @Id
     private Integer lyId;
 
-    private Integer gId;
+    private JcGoods goods;
 
     private Integer zcId;
 
+    private Integer lyNum;
 
 }

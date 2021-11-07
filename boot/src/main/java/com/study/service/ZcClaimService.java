@@ -2,6 +2,7 @@ package com.study.service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.study.entity.LyDetails;
 import com.study.entity.ZcClaim;
 import com.study.mapper.ZcClaimMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,5 +37,9 @@ public class ZcClaimService{
             return 0;
         }
         return  state;
+    }
+
+    public  List<LyDetails> lookDetails(Integer zxId){
+        return mapper.selectById(zxId);
     }
 }

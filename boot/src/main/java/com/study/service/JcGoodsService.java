@@ -22,18 +22,12 @@ import java.util.List;
 @Transactional(rollbackFor = Exception.class)
 public class JcGoodsService{
     @Autowired
-    JcGoodsMapper maper;
+    JcGoodsMapper mapper;
     public PageInfo<JcGoods> selectAll(Integer no, Integer size, String find) {
         PageHelper.startPage(no,size);
-        List<JcGoods> list = maper.selectAll(no,size,find);
+        List<JcGoods> list = mapper.selectAll(no,size,find);
 
         return new PageInfo(list) ;
     }
-
-
-
-
-
-
 
 }

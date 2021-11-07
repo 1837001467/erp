@@ -1,5 +1,6 @@
 package com.study.mapper;
 
+import com.study.entity.LyDetails;
 import com.study.entity.ZcClaim;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -20,5 +21,5 @@ public interface ZcClaimMapper{
 
     Integer  update(@Param("zcId") Integer  zcId,@Param("zcState") Integer  zcState);
 
-    ZcClaim  selectById(Integer zcId);
+    List<LyDetails>  selectById(Integer zcId);
 }

@@ -1,5 +1,9 @@
 <template>
-
+	<el-row :gutter="20">
+		<el-col :span="3">
+			<el-button icon="el-icon-circle-plus-outline" @click="add">新增</el-button>
+		</el-col>
+	</el-row>
 	<el-table :data="zclys" style="width: 100%;" border :header-cell-style="{'text-align':'center'}"
 		:cell-style="{'text-align':'center'}">
 		<el-table-column prop="zcBian" label="领用编号"></el-table-column>
@@ -7,7 +11,7 @@
 		<el-table-column prop="bm.bmName" label="领用部门"></el-table-column>
 		<el-table-column prop="zcApplicationtime" label="申请时间" width="150"></el-table-column>
 		<el-table-column prop="wh.whName" label="出货仓库"></el-table-column>
-		<el-table-column prop="zc.Text" label="领用说明"></el-table-column>
+		<el-table-column prop="zc.Text" label="领用说明" show-overflow-tooltip></el-table-column>
 		<el-table-column prop="shen.yhName" label="审批人"></el-table-column>
 		<el-table-column prop="zcApprovaltime" label="审批时间" width="150"></el-table-column>
 		<el-table-column prop="zcState" label="状态">
@@ -21,13 +25,16 @@
 			<template #default="scope" v>
 				<!-- 插槽可以获取当前行对象 scope.row可以获取当前行数据 -->
 				<el-tooltip effect="dark" content="查看" placement="bottom">
-					<i class="el-icon-document" @click="look(scope.row.zcId)" style="font-size: 18px;cursor: pointer;margin-right: 25px;"></i>
+					<i class="el-icon-document" @click="look(scope.row)"
+						style="font-size: 18px;cursor: pointer;margin-right: 25px;"></i>
 				</el-tooltip>
 				<el-tooltip effect="dark" content="通过" placement="bottom">
-					<i class="el-icon-check" @click="update(scope.row),dialogFormVisible = true"  v-show="scope.row.zcState==0" style="font-size: 18px;cursor: pointer;margin-right: 25px;"></i>
+					<i class="el-icon-check" @click="update(scope.row),dialogFormVisible = true"
+						v-show="scope.row.zcState==0" style="font-size: 18px;cursor: pointer;margin-right: 25px;"></i>
 				</el-tooltip>
 				<el-tooltip effect="dark" content="归还" placement="bottom">
-					<i class="el-icon-check" @click="update(scope.row),dialogFormVisible = true"  v-show="scope.row.zcState==1" style="font-size: 18px;cursor: pointer;margin-right: 25px;"></i>
+					<i class="el-icon-check" @click="update(scope.row),dialogFormVisible = true"
+						v-show="scope.row.zcState==1" style="font-size: 18px;cursor: pointer;margin-right: 25px;"></i>
 				</el-tooltip>
 			</template>
 		</el-table-column>
@@ -43,6 +50,51 @@
 	<el-pagination background layout="prev, pager, next,sizes,total" :page-sizes="[2, 5, 10, 15]" :total="total"
 		:page-size="pageSize" :current-page="pageNo" @current-change="change" @size-change="change2">
 	</el-pagination>
+	<el-dialog title="领用详情" v-model="dialogTableVisible">
+		<el-descriptions>
+			<el-descriptions-item label="申请人">{{sqr.yhName}}</el-descriptions-item>
+			<el-descriptions-item label="申请时间">{{sqr.zcApplicationtime}}</el-descriptions-item>
+		</el-descriptions>
+		<el-table :data="goods">
+			<el-table-column property="goods.gname" label="商品名" width="200"></el-table-column>
+			<el-table-column property="lyNum" label="领取数量" width="150"></el-table-column>
+		</el-table>
+	</el-dialog>
+	<el-dialog title="领用申请表" v-model="dialogFormVisible">
+		<el-form :model="form">
+			<el-form-item label="申请人" :label-width="formLabelWidth">
+				<el-select v-model="form.user" placeholder="请选择申请人">
+					<el-option :label="i.yhName" :value="i.yhId" v-for="i in users"
+						@click="linkage(i.ybm.bm.bmName,i.ybm.bm.bmId)"></el-option>
+				</el-select>
+			</el-form-item>
+			<el-form-item label="所属部门" :label-width="formLabelWidth">
+				<el-input v-model="form.bm.bmName" autocomplete="off" style="width: 120px;" readonly></el-input>
+			</el-form-item>
+			<el-form-item label="出货仓" :label-width="formLabelWidth">
+				<el-select v-model="form.Warehouse.whId" placeholder="请选择出货仓">
+					<el-option :label="i.whName" :value="i.whId" v-for="i in Warehouses"></el-option>
+				</el-select>
+			</el-form-item>
+			<el-form-item label="商品名" :label-width="formLabelWidth">
+				<el-select v-model="form.commodity.goId" placeholder="请选择商品">
+					<el-option :label="i.gname" :value="i.goId" v-for="i in commoditys"></el-option>
+				</el-select>
+			</el-form-item>
+			<el-form-item label="数量" :label-width="formLabelWidth">
+				<el-input v-model="form.lyNum" autocomplete="off" style="width: 120px;" readonly></el-input>
+			</el-form-item>
+			<el-form-item label="申请说明" :label-width="formLabelWidth">
+				<el-input v-model="form.zcText" autocomplete="off" style="width: 200px;"></el-input>
+			</el-form-item>
+		</el-form>
+		<template #footer>
+			<span class="dialog-footer">
+				<el-button @click="dialogFormVisible = false">取 消</el-button>
+				<el-button type="primary" @click="sure()">确 定</el-button>
+			</span>
+		</template>
+	</el-dialog>
 </template>
 
 <script>
@@ -50,9 +102,37 @@
 		data() {
 			return {
 				zclys: [],
+				formLabelWidth: '120px',
 				pageNo: 1,
 				pageSize: 5,
-				total: 0
+				total: 0,
+				dialogTableVisible: false,
+				dialogFormVisible: false,
+				goods: [],
+				users: [],
+				Warehouses:[],
+				commoditys: [],
+				sqr: {
+					yhName: '',
+					zcApplicationtime: '',
+				},
+				form: {
+					user:'',
+					lyNum:'',
+					zcText:'',
+					bm: {
+						bmId: '',
+						bmName: '',
+					},
+					Warehouse:{
+						whId:'',
+						whName:'',
+					},
+					commodity:{
+						goId:'',
+						gName:''
+					}
+				}
 			}
 		},
 		methods: {
@@ -66,13 +146,14 @@
 					.then(res => {
 						if (res.status == 200) {
 							//后台返回的是PageInfo对象，当前分页数据存储在list中
-							console.log(res.data)
 							this.zclys = res.data.list;
 							this.total = res.data.total;
 						}
 					})
 			},
-			look(id){
+			look(row) {
+				this.sqr.yhName = row.yh.yhName;
+				this.sqr.zcApplicationtime = row.zcApplicationtime;
 				this.axios.get("/zcClaim/look", {
 						params: {
 							zcId: row.zcId,
@@ -80,7 +161,9 @@
 					})
 					.then(res => {
 						if (res.status == 200) {
-
+							console.log(res.data)
+							this.dialogTableVisible = true;
+							this.goods = res.data;
 						}
 					})
 			},
@@ -111,6 +194,31 @@
 				this.pageSize = pageSize;
 				this.loadData()
 			},
+			linkage(bmName, bmId) {
+				this.form.bm.bmName = bmName;
+				this.form.bm.bmId = bmId;
+			},
+			add() {
+				this.dialogFormVisible = true;
+				this.axios.get("/user")
+					.then(res => {
+						if (res.status == 200) {
+							this.users = res.data;
+						}
+					})
+				this.axios.get("/JcWhinformation/selectAll")
+					.then(res => {
+						if (res.status == 200) {
+							this.Warehouses = res.data;
+						}
+					})	
+				this.axios.get("/JcGoods/own")
+					.then(res => {
+						if (res.status == 200) {
+							this.commoditys = res.data;
+						}
+					})	
+			}
 		},
 		created() {
 			this.loadData();
