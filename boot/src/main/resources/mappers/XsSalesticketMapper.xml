@@ -19,6 +19,19 @@
         <result column="sales_times" property="salesTimes" />
         <result column="sales_state" property="salesState" />
         <result column="goods_type" property="goodsType" />
+        <result column="order_id" property="orderId" />
+        <result column="details_id" property="detailsId" />
     </resultMap>
-
+<!--    新增销售单-->
+    <insert id="addSales" useGeneratedKeys="true" keyProperty="sales_id">
+        insert into xs_salesticket values (null,#{yhId},#{proceedsId},#{whId},#{khId},#{returnId},#{qxYhId},#{billId},
+            #{salesYard},#{salesAccount},#{salesWay},#{salesTime},#{salesTimes},#{salesState},#{goodsType},#{orderId},#{detailsId})
+    </insert>
+    <select id="selectAll" resultMap="BaseResultMap" parameterType="com.study.entity.XsSalesticket">
+        select sales_id, yh_id, proceeds_id, wh_id, kh_id, return_id, qx__yh_id, bill_id,
+               sales_yard, sales_account, sales_way, sales_time, sales_times, sales_state,
+               goods_type, order_id, details_id
+        from xs_salesticket
+        order by sales_id desc
+    </select>
 </mapper>

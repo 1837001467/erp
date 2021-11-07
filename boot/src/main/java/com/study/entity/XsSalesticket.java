@@ -51,5 +51,7 @@ public class XsSalesticket implements Serializable {
 
     private String goodsType;
 
+    private Integer orderId;
 
+    private Integer detailsId;
 }

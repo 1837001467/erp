@@ -76,32 +76,44 @@
 				</div>
 				<div>
 					<el-button @click="addCommodity">添加商品</el-button>
-					<el-table :data="tableDatas" style="width: 100%">
-						<el-table-column prop="taskId" label="商品编号">
+					<el-table :data="tableCoom" style="width: 100%">
+						<el-table-column prop="gName" label="商品名称">
 						</el-table-column>
-						<el-table-column prop="employeeb.eename" label="商品名称">
+						<el-table-column prop="gPrice" label="单价">
 						</el-table-column>
-						<el-table-column prop="employeea.eename" label="单价">
-						</el-table-column>
-						<el-table-column prop="taskTime" label="数量">
+						<el-table-column prop="detailsNum" label="数量">
 						</el-table-column>
 					</el-table>
 					<el-dialog title="商品资料" v-model="commodityDetails" width="60%">
 						<div>
-							<el-button>添加</el-button>
-							<el-table ref="multipleTable" :data="tableData" style="width: 100%"
-								@selection-change="handleSelectionChange">
-								<el-table-column type="selection" width="55" />
-								<el-table-column prop="taskId" label="商品编号">
-								</el-table-column>
-								<el-table-column prop="employeeb.eename" label="商品名称">
-								</el-table-column>
-								<el-table-column prop="employeea.eename" label="单价">
-								</el-table-column>
-								<el-table-column prop="taskTime" label="数量">
-								</el-table-column>
-							</el-table>
-						</div>
+								<el-button @click="sure()" style="width: 100px;height: 30px;">确定</el-button>
+							</div>
+							<el-container>
+								<div style="width: 180px;padding: 10px;" @click="cxsousuo()">
+									<el-input placeholder="输入关键字搜索" v-model="filterText">
+									</el-input>
+									<el-tree class="filter-tree" :data="typeData" :props="defaultProps" highlight-current
+										:filter-node-method="filterNode" ref="tree" @node-click="clickNode" default-expand-all="true">
+									</el-tree>
+								</div>
+								<el-container style="padding-top: 10px;">			
+									<el-table ref="multipleTable" :data="spudata" style="width: 100%"
+										:header-cell-style="{'text-align':'center'}" :cell-style="{'text-align':'center'}" row-key="spuid"
+										:tree-props="{children: 'children', hasChildren: 'hasChildren'}"
+										@selection-change="handleSelectionChange">
+										<el-table-column type="selection" width="55">
+										</el-table-column>
+										<el-table-column prop="ypcode" label="商品id" width="165px">
+										</el-table-column>
+										<el-table-column prop="gname" label="商品名称">
+										</el-table-column>
+										<el-table-column prop="gunit" label="单位">
+										</el-table-column>
+										<el-table-column prop="gprice" label="单价(元)">
+										</el-table-column>
+									</el-table>
+								</el-container>
+							</el-container>
 					</el-dialog>
 				</div>
 			</el-dialog>
@@ -172,7 +184,7 @@
 				form: {},
 				dialogTableVisible: false,
 				commodityDetails: false,
-				orderDetails: false,
+				orderDetails: true,
 				tableData: [],
 				order:{},
 			}
