@@ -23,14 +23,7 @@ import java.util.List;
 public class JcGoodsService{
     @Autowired
     JcGoodsMapper mapper;
-    public PageInfo<JcGoods> selectAll(Integer no, Integer size, String find) {
-        PageHelper.startPage(no,size);
-        List<JcGoods> list = mapper.selectAll(no,size,find);
-
-        return new PageInfo(list) ;
-    }
-
-
+    
     //查找所有（分页）
     public PageInfo<JcGoods> selectAll(Integer no, Integer size, String find) {
         PageHelper.startPage(no,size);
