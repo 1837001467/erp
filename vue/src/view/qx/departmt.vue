@@ -84,13 +84,12 @@
             label="手机号">
         </el-table-column>
         <el-table-column
-            prop="yhState"
-            label="状态">
-          <template #default="scope">
-            <div class="name-wrapper">
-              <el-tag :type="scope.row.yhState==0?'success':'warning'" size="medium">{{ scope.row.yhState==0?'在职':'离职' }}</el-tag>
-            </div>
-          </template>
+            prop="ybm.bm.bmName"
+            label="部门">
+        </el-table-column>
+        <el-table-column
+            prop="ybm.posName"
+            label="职位">
         </el-table-column>
         <el-table-column
             label="操作">
@@ -115,16 +114,6 @@
   </el-row>
 
 
-  <el-dialog title="填写检查结果" v-model="txjg" width="40%" center  ><!-- 弹窗  新增   -=-=-=-=-=-=-==-=-=-=-=--=-=-=-=-=-=-检查结果填写 -->
-    <span v-for="(t,i) in aloneg" >{{t.checkName}}:<el-input  v-model="t.tjCodeIndex"></el-input></span>
-    <span style="color: red">医生建议：<el-input v-model="manProposal"  type="textarea"> </el-input></span>
-    <el-row>
-      <el-col :span="2" :offset="10">
-        <el-button type="primary" style="margin-top: 20px" @click="txjgForm">确定</el-button>
-      </el-col>
-    </el-row>
-
-  </el-dialog>
 
 </template>
 
