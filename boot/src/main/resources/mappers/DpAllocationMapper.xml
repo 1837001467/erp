@@ -6,15 +6,60 @@
     <resultMap id="BaseResultMap" type="com.study.entity.DpAllocation">
         <id column="dp_id" property="dpId" />
         <result column="dp_bian" property="dpBian" />
-        <result column="wh_out" property="whOut" />
-        <result column="wh_in" property="whIn" />
-        <result column="g_id" property="gId" />
         <result column="dp_num" property="dpNum" />
-        <result column="yh_shen" property="yhShen" />
         <result column="pd_applicationtime" property="pdApplicationtime" />
-        <result column="yh_pi" property="yhPi" />
         <result column="dp_approvaltime" property="dpApprovaltime" />
         <result column="dp_state" property="dpState" />
     </resultMap>
+    <resultMap id="allgoods" type="com.study.entity.CcStock">
+        <id column="cc_id" property="ccId" />
+        <result column="wh_id" property="whId" />
+        <result column="cc_num" property="ccNum" />
+        <association property="goods" javaType="com.study.entity.JcGoods">
+            <id property="goId" column="go_id"/>
+            <result property="gName" column="g_name"></result>
+        </association>
+    </resultMap>
+    <resultMap id="all" type="com.study.entity.DpAllocation" extends="BaseResultMap">
+        <association property="yhShen" javaType="com.study.entity.QxUser">
+            <id property="yhId" column="shenId" ></id>
+            <result column="shenName" property="yhName"></result>
+        </association>
+        <association property="yhPi" javaType="com.study.entity.QxUser">
+            <id property="yhId" column="piId" ></id>
+            <result column="piName" property="yhName"></result>
+        </association>
+        <association property="whIn" javaType="com.study.entity.JcWhinformation">
+            <id property="whId" column="inId"></id>
+            <result property="whName" column="inName"></result>
+        </association>
+        <association property="whOut" javaType="com.study.entity.JcWhinformation">
+            <id property="whId" column="outId"></id>
+            <result property="whName" column="outName"></result>
+        </association>
+        <association property="gId" javaType="com.study.entity.JcGoods">
+            <id column="gId" property="goId" />
+            <result column="gName" property="gName" />
+        </association>
+    </resultMap>
+    <insert id="add">
+     insert into  dp_allocation(dp_id,dp_bian, wh_out, wh_in, g_id, dp_num, yh_shen, pd_applicationtime, dp_state)
+     VALUE (null,#{bian},#{outhouse},#{inhouse},#{gid},#{num},#{yhid},#{timestamp},#{dpstate})
+    </insert>
+    <update id="UpdateBydpBian">
+        update  dp_allocation  set  dp_state =#{dpState}  where dp_bian =#{dpBian}
+    </update>
+    <update id="adopt">
+        update  dp_allocation  set  yh_pi =#{yhId}, dp_approvaltime =#{time} where dp_bian =#{dpBian}
+    </update>
+    <select id="selectPager" resultMap="all">
+        select * from  dball  order  by   dp_id  desc
+    </select>
+    <select id="selectBydpBian" resultMap="all">
+        select * from  dball  where dp_bian =#{dpBian}
+    </select>
+    <select id="selectByWhid" resultMap="allgoods">
+       select  * from cc_stock c left join jc_goods g on c.g_id = g.go_id where c.wh_id =#{out}
+    </select>
 
 </mapper>

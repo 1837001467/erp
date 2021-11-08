@@ -17,7 +17,7 @@ public class JcWhinformationController {
     @Autowired
     private JcWhinformationService jms;
 
-    @GetMapping("selectAll")
+    @GetMapping("/selectAll")
     public List<JcWhinformation>  selectAll(){
         return jms.seleclAll();
     }
