@@ -1,6 +1,7 @@
 package com.study.mapper;
 
 import com.study.entity.CgReturn;
+import com.study.entity.CgTicket;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -15,6 +16,11 @@ import java.util.List;
  */
 @Mapper
 public interface CgReturnMapper{
-    List<CgReturn> all();
+    List<CgReturn> all(Integer zt);
+
+    Integer addTh(CgReturn cgReturn);//新增
+
+    Integer updateTh(CgReturn cgReturn);
+
 
 }

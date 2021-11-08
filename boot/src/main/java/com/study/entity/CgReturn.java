@@ -5,6 +5,9 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
@@ -24,6 +27,8 @@ public class CgReturn implements Serializable {
 
     private static final long serialVersionUID=1L;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)//主键自增
     private Integer reId;
 
     private String reCode;
@@ -52,6 +57,8 @@ public class CgReturn implements Serializable {
      */
     private Integer reState;
 
+
+
     public Integer getReId() {
         return reId;
     }
@@ -61,7 +68,18 @@ public class CgReturn implements Serializable {
     private QxUser user;//采购员
     private List<JcGoods> goods;
 
+    public CgReturn() {
+    }
 
+    public CgReturn(Integer reId, String reCode, Timestamp reTime, String reResaon, Timestamp reSptime, String reSpopinon, Integer reState) {
+        this.reId = reId;
+        this.reCode = reCode;
+        this.reTime = reTime;
+        this.reResaon = reResaon;
+        this.reSptime = reSptime;
+        this.reSpopinon = reSpopinon;
+        this.reState=reState;
+    }
     public void setReId(Integer reId) {
         this.reId = reId;
     }

@@ -1,8 +1,6 @@
 package com.study.mapper;
 
-import com.study.entity.CcStock;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
 /**
  * <p>
@@ -14,7 +12,5 @@ import org.apache.ibatis.annotations.Param;
  */
 @Mapper
 public interface CcStockMapper{
-    CcStock  selectByWidAndGid(@Param("whId") Integer  whId,@Param("gId") Integer  gId);
 
-    Integer  updateNum(@Param("ccId") Integer ccId,@Param("ccNum") Integer ccNum);
 }

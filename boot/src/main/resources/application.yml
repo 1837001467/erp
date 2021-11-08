@@ -12,13 +12,30 @@ server:
   port: 8095
 
 mybatis:
-  type-aliases-package: com.study.entiey
+  type-aliases-package: com.study.pojo
   mapper-locations: classpath:mappers/*.xml
-
 logging:
   level:
+    # 在控制台输出mybatis的mapper接口执行的SQL语句以及影响的行数
+    # com.qiuyanli.model.mapper是mapper接口包
     com:
-      study:
+      qiuyanli:
         model:
           mapper: debug
-
+    # 打印JPA的语句以及每次传递的参数信息
+    org:
+      springframework:
+        security:
+          - debug
+          - info
+        web: error
+      hibernate:
+        SQL: debug
+        engine:
+          QueryParameters: debug
+          query:
+            HQLQueryPlan: debug
+        type:
+          descriptor:
+            sql:
+              BasicBinder: trace

@@ -23,7 +23,7 @@
         <result column="details_id" property="detailsId" />
     </resultMap>
 <!--    新增销售单-->
-    <insert id="addSales" useGeneratedKeys="true" keyProperty="salesId">
+    <insert id="addSales" useGeneratedKeys="true" keyProperty="sales_id">
         insert into xs_salesticket values (null,#{yhId},#{proceedsId},#{whId},#{khId},#{returnId},#{qxYhId},#{billId},
             #{salesYard},#{salesAccount},#{salesWay},#{salesTime},#{salesTimes},#{salesState},#{goodsType},#{orderId},#{detailsId})
     </insert>

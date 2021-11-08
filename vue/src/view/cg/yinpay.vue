@@ -32,7 +32,7 @@
 		style="text-align: center; margin-top: 10px" :current-page="currentPage" :page-sizes="[2,4,6,8]"
 		:page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="yfData.length">
 	</el-pagination>
-	<el-dialog v-model="fkDialog">
+	<el-dialog v-model="fkDialog" :close-on-click-modal="false">
 		<el-form>
 			<el-form-item label="付款类型" prop="cgbm">
 				<el-select v-model="form.way" style="width: 60%;">
@@ -91,7 +91,7 @@
 			},
 			fk(row) { //付款
 				console.log("row=", row);
-				this.fkDialog = true;
+				this.fkDialog = false;
 				this.form.way=this.ways[0];
 				this.form.type=this.types[0];
 				this.form.yiid=row.yiId;

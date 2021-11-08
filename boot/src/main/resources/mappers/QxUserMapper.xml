@@ -52,8 +52,4 @@
                           left join qx_post qp on q.pos_id = qp.pos_id
         where qp.pos_name like concat('%','采购主管','%')
     </select>
-<!--    登录-->
-    <select id="login" resultMap="BaseResultMap">
-        select * from qx_user where yh_card="${yhCard}" and yh_pswd="${yhPswd}"
-    </select>
 </mapper>

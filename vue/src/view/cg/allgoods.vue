@@ -17,15 +17,13 @@
 				@selection-change="handleSelectionChange">
 				<el-table-column type="selection" width="55">
 				</el-table-column>
-				<el-table-column prop="ypcode" label="用品编码" width="165px">
+				<el-table-column type="index" label="序号">
 				</el-table-column>
-				<el-table-column prop="gname" label="用品名称">
+				<el-table-column prop="gName" label="用品名称">
 				</el-table-column>
-				<el-table-column prop="gunit" label="单位">
+				<el-table-column prop="gUnit" label="单位">
 				</el-table-column>
-				<el-table-column prop="gprice" label="单价(元)">
-				</el-table-column>
-				<el-table-column prop="stocknum" label="库存">
+				<el-table-column prop="gPrice" label="单价(元)">
 				</el-table-column>
 			</el-table>
 		</el-container>

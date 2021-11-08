@@ -7,120 +7,13 @@
         <id column="rk_id" property="rkId" />
         <result column="rk_bian" property="rkBian" />
         <result column="st_code" property="stCode" />
+        <result column="yh_shen" property="yhShen" />
         <result column="rk_applicationtime" property="rkApplicationtime" />
+        <result column="yh_pi" property="yhPi" />
         <result column="rk_approvaltime" property="rkApprovaltime" />
         <result column="rk_type" property="rkType" />
         <result column="rk_state" property="rkState" />
         <result column="rk_explain" property="rkExplain" />
     </resultMap>
-    <resultMap id="all" type="com.study.entity.RkApply" extends="BaseResultMap">
-        <association property="yhshen" javaType="com.study.entity.QxUser">
-            <id column="shen" property="yhId" />
-            <result column="shenName" property="yhName" />
-        </association>
-        <association property="yhPi" javaType="com.study.entity.QxUser">
-            <id column="pi" property="yhId" />
-            <result column="piName" property="yhName" />
-        </association>
-    </resultMap>
-    <resultMap id="cgShen" type="com.study.entity.CgStorage">
-        <id column="st_id" property="stId" />
-        <result column="st_code" property="stCode" />
-        <result column="st_explain" property="stExplain" />
-        <result column="st_account" property="stAccount" />
-        <result column="st_time" property="stTime" />
-        <result column="st_sptime" property="stSptime" />
-        <result column="st_spopinon" property="stSpopinon" />
-        <result column="st_state" property="stState" />
-        <result column="st_totalmoney" property="stTotalmoney"/>
-        <association property="qxUser" javaType="com.study.entity.QxUser">
-            <id column="yh_id" property="yhId" />
-            <result column="yh_card" property="yhCard" />
-            <result column="yh_name" property="yhName" />
-            <result column="yh_pswd" property="yhPswd" />
-            <result column="yh_phone" property="yhPhone" />
-            <result column="yh_state" property="yhState" />
-        </association>
-        <association property="sppeo" javaType="com.study.entity.QxUser">
-            <id column="yh_id" property="yhId" />
-            <result column="yh_card" property="yhCard" />
-            <result column="yh_name" property="yhName" />
-            <result column="yh_pswd" property="yhPswd" />
-            <result column="yh_phone" property="yhPhone" />
-            <result column="yh_state" property="yhState" />
-        </association>
-        <association property="jcSupplier" javaType="com.study.entity.JcSupplier">
-            <id column="sup_id" property="supId" />
-            <result column="sup_name" property="supName" />
-            <result column="sup_tel" property="supTel" />
-            <result column="sup_bian" property="supBian" />
-        </association>
-        <association property="ck" javaType="com.study.entity.JcWhinformation">
-            <id column="wh_id" property="whId" />
-            <result column="wh_name" property="whName" />
-            <result column="wh_bian" property="whBian" />
-        </association>
-    </resultMap>
-    <resultMap id="csDetail" type="com.study.entity.CgStorageDetail">
-        <id column="sd_id" property="sdId" />
-        <result column="sd_count" property="sdCount" />
-        <result column="sd_price" property="sdPrice" />
-        <collection property="goods" ofType="com.study.entity.JcGoods">
-            <id column="go_id" property="goId" />
-            <result column="g_name" property="gName" />
-        </collection>
-    </resultMap>
-    <resultMap id="selectById" type="com.study.entity.RkDetails" >
-        <id column="rkd_id" property="rkdId" />
-        <result column="rkd_num" property="rkdNum" />
-        <result column="rk_id" property="rkId" />
-        <association property="good" javaType="com.study.entity.JcGoods">
-            <id column="go_id" property="goId" />
-            <result column="g_name" property="gName" />
-        </association>
-    </resultMap>
-    <insert id="cgAdd" useGeneratedKeys="true" keyProperty="rkId">
-        insert into  rk_apply (rk_id, rk_bian, st_code, yh_shen, rk_applicationtime,
-          rk_type, rk_state)
-        VALUE (null,#{rkBian},#{stCode},#{yhshen.yhId},#{rkApplicationtime},#{rkType}
-        ,#{rkState})
-    </insert>
-    <insert id="addDetails">
-       insert into rk_details (rkd_id, g_id, rkd_num, rk_id) VALUE (
-       null,#{good.goId},#{rkdNum},#{rkId}
-       )
-    </insert>
-    <update id="update">
-          UPDATE  rk_apply  set  rk_state = #{rkState} where rk_id = #{rkId}
-    </update>
-    <update id="adopt">
-          UPDATE  rk_apply  set yh_pi = #{yhId},rk_approvaltime = #{time} where rk_id = #{rkId}
-    </update>
-    <update id="updateTwo">
-           UPDATE  cg_storage  set  st_state = #{rkState} where st_code= #{stCode}
-    </update>
-    <update id="adoptTwo">
-         UPDATE  cg_storage  set spyh_id = #{yhId},st_sptime = #{time} where st_code = #{stCode}
-    </update>
-    <select id="selectBystCode" resultMap="cgShen">
-           select * from cg_storage cs
-      left join qx_user qu on cs.yh_id = qu.yh_id
-      left join jc_supplier js on cs.sup_id = js.sup_id
-      left join jc_whinformation jw on cs.wh_id = jw.wh_id
-      where  cs.st_code =#{stCode}
-    </select>
-    <select id="selectAll" resultMap="all">
-        select * from rkall order  by  rk_id desc
-    </select>
-    <select id="selectBystId" resultMap="csDetail">
-          select sd_id,sd_count,sd_price,go_id,g_name from cg_storagedetai  c left join
-        jc_goods  g  on c.g_id = g.go_id
-        where st_id=#{stId}
-    </select>
-    <select id="selectById" resultMap="selectById">
-select rkd_id, g_id, rkd_num, rk_id , g_name from  rk_details  d
-                   left  join  jc_goods  g on
-        d.g_id = g.go_id where rk_id
-    </select>
 
 </mapper>

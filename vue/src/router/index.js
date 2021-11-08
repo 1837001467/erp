@@ -151,9 +151,9 @@ let routes = [{
 					{
 						path: '/ckdb',
 						component: () => import('@/view/storage/ckdb.vue'),
-						name: "调拨",
+						name: "仓库调拨",
 						meta: {
-							title: '调拨'
+							title: '仓库调拨'
 						},
 					},
 					{
@@ -254,7 +254,14 @@ let routes = [{
 							title: '应收记账'
 						},
 					},
-					
+					{
+						path: '/putapply',
+						component: () => import('@/view/sell/putapply.vue'),
+						name: "入库",
+						meta: {
+							title: '入库'
+						},
+					},
 				]
 			},
 		]

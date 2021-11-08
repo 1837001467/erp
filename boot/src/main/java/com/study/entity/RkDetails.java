@@ -25,41 +25,11 @@ public class RkDetails implements Serializable {
     @Id
     private Integer rkdId;
 
-    private JcGoods good;
+    private Integer gId;
 
     private Integer rkdNum;
 
     private Integer rkId;
 
-    public Integer getRkdId() {
-        return rkdId;
-    }
 
-    public void setRkdId(Integer rkdId) {
-        this.rkdId = rkdId;
-    }
-
-    public JcGoods getGood() {
-        return good;
-    }
-
-    public void setGood(JcGoods good) {
-        this.good = good;
-    }
-
-    public Integer getRkdNum() {
-        return rkdNum;
-    }
-
-    public void setRkdNum(Integer rkdNum) {
-        this.rkdNum = rkdNum;
-    }
-
-    public Integer getRkId() {
-        return rkId;
-    }
-
-    public void setRkId(Integer rkId) {
-        this.rkId = rkId;
-    }
 }

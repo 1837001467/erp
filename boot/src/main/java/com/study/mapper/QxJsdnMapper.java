@@ -17,8 +17,5 @@ import java.util.List;
 public interface QxJsdnMapper{
     //角色授权时查询
  List<QxJsdn> sqcx(Integer posId);
- //用户权限查询
  List<QxJsdn> dlqx(Integer yhId);
-    //权限查询
-List<QxJsdn> sycx();
 }

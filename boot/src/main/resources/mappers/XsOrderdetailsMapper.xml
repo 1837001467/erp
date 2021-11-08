@@ -8,15 +8,18 @@
         <result column="sales_id" property="salesId" />
         <result column="order_id" property="orderId" />
         <result column="details_num" property="detailsNum" />
-        <result column="go_id" property="goId"/>
     </resultMap>
+        <resultMap id="slectAllPageMap" type="com.study.entity.XsOrderdetails" extends="BaseResultMap">
+<!--            <association property="goId" javaType="com.study.entity.JcGoods"-->
+<!--                         select="com.study.mapper.JcGoodsMapper.selectById" column="go_id"/>-->
+        </resultMap>
     <!--    新增订单商品详情-->
-        <insert id="addDetails" useGeneratedKeys="true" keyProperty="detailsId">
-            insert into xs_orderdetails values(null,#{salesId},#{orderId},#{detailsNum},#{goId})
+        <insert id="addDetails" useGeneratedKeys="true" keyProperty="details_id">
+            insert into xs_orderdetails values(null,#{detailsId},#{salesId},#{orderId},#{detailsNum})
         </insert>
     <!--    根据销售订单id或者销售单id查询商品详情-->
-        <select id="selectById" resultMap="BaseResultMap" parameterType="com.study.entity.XsOrderdetails">
-            select details_id, sales_id, order_id, details_num, go_id from xs_orderdetails
+        <select id="selectById" resultMap="slectAllPageMap" parameterType="com.study.entity.XsOrderdetails">
+            select details_id, sales_id, order_id, details_num from xs_orderdetails
             <where>
                 <if test="salesId!=null and salesId!=''">
                     and sales_id = #{salesId}
@@ -25,5 +28,7 @@
                     and order_id = #{orderId}
                 </if>
             </where>
+
+
         </select>
 </mapper>

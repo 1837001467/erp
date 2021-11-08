@@ -32,6 +32,8 @@ public class CgStorageService{
     CgYinpayMapper yinpayMapper;
     @Autowired
     QxUserMapper qxUserMapper;
+    @Autowired
+    RkApplyService rkApplyService;
 
     public List<CgStorage> all(){
         return mapper.all();
@@ -47,6 +49,9 @@ public class CgStorageService{
         cgStorage.setQxUser(vo.getUser());
         cgStorage.setCk(vo.getCk());
         mapper.addstorage(cgStorage);
+        //入库申请
+        rkApplyService.cgAdd(vo.getDdcode());
+
         cgStorage.setStId(cgStorage.getStId());
 
         GoodsArr[] tableData= vo.getTableData();

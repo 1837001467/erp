@@ -172,4 +172,19 @@ public class CgStorage implements Serializable {
     public void setCk(JcWhinformation ck) {
         this.ck = ck;
     }
+
+    @Override
+    public String toString() {
+        return "CgStorage{" +
+                "stId=" + stId +
+                ", stCode='" + stCode + '\'' +
+                ", stExplain='" + stExplain + '\'' +
+                ", stAccount='" + stAccount + '\'' +
+                ", stTime=" + stTime +
+                ", stSptime=" + stSptime +
+                ", stSpopinon='" + stSpopinon + '\'' +
+                ", stState=" + stState +
+                ", stTotalmoney=" + stTotalmoney +
+                '}';
+    }
 }

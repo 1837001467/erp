@@ -39,32 +39,15 @@
             <result column="g_name" property="gName" />
         </collection>
     </resultMap>
-    <insert id="add" useGeneratedKeys="true" keyProperty="zcId">
-     insert into  zc_claim(zc_id, bm_id, yh_id, zc_applicationtime, zc_text, wh_id, zc_state, zc_bian)
-     VALUE(null,#{bm.bmId},#{shen.yhId},#{zcApplicationtime},#{zcText},
-     #{wh.whId},#{zcState},#{zcBian})
-    </insert>
-    <insert id="addLyDetails" useGeneratedKeys="true" keyProperty="lyId">
-     insert into ly_details(ly_id, g_id, zc_id, ly_num) VALUE (
-     null,#{goods.goId},#{zcId},#{lyNum}
-     )
-    </insert>
     <update id="update">
        UPDATE  zc_claim  set  zc_state = #{zcState} where zc_id = #{zcId}
     </update>
-    <update id="adopt">
-       UPDATE  zc_claim  set yh_shen = #{yhId},zc_approvaltime = #{time} where zc_id = #{zcId}
-    </update>
     <select id="selectAll"  resultMap="All">
-       select *  from  lyall   order by  zc_id  desc
+        select *  from  lyall
     </select>
 
     <select id="selectById" resultMap="selectById">
         select  ly_id,g_id,zc_id,ly_num,go_id,g_name  from  ly_details ly left join jc_goods jc  on ly.g_id = jc.go_id where zc_id =#{zcId}
-    </select>
-    <select id="selectId" resultMap="All">
-        select  zc_id, bm_id, yh_id as sq, zc_applicationtime, zc_text, wh_id, yh_shen, zc_approvaltime, zc_state, zc_bian, zc_explain from  zc_claim
-        where  zc_id =#{zcid}
     </select>
 
 

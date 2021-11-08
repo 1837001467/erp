@@ -6,9 +6,10 @@
     <resultMap id="BaseResultMap" type="com.study.entity.KcStock">
         <id column="kc_id" property="kcId" />
         <result column="kc_bian" property="kcBian" />
+        <result column="wh_id" property="whId" />
         <result column="kc_type" property="kcType" />
+        <result column="g_id" property="gId" />
         <result column="kc_num" property="kcNum" />
-        <result column="kc_time" property="kcTime"/>
     </resultMap>
     <resultMap id="all" type="com.study.entity.KcStock" extends="BaseResultMap">
         <association property="goods" javaType="com.study.entity.JcGoods">

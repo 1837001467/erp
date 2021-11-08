@@ -36,7 +36,7 @@ public class QxPost{
     /**
      * 部门id
      */
-    private Integer bmId;
+    private String bmId;
     //部门
     @TableField(exist = false)
     private QxDepartment bm;

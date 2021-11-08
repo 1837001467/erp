@@ -19,7 +19,7 @@
         update cg_yinpay set yi_way=#{yiWay},yi_type=#{yiType},yi_state=#{yiState} where yi_id=#{yiId}
     </update>
     <select id="selectAll" resultMap="BaseResultMap">
-        select * from cg_yinpay
+        select * from cg_yinpay order by yi_id desc
     </select>
 
 </mapper>

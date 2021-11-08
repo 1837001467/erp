@@ -23,7 +23,7 @@ import java.util.List;
 public class JcGoodsService{
     @Autowired
     JcGoodsMapper mapper;
-
+    
     //查找所有（分页）
     public PageInfo<JcGoods> selectAll(Integer no, Integer size, String find) {
         PageHelper.startPage(no,size);

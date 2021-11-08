@@ -51,28 +51,12 @@
         </where>
     </select>
 <!--    销售订单表新增-->
-    <insert id="addOrder" useGeneratedKeys="true" keyProperty="orderId">
-        insert into xs_salesorder values (#{orderId},#{yhId},#{salesId},#{khId},#{qxYhId},#{orderYard},#{orderName},#{goodsTime},
+    <insert id="addOrder" useGeneratedKeys="true" keyProperty="order_id">
+        insert into xs_salesorder values (null,#{yhId},#{salesId},#{khId},#{qxYhId},#{orderYard},#{orderName},#{goodsTime},
             #{orderSite},#{orderGoods},#{orderLinkman},#{orderPhone},#{orderMoney},#{orderTime},#{orderTimes},#{orderState})
     </insert>
     <!--    查询最大索引-->
     <select id="selectIdMax" resultType="java.lang.Integer">
         select max(order_id) from xs_salesorder
     </select>
-<!--    审核采购订单-->
-    <update id="updateOrderSetState" parameterType="com.study.entity.XsSalesorder">
-        update xs_salesorder
-        <set>
-            <if test="orderState!=null and orderState!=''">
-                order_state=#{orderState},
-            </if>
-            <if test="qxYhId!=null and qxYhId!=''">
-                qx__yh_id =#{qxYhId},
-            </if>
-            <if test="orderTimes!=null">
-                order_times =#{orderTimes},
-            </if>
-        </set>
-        where order_id=#{orderId}
-    </update>
 </mapper>

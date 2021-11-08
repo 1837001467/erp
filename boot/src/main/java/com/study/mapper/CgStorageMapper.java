@@ -21,4 +21,6 @@ public interface CgStorageMapper {
 
     Integer updateCgStorage(CgStorage cgStorage);//修改审核相关数据
 
+    CgStorage selectByCode(String stCode);//根据入库编码进行查找
+
 }

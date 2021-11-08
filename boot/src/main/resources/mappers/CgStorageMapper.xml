@@ -55,5 +55,12 @@
       left join jc_whinformation jw on cs.wh_id = jw.wh_id
         order by cs.st_id desc
     </select>
+    <select id="selectByCode" resultMap="BaseResultMap">
+        select * from cg_storage cs
+          left join qx_user qu on cs.yh_id = qu.yh_id
+          left join jc_supplier js on cs.sup_id = js.sup_id
+          left join jc_whinformation jw on cs.wh_id = jw.wh_id
+        where cs.st_code=#{stCode}
+    </select>
 
 </mapper>
