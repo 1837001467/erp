@@ -7,6 +7,7 @@ import lombok.experimental.Accessors;
 
 import javax.persistence.Id;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * <p>
@@ -65,4 +66,5 @@ public class QxJsdn implements Serializable {
     @TableField(exist = false)
     private QxUser yh;
 
+    private List<QxJsdn> list;
 }

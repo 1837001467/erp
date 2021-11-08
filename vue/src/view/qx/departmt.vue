@@ -11,7 +11,59 @@
           <el-button type="primary" icon="el-icon-search">查询</el-button>
         </el-form-item>
       </el-col>
+      <el-col :span="5"  label-width="900px">
+        <el-form-item>
+          <el-button  style="margin-left: 500px" @click="yhEdit" type="primary">新增</el-button>
+        </el-form-item>
+      </el-col>
     </el-form>
+
+<!--sssssssssssssssssss用户弹框ssssssssssssssssss-->
+
+    <el-dialog width="40%" :before-close="xgYh" :title=yhtit v-model="yhtk">
+      <el-form ref="yhFrom" :rules="ruleyh" :model="yh">
+        <el-row>
+          <el-col :span="10">
+            <el-form-item label="账号" prop="yhCard" label-width="120px">
+              <el-input v-model="yh.yhCard"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :offset="1" :span="10">
+            <el-form-item label="用户名:" label-width="120px" prop="yhName">
+                <el-input v-model="yh.yhName"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="10">
+            <el-form-item label="职位：" label-width="120px" prop="posId">
+              <el-select v-model="yh.posId" placeholder="请选择">
+                <el-option
+                    v-for="item in jsji"
+                    :key="item.value"
+                    :label="item.posName"
+                    :value="item.posId">
+                </el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="21">
+            <el-form-item label="手机号：" label-width="120px" prop="yhPhone">
+              <el-input v-model="yh.yhPhone"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-form-item>
+          <el-col :span="1" :offset="11">
+            <el-button type="primary" @click="yhForm('yhFrom')">确定</el-button>
+          </el-col>
+        </el-form-item>
+      </el-form>
+    </el-dialog>
+
+
 
   </el-row>
   <!--=============================================员工表格===================================-->
@@ -43,7 +95,8 @@
         <el-table-column
             label="操作">
           <template #default="scope">
-            <el-button size="mini" @click="tjjlEdit(scope.row)" type="primary" plain>修改</el-button>
+            <el-button size="mini" @click="yhEdit(scope.row,1)" type="primary" plain>修改</el-button>
+            <el-button size="mini" @click="xgYhmm(scope.row)" type="primary" plain>重置</el-button>
           </template>
         </el-table-column>
 
@@ -81,8 +134,35 @@ import qs from "qs";
 export default {
   data () {
     return {
+      yhtk:false,//弹框
+      yhtit:'',//弹框标题
+      jsji:[],//角色集
       ygji:[],
       seach: '',//查询框
+      yh:{
+        yhId:'',
+        yhCard:'',
+        yhName:'',
+        yhPswd:123456,
+        yhPhone:'',
+        posId:'',
+        yhState:0
+      },
+      ruleyh:{
+        yhCard: [
+          {required: true, message: '请输入账号', trigger: 'blur'},
+        ],
+        yhName: [
+          {required: true, message: '请输入用户名', trigger: 'blur'},
+        ],
+        posId: [
+          {required: false, message: '请选择职位', trigger: 'change'},
+          {required: true, message: '请选择职位', trigger: 'blur' }
+        ],
+        yhPhone: [
+          {required: true, message: '请输入手机号', trigger: 'blur'},
+        ]
+      },
       currentPage: 1, //1初始页
       pagesize: 10, //    1每页的数
     }
@@ -97,7 +177,7 @@ export default {
       this.currentPage = currentPage;
       console.log(this.currentPage) //点击第几页
     },
-    // 体检人员预约参数
+    // 基础参数
     getData() {
       this.axios.get("http://localhost:8095/user", {
         params: {
@@ -106,6 +186,67 @@ export default {
       }).then((res) => {
         this.ygji = res.data;
       }).catch()
+      //所有职位或角色
+      this.axios.get("http://localhost:8095/action").then((res) => {
+        this.jsji = res.data;
+      }).catch()
+    },
+    yhEdit(row,is){
+      this.yhtit = is == 1 ? '修改用户' : '新增用户';//设置弹框标题
+      if(row!=""){
+            this.yh.yhCard=row.yhCard,
+            this.yh.yhName=row.yhName,
+            this.yh.yhPhone=row.yhPhone,
+            this.yh.posId=row.posId,
+            this.yh.yhId=row.yhId,
+            this.yh.yhPswd=row.yhPswd
+      }else {
+        this.bm.bmName=""
+      }
+      this.yhtk=true
+    },
+    //用户弹框X
+    xgYh(){
+      this.yhtk=false;
+      this.$refs['yhFrom'].resetFields();
+    },
+    xgYhmm(row){
+      let params = {
+        yhId:row.yhId,
+        yhPswd:123456222,
+      }
+      console.log(params)
+      this.axios.post("/upd-yhps",params).then((v) => {
+        if (v.data === 'ok') {
+          this.getData()
+          // this.$refs[formName].resetFields();
+          this.$message.success("新增成功")
+        } else {
+          console.log(v.data)
+        }
+      }).catch();
+    },
+    //打开确认弹框
+    yhForm(formName){
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          this.axios.post("http://localhost:8095/add-bm",
+              this.bm
+          ).then((v) => {
+            if (v.data === 'ok') {
+              this.getData()
+              this.$refs[formName].resetFields();
+              this.$message.success("新增成功")
+            } else {
+              console.log(v.data)
+            }
+          }).catch();
+          this.bmtk=false
+        } else {
+          console.log('error submit!!');
+          return false;
+        }
+      });
     }
   },
   computed:{
