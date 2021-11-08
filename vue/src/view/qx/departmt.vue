@@ -247,29 +247,49 @@ export default {
           }
         }).catch();
     },
-    //打开确认弹框
+    //用户确认弹框
     yhForm(formName){
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.yh.yhPswd='123456';
-          this.axios.post("http://localhost:8095/adu-yh",
-              this.yh
-          ).then((v) => {
-            if (v.data === 'ok') {
-              this.getData()
-              this.$refs[formName].resetFields();
-              if(this.yhtit=='新增用户'){
-                this.$message.success("新增成功")
-                this.rzAdd("新增员工")
-              }else {
-                this.$message.success("修改成功")
-                this.rzAdd("修改员工")
-              }
-            } else {
-              console.log(v.data)
+
+          //查询去重
+          this.axios.get("http://localhost:8095/yhqc", {
+            params: {
+              yhCard:this.yh.yhCard
             }
-          }).catch();
-          this.yhtk=false
+          }).then((res) => {
+            let aa=res.data;
+            if(res.data==true){
+              console.log(res.data)
+              this.axios.post("http://localhost:8095/adu-yh",
+                  this.yh
+              ).then((v) => {
+                if (v.data === 'ok') {
+                  this.getData()
+                  this.$refs[formName].resetFields();
+                  if(this.yhtit=='新增用户'){
+                    this.$message.success("新增成功")
+                    this.rzAdd("新增员工")
+                  }else {
+                    this.$message.success("修改成功")
+                    this.rzAdd("修改员工")
+                  }
+                  this.yhtk=false
+                } else {
+                  console.log(v.data)
+                  this.$message.info("该账号名已使用")
+                }
+              }).catch();
+            }else{
+              this.$message.info("该账号名已使用")
+            }
+          }).catch()
+
+
+
+
+
         } else {
           console.log('error submit!!');
           return false;

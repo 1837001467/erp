@@ -23,6 +23,9 @@ import java.util.Map;
 public interface QxUserMapper extends BaseMapper<QxUser> {
 //    用户查询
     List<QxUser> selectUser(String seach);
+    //去重查询
+    @Select("select * from qx_user where yh_card=#{yhCard}")
+    List<QxUser> selectUserq(String yhCard);
     //重置密码
     @Update("update qx_user set yh_pswd=#{yhPswd} where yh_id=#{yhId}")
     public void  updUserPswd(Integer yhId,String yhPswd);

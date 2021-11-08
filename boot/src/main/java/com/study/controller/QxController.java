@@ -26,6 +26,16 @@ public class QxController {
     public List<QxDepartment> bmqc(String bmName){
         return  qx.bmqc(bmName);
     }
+    //用户去重查询
+    @RequestMapping("yhqc")
+    public List<QxUser> yhqc(String yhCard){
+        return  qx.yhqc(yhCard);
+    }
+    //角色去重查询
+    @RequestMapping("jsqc")
+    public List<QxPost> jsqc(String posName){
+        return  qx.jsqc(posName);
+    }
     //日志模糊查询
     @RequestMapping("rzcx")
     public List<QxLog> logCx(String seach){

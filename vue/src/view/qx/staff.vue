@@ -181,25 +181,37 @@ export default {
        this.js.qxAn=this.$refs.tree.getCheckedKeys();
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.axios.post("http://localhost:8095/add-js",
-              this.js
-          ).then((v) => {
-            if (v.data === 'ok') {
-              this.getData()
-              this.$refs[formName].resetFields();
-              if(this.jstit=='新增角色'){
-                this.$message.success("新增成功")
-                this.rzAdd("新增角色")
-              }else {
-                this.$message.success("修改成功")
-                this.rzAdd("修改角色")
-              }
-            } else {
-              console.log(v.data)
+          //查询去重
+          this.axios.get("http://localhost:8095/jsqc", {
+            params: {
+              posName:this.js.posName
             }
-
-          }).catch();
-          this.jstk=false
+          }).then((res) => {
+            let aa=res.data;
+            if(res.data=null||res.data==""){
+              this.axios.post("http://localhost:8095/add-js",
+                  this.js
+              ).then((v) => {
+                if (v.data === 'ok') {
+                  this.getData()
+                  this.$refs[formName].resetFields();
+                  if(this.jstit=='新增角色'){
+                    this.$message.success("新增成功")
+                    this.rzAdd("新增角色")
+                  }else {
+                    this.$message.success("修改成功")
+                    this.rzAdd("修改角色")
+                  }
+                } else {
+                  console.log(v.data)
+                }
+              }).catch();
+              this.jstk=false
+            }else{
+              console.log(this.bmji1)
+              this.$message.info("已有该角色")
+            }
+          }).catch()
         } else {
           console.log('error submit!!');
           return false;

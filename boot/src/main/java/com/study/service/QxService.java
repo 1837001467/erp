@@ -32,6 +32,16 @@ public class QxService {
         List<QxDepartment> listsp = bm.bmqc(bmName);
         return listsp;
     }
+    //查询角色去重
+    public List<QxPost> jsqc(String posName){
+        List<QxPost> listsp = js.selectPosq(posName);
+        return listsp;
+    }
+    //查询用户去重
+    public List<QxUser> yhqc(String yhCard){
+        List<QxUser> listsp = ss.selectUserq(yhCard);
+        return listsp;
+    }
     //查询日志模糊查询
     public List<QxLog> selcrz(String seach){
         List<QxLog> listsp = rz.rzcx(seach);
