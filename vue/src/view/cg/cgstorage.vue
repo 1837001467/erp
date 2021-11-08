@@ -336,6 +336,7 @@
 					console.log("res=", res)
 					if (res.data == 1) {
 						this.search();
+						this.RkdialogVisible = false;
 					}
 				})
 			},

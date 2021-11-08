@@ -17,4 +17,8 @@ import java.util.List;
 public interface CgReturnMapper{
     List<CgReturn> all();
 
+    Integer addTh(CgReturn cgReturn);//新增
+
+
+
 }

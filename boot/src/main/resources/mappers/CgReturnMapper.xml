@@ -32,6 +32,9 @@
         </association>
         <collection property="goods" column="re_id" select="com.study.mapper.JcGoodsMapper.findGoodsReturnByReid"  />
     </resultMap>
+    <insert id="addTh" useGeneratedKeys="true" keyProperty="reId">
+        insert into cg_return values(null,#{supplier.supId},#{user.yhId},#{ck.whId},null,#{reCode},#{reTime},#{reResaon},null,null,#{reState})
+    </insert>
     <select id="all" resultMap="BaseResultMap">
         select * from cg_return re
           left join jc_supplier js on re.sup_id = js.sup_id
