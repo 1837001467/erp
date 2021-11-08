@@ -2,8 +2,8 @@
   <el-row>
     <el-form style="padding-top: 10px">
       <el-col :span="19">
-        <el-form-item  label="人员信息:" label-width="100px">
-          <el-input class="myin" @input="getData"  v-model="seach" placeholder="请输入你要查询的人员" ></el-input>
+        <el-form-item  label="日志信息:" label-width="100px">
+          <el-input class="myin" @input="getData"  v-model="seach" placeholder="请输入你要查询的日志" ></el-input>
         </el-form-item>
       </el-col>
       <el-col :span="5" label-width="220px">

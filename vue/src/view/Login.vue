@@ -17,14 +17,14 @@
 		<el-form :model="user" ref="loginForm" :rules="rules"
 		  class="login-container" label-position="left" label-width="0px">
 		  <h3 class="login_title">账号密码登录</h3>
-		    <el-form-item prop="account"><!-- prop属性中是验证器的键 -->
+		    <el-form-item prop="yhCard"><!-- prop属性中是验证器的键 -->
 		      <el-input type="text" v-model="user.yhCard"
-		                auto-complete="off" placeholder="账号">			
+		                auto-complete="off" placeholder="请输入账号">
 			  </el-input>
 		    </el-form-item>
-		    <el-form-item prop="password">
+		    <el-form-item prop="yhPswd">
 		      <el-input type="password" v-model="user.yhPswd"
-		                auto-complete="off" placeholder="密码">			
+                    placeholder="请输入密码" show-password>
 			  </el-input>
 		    </el-form-item>
 		    <el-form-item style="width: 100%">
@@ -42,11 +42,11 @@
         vedioCanPlay: false,
         fixStyle: '',
 		rules: {
-			  account: [
-				  {required: false, message: '请输入用户名', trigger: 'blur'},
+      yhCard: [
+				  {required: true, message: '请输入用户名', trigger: 'blur'}
 			  ],
-			  password: [
-				  {required: false, message: '请输入密码', trigger: 'blur'},
+      yhPswd: [
+				  {required: true, message: '请输入密码', trigger: 'blur'},
 				  {min:4,max:18,message:'密码长度在6-18之间',trigger:'blur'}
 			  ]
 			},

@@ -2,6 +2,7 @@ package com.study.mapper;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.study.entity.QxPost;
 import com.study.entity.QxUser;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -28,4 +29,6 @@ public interface QxUserMapper extends BaseMapper<QxUser> {
     QxUser selectCgZg();//查找采购主管
     //登录
     public QxUser login(QxUser user);
+    Integer addUser(QxUser user);//新增用户
+    Integer updateUser(QxUser user);//新增用户
 }

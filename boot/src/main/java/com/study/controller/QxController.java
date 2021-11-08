@@ -21,6 +21,11 @@ public class QxController {
     public List<QxDepartment> qxDe(String seach){
         return  qx.selcbm(seach);
     }
+    //部门去重查询
+    @RequestMapping("bmqc")
+    public List<QxDepartment> bmqc(String bmName){
+        return  qx.bmqc(bmName);
+    }
     //日志模糊查询
     @RequestMapping("rzcx")
     public List<QxLog> logCx(String seach){
@@ -52,29 +57,26 @@ public class QxController {
         return  qx.selcUser(seach);
     }
     //新增日志
-    @RequestMapping("add-rz")
-    public int addlist(@RequestBody QxLog log){
-        return qx.addlist(log);
+    @PostMapping("add-rz")
+    public String addlist(@RequestBody QxLog log){
+        return qx.addLog(log);
     }
     //新增修改部门
-//    @RequestMapping("add-bm")
-//    public boolean addlist(@RequestBody String bm){
-//        System.out.println(bm);
-//        Map map = JSON.parseObject(bm,Map.class);//将病房对象字符串转换为病房对象
-//        QxDepartment proj = JSON.parseObject(map.get("proj").toString(), QxDepartment.class);
-//        qx.bmUpdate(proj);
-//    }
+    @PostMapping("add-bm")
+    public String addlist(@RequestBody QxDepartment bm){
+        return qx.bmUpdate(bm.getBmId(),bm.getBmName());
+    }
     //新增修改角色
     @PostMapping("add-js")
-    public boolean addlist(@RequestBody QxPost js){
+    public String addlist(@RequestBody QxPost js){
         return qx.jsUpdate(js);
     }
     //新增修改用户
     @PostMapping("adu-yh")
-    public boolean addlist(@RequestBody QxUser yh){
+    public String addlist(@RequestBody QxUser yh){
         return qx.yhUpdate(yh);
     }
-    //重置密码
+    //修改密码
     @PostMapping("upd-yhps")
     public String addlist11(@RequestBody QxUser xx){
         return qx.updUserpsw(xx.getYhId(),xx.getYhPswd());

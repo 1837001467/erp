@@ -1,6 +1,7 @@
 package com.study.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.study.entity.CgStorageDetail;
 import com.study.entity.QxPost;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -17,4 +18,6 @@ import java.util.List;
 @Mapper
 public interface QxPostMapper extends BaseMapper<QxPost> {
     List<QxPost> pstcx(String seach);
+    Integer addPostq(QxPost pos);//新增角色
+    Integer updatePostq(QxPost pos);//新增角色
 }

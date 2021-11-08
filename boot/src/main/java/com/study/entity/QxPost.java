@@ -9,6 +9,7 @@ import lombok.experimental.Accessors;
 
 import javax.persistence.Id;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * <p>
@@ -39,4 +40,7 @@ public class QxPost{
     //部门
     @TableField(exist = false)
     private QxDepartment bm;
+    //权限集合
+    @TableField(exist = false)
+    private List<Integer> qxAn;
 }
