@@ -88,12 +88,12 @@
 						</el-menu-item>
 					</el-submenu>
 					<!-- 可展开的菜单选项-->
-					<el-submenu index="5">
+					<el-submenu index="6">
 						<template #title><i class="el-icon-s-help"></i>资料</template>
-      <el-menu-item index="5-1"><i class="el-icon-user-solid"></i><router-link to="/rk">客户资料</router-link></el-menu-item>
-      <el-menu-item index="5-2"><router-link to="/ck"><i class="el-icon-user-solid"></i>供应商资料</router-link></el-menu-item>
-      <el-menu-item index="5-2"><router-link to="/ck"><i class="el-icon-user-solid"></i>商品资料</router-link></el-menu-item>
-      <el-menu-item index="5-2"><router-link to="/ck"><i class="el-icon-user-solid"></i>仓库资料</router-link></el-menu-item>
+						<el-menu-item index="6-1"><i class="el-icon-user-solid"></i><router-link to="/khzl">客户资料</router-link></el-menu-item>
+						<el-menu-item index="6-2"><i class="el-icon-user-solid"></i><router-link to="/gysgl">供应商资料</router-link></el-menu-item>
+						<el-menu-item index="6-2"><i class="el-icon-user-solid"></i><router-link to="/spzl">商品资料</router-link></el-menu-item>
+						<el-menu-item index="6-2"><i class="el-icon-user-solid"></i><router-link to="/ckzl">仓库资料</router-link></el-menu-item>
 					</el-submenu>
 					<!-- 可展开的菜单选项-->
 					<el-submenu index="6">

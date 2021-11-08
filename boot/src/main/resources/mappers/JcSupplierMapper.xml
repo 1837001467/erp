@@ -15,12 +15,23 @@
             <result column="cp_tel" property="cpTel" />
         </association>
     </resultMap>
+    <update id="save" >
+        update  jc_supplier
+        <set>
+        <if test="supName!=null and supName!=''">
+            sup_name={supName}
+        </if>
+        </set>
+    </update>
     <select id="allSuppliers" resultMap="BaseResultMap">
         select * from jc_supplier js
         left join jc_contactperson jc on js.cp_id = jc.cp_id
     </select>
-    <select id="selectAll" resultMap="BaseResultMap">
-        select * from jc_supplier where sup_status0
+    <select id="selectAll" resultType="com.study.entity.JcSupplier">
+        select * from jc_supplier where sup_status=0
     </select>
-
+    <select id="findLike" resultMap="BaseResultMap">
+         select * from jc_supplier where sup_name like concat(concat('%',#{findLike}),'%')
+         and sup_status=0 order by sup_id
+    </select>
 </mapper>

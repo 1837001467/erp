@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author 邱艳丽
@@ -23,13 +24,14 @@ public class JcSupplierController {
         return service.allSuppliers();
     }
 
-    @GetMapping("/pager")
-    public PageInfo<JcSupplier> selectAll(@RequestParam("no") Integer no,
-                                          @RequestParam("size") Integer size,
-                                          @RequestParam("find") String find){
+    @PostMapping("/pager")
+    public List<JcSupplier> selectAll(){
 
-        return service.selectAll(no, size, find);
+        return service.selectAll();
     }
-
-
+    @PostMapping("/update")
+    public Integer update(@RequestBody JcSupplier supfrom){
+        Integer boo = service.save(supfrom);
+        return boo;
+    }
 }

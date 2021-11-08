@@ -1,5 +1,5 @@
 <template>
-	666
+1
 </template>
 
 <script>

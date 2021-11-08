@@ -28,11 +28,22 @@ public class JcSupplierService{
         return mapper.allSuppliers();
     }
 
+    //查询所有并分页
     public PageInfo<JcSupplier> selectAll(Integer no, Integer size, String find) {
         PageHelper.startPage(no,size);
         List<JcSupplier> list = mapper.selectAll(no,size,find);
-
+        for (JcSupplier jcSupplier :list){
+            System.out.println(jcSupplier);
+        }
         return new PageInfo(list) ;
     }
-
+    public List<JcSupplier> selectAll(){
+        List<JcSupplier> jcSuppliers = mapper.selectAll();
+        return jcSuppliers;
+    }
+    //新增保存
+    public Integer save(JcSupplier jcSupplier){
+        mapper.save(jcSupplier);
+        return 1;
+    }
 }
