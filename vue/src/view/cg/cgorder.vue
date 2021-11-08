@@ -3,7 +3,7 @@
 		<el-row>
 			<el-form :label-position="labelPosition" label-width="80px">
 				<el-form-item label="订单编号:" size="medium" style="float: left;margin-right: 50px;">
-					<el-input placeholder="请输入" v-model="searchform.ordercode" clearable style="width: 120px;">
+					<el-input placeholder="请输入" v-model="searchform.ordercode" clearable>
 					</el-input>
 				</el-form-item>
 				<el-button @click="search()">查询</el-button>
@@ -41,9 +41,9 @@
 				</el-table-column>
 				<el-table-column label="操作" width="200px">
 					<template #default="scope">
-						<el-button @click="ruku(scope.row.orId)" :disabled="scope.row.orState==1?false:true"
-							v-show="scope.row.orState==1">生成入库单</el-button>
-						<el-button type="primary" plain @click="examine(scope.row)"
+						<el-button size="medium" @click="ruku(scope.row.orId)"
+							:disabled="scope.row.orState==1?false:true" v-show="scope.row.orState==1">生成入库单</el-button>
+						<el-button size="medium" type="primary" plain @click="examine(scope.row)"
 							:disabled="scope.row.orState==0?false:true" v-show="scope.row.orState==0">审核
 						</el-button>
 					</template>
@@ -60,7 +60,7 @@
 				:cell-style="{'text-align':'center'}">
 				<el-table-column type="index" label="序号">
 				</el-table-column>
-				<el-table-column prop="gname" label="商品名称">
+				<el-table-column prop="gName" label="商品名称">
 				</el-table-column>
 				<el-table-column prop="cgOrderdetail.odCount" label="采购数量">
 				</el-table-column>
@@ -95,7 +95,7 @@
 				</div>
 				<el-form :model="form">
 					<el-form-item>
-						<el-descriptions width="100%" v-model="taskdetails">
+						<el-descriptions width="100%">
 							<el-descriptions-item width="500px">
 								<el-form-item label="订单编号">
 									<el-input v-model="form.cgcode" disabled></el-input>
@@ -144,7 +144,7 @@
 									</el-select>
 								</el-form-item>
 							</el-descriptions-item>
-							<el-descriptions-item width="350px"  v-show="state!=1" v-if="state!=1">
+							<el-descriptions-item width="350px" v-show="state!=1" v-if="state!=1">
 								<el-form-item label="总金额">
 									<el-input v-model="form.totalmoney" disabled></el-input>
 								</el-form-item>
@@ -163,20 +163,20 @@
 				<el-table :data="xzData" style="width: 100%">
 					<el-table-column prop="goId" label="商品编号">
 					</el-table-column>
-					<el-table-column prop="gname" label="商品名称">
+					<el-table-column prop="gName" label="商品名称">
 					</el-table-column>
-					<el-table-column prop="gunit" label="单位">
+					<el-table-column prop="gUnit" label="单位">
 					</el-table-column>
 					<el-table-column label="单价(元)">
 						<template #default="scope">
-							<el-input-number v-model="scope.row.gprice" controls-position="right" :min="1"
+							<el-input-number v-model="scope.row.gPrice" controls-position="right" :min="1"
 								@change="changeTotalmoney()">
 							</el-input-number>
 						</template>
 					</el-table-column>
 					<el-table-column label="数量">
 						<template #default="scope">
-							<el-input-number v-model="scope.row.gbian" controls-position="right" :min="1"
+							<el-input-number v-model="scope.row.gBian" controls-position="right" :min="1"
 								@change="changeTotalmoney()">
 							</el-input-number>
 						</template>
@@ -190,7 +190,7 @@
 						<div style="width: 180px;padding: 10px;" @click="cxsousuo()">
 							<el-input placeholder="输入关键字搜索" v-model="filterText">
 							</el-input>
-							<el-tree class="filter-tree" :data="typeData" :props="defaultProps" highlight-current
+							<el-tree class="filter-tree" :data="typeData" highlight-current
 								:filter-node-method="filterNode" ref="tree" @node-click="clickNode"
 								default-expand-all="true">
 							</el-tree>
@@ -204,13 +204,11 @@
 								</el-table-column>
 								<el-table-column prop="goId" label="用品编号" width="165px">
 								</el-table-column>
-								<el-table-column prop="gname" label="用品名称">
+								<el-table-column prop="gName" label="用品名称">
 								</el-table-column>
-								<el-table-column prop="gunit" label="单位">
+								<el-table-column prop="gUnit" label="单位">
 								</el-table-column>
-								<el-table-column prop="gprice" label="单价(元)">
-								</el-table-column>
-								<el-table-column prop="stocknum" label="库存">
+								<el-table-column prop="gPrice" label="单价(元)">
 								</el-table-column>
 							</el-table>
 						</el-container>
@@ -273,7 +271,7 @@
 				spudata: [], //商品数据
 				cks: [],
 				gfId: 0,
-				multipleSelection: [],
+				multipleSelection: [],//勾选了的商品
 				goodsData: [], //商品详情数据
 				Spudialog: false
 			}
@@ -285,19 +283,19 @@
 						this.goodsData = v.goods;
 					}
 				})
-				console.log("orderspdata=",this.goodsData);
+				console.log("orderspdata=", this.goodsData);
 			},
-			fuzhi(){
+			fuzhi() {
 				this.form.user.yhId = this.users[0].yhId;
 				this.form.gys.supId = this.suppliers[0].supId;
 				this.form.bm.bmId = this.depts[0].bmId;
 				this.form.ck.whId = this.cks[0].whId;
-				this.form.zh=this.zhtype[0];
+				this.form.zh = this.zhtype[0];
 			},
 			ruku(orid) { //生成入库单
 				let $this = this;
-				this.state=0;
-				this.xzData=[];
+				this.state = 0;
+				this.xzData = [];
 				this.RkdialogVisible = true;
 				this.fuzhi();
 				this.form.orId = orid;
@@ -305,6 +303,13 @@
 					10000) // 如果是6位或者8位随机数，相应的 *1000000或者 *100000000就行了
 				console.log("xxx", this.getProjectNum() + Math.floor(Math.random() *
 					10000));
+				//给订单对应的商品赋值
+				this.tableData.forEach(v => {
+					if (v.orId == orid) {
+						this.xzData = v.goods;
+					}
+				})
+				this.changeTotalmoney();
 			},
 			hold() { //生成入库单的保存
 				let $this = this;
@@ -327,10 +332,10 @@
 					orid: this.form.orId,
 					zh: this.form.zh,
 					totalmoney: this.form.totalmoney,
-					state:this.state
+					state: this.state
 				}
 				console.log("params=", params);
-				if(this.state==0){
+				if (this.state == 0) {
 					this.axios.post("/study/cgStorage/addstorage",
 						params
 					).then(res => {
@@ -339,7 +344,7 @@
 							this.$router.push("/cgstorage");
 						}
 					})
-				}else{//采购订单新增
+				} else { //采购订单新增
 					this.axios.post("/study/cgOrder/addorder",
 						params
 					).then(res => {
@@ -358,12 +363,33 @@
 			},
 			handleSelectionChange(val) {
 				this.multipleSelection = val;
-				console.log("multipleSelection=", this.multipleSelection)
-				this.xzData = this.multipleSelection;
 			},
 			sure() { //商品数据弹框确定按钮
 				this.Spudialog = false;
+				console.log("修改前xzData=", this.xzData);
+				this.multipleSelection.forEach(v => {
+					v.gBian = 1;
+				})
+				const map = new Map();
+				for (let i = 0; i < this.xzData.length; ++i) {
+					map.set(this.xzData[i].goId, this.xzData[i])
+				}
+				for (let i = 0; i < this.multipleSelection.length; ++i) {
+					if (map.has(this.multipleSelection[i].goId)) {
+						map.get(this.multipleSelection[i].goId).gBian++
+					} else {
+						map.set(this.multipleSelection[i].goId, this.multipleSelection[i])
+					}
+				}
+				this.xzData = [];
+				map.forEach(v => {
+					console.log("v=", v);
+					this.xzData.push(v);
+				})
+
+				console.log("修改后xzData=", this.xzData);
 				this.changeTotalmoney();
+				this.typeData = [];
 			},
 			filterNode(value, data) {
 				if (!value) return true;
@@ -416,8 +442,8 @@
 				let $this = this;
 				let totalmoney = 0;
 				this.xzData.forEach(v => {
-					console.log("ss==============" + (v.gbian) * (v.gprice))
-					totalmoney = totalmoney + ((v.gbian) * (v.gprice));
+					console.log("ss==============" + (v.gBian) * (v.gPrice))
+					totalmoney = totalmoney + ((v.gBian) * (v.gPrice));
 					console.log("totalmoney=" + totalmoney);
 				})
 				this.form.totalmoney = totalmoney;
@@ -426,7 +452,8 @@
 				this.Spudialog = true;
 				this.loadSpuType();
 				this.allgoods();
-
+				this.multipleSelection = [];
+				this.$refs["multipleTable"].clearSelection();
 			},
 			OnSubmit(row) { //审批弹框确定
 				console.log("row==========", row);
@@ -457,9 +484,9 @@
 				console.log("sqmessage", $this.sqmessage);
 			},
 			add() {
-				let $this=this;
+				let $this = this;
 				this.RkdialogVisible = true;
-				this.state=1;
+				this.state = 1;
 				this.fuzhi();
 				$this.form.cgcode = 'CGD' + this.getProjectNum() + Math.floor(Math.random() *
 					10000) // 如果是6位或者8位随机数，相应的 *1000000或者 *100000000就行了

@@ -1,5 +1,6 @@
 package com.study.mapper;
 
+import com.study.entity.CgReturndetail;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -12,5 +13,6 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface CgReturndetailMapper{
+    Integer addDetail(CgReturndetail cgReturndetail);
 
 }

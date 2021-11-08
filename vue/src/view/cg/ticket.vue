@@ -22,10 +22,10 @@
 		</el-table-column>
 		<el-table-column label="操作" width="200px">
 			<template #default="scope">
-				<el-button @click="delticket(scope.row)"
-					v-show="scope.row.tiState==0" type="danger" plain>删除</el-button>
-					<el-button @click="delticket(scope.row)"
-						v-show="scope.row.tiState==1" type="success" plain>启用</el-button>
+				<el-button size="small" @click="delticket(scope.row)" v-show="scope.row.tiState==0" type="danger"
+					plain>删除</el-button>
+				<el-button size="small" @click="delticket(scope.row)" v-show="scope.row.tiState==1" type="success"
+					plain>启用</el-button>
 			</template>
 		</el-table-column>
 	</el-table>
@@ -54,16 +54,27 @@
 			}
 		},
 		methods: {
-			delticket(row){
-				let $this=this;
-				let params={
-					tiid:row.tiId,
-					tistate:row.tiState
-				}
-				this.axios.post("/cgTicket/delticket",qs.stringify(params)).then(res => {
-					console.log("res=", res)
-					this.allData();
-				})
+			delticket(row) {
+				this.$confirm('此操作将修改收票状态, 是否继续?', '提示', {
+					confirmButtonText: '确定',
+					cancelButtonText: '取消',
+					type: 'warning'
+				}).then(() => {
+					let $this = this;
+					let params = {
+						tiid: row.tiId,
+						tistate: row.tiState
+					}
+					this.axios.post("/cgTicket/delticket", qs.stringify(params)).then(res => {
+						console.log("res=", res)
+						this.allData();
+					})
+				}).catch(() => {
+					this.$message({
+						type: 'info',
+						message: '已取消修改'
+					});
+				});
 			},
 			// 初始页currentPage、初始每页数据数pagesize和数据data
 			handleSizeChange: function(size) {
@@ -80,7 +91,7 @@
 					console.log("res=", res)
 					$this.yfData = res.data;
 				})
-			}			
+			}
 		},
 		created() {
 			this.allData();

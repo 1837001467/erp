@@ -35,11 +35,20 @@
     <insert id="addTh" useGeneratedKeys="true" keyProperty="reId">
         insert into cg_return values(null,#{supplier.supId},#{user.yhId},#{ck.whId},null,#{reCode},#{reTime},#{reResaon},null,null,#{reState})
     </insert>
+    <update id="updateTh">
+        update cg_return set re_state=#{reState} where re_id=#{reId}
+    </update>
     <select id="all" resultMap="BaseResultMap">
         select * from cg_return re
           left join jc_supplier js on re.sup_id = js.sup_id
           left join  qx_user qu on re.yh_id = qu.yh_id
           left join jc_whinformation jw on re.wh_id = jw.wh_id
+        <where>
+            <if test="zt!=null and zt!=2">
+                and re.re_state=#{zt}
+            </if>
+        </where>
+            order by re.re_id desc
     </select>
 
 </mapper>

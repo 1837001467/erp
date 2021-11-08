@@ -71,8 +71,8 @@ public class CgPriceService{
                 System.out.println("tableData[a].getGoId()="+tableData[a].getGoId());
                 JcGoods goods=new JcGoods();
                 goods.setGoId(tableData[a].getGoId());
-                System.out.println("tableData[a].getGBian()="+tableData[a].getGBian());
-                CgPricedetail cgPricedetail=new CgPricedetail(null,tableData[a].getGBian(),tableData[a].getGPrice());
+                System.out.println("tableData[a].getGBian()="+tableData[a].getgBian());
+                CgPricedetail cgPricedetail=new CgPricedetail(null,tableData[a].getgBian(),tableData[a].getgPrice());
                 cgPricedetail.setGoods(goods);
                 cgPricedetail.setCgPrice(cgPrice);
                 i=cgPricedetailMapper.addDetail(cgPricedetail);

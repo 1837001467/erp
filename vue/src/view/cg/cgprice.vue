@@ -23,8 +23,7 @@
 			</el-form>
 		</el-row>
 		<div>
-			<el-table :data="tableData" :header-cell-style="{'text-align':'center'}"
-				:cell-style="{'text-align':'center'}">
+			<el-table :data="tableData.slice((pageNo)*pageSize,pageNo*pageSize)">
 				<el-table-column label="订单编码">
 					<template #default="scope">
 						<el-tag size="medium" type="primary" plain @click="clickData(scope.row.prId)">
@@ -54,10 +53,10 @@
 				</el-table-column>
 				<el-table-column label="操作">
 					<template #default="scope">
-						<el-button type="success" plain @click="caigou(scope.row.prId)"
+						<el-button size="small" type="success" plain @click="caigou(scope.row.prId)"
 							:disabled="scope.row.prState==1?false:true" v-show="scope.row.prState==1">
 							生成采购单</el-button>
-						<el-button type="primary" plain @click="examine(scope.row)"
+						<el-button size="small" type="primary" plain @click="examine(scope.row)"
 							:disabled="scope.row.prState==0?false:true" v-show="scope.row.prState==0">审核
 						</el-button>
 					</template>
@@ -65,7 +64,7 @@
 			</el-table>
 			<el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="pageNo"
 				:page-sizes="[2, 5, 10, 15]" :page-size="pageSize" layout="total, sizes, prev, pager, next, jumper"
-				:total="total">
+				:total="tableData.length">
 			</el-pagination>
 		</div>
 		<div class="bootomdiv">
@@ -74,7 +73,7 @@
 				:cell-style="{'text-align':'center'}">
 				<el-table-column type="index" label="序号">
 				</el-table-column>
-				<el-table-column prop="gname" label="商品名称">
+				<el-table-column prop="gName" label="商品名称">
 				</el-table-column>
 				<el-table-column prop="cgPricedetail.pdCount" label="采购数量">
 				</el-table-column>
@@ -109,7 +108,7 @@
 						<el-button @click="hold('form')" type="success" plain>保存</el-button>
 					</div>
 					<el-form-item>
-						<el-descriptions width="100%" v-model="taskdetails">
+						<el-descriptions width="100%">
 							<el-descriptions-item width="600px">
 								<el-form-item label="订单编号">
 									<el-input v-model="form.cgcode" disabled></el-input>
@@ -178,19 +177,21 @@
 				<el-table :data="xzData" style="width: 100%">
 					<el-table-column prop="goId" label="商品编号">
 					</el-table-column>
-					<el-table-column prop="gname" label="商品名称">
+					<el-table-column prop="gName" label="商品名称">
 					</el-table-column>
-					<el-table-column prop="gunit" label="单位">
+					<el-table-column prop="gUnit" label="单位">
 					</el-table-column>
 					<el-table-column label="采购单价(元)">
 						<template #default="scope">
-							<el-input-number v-model="scope.row.gprice" controls-position="right" :min="1" @change="changeTotalmoney()">
+							<el-input-number v-model="scope.row.gPrice" controls-position="right" :min="1"
+								@change="changeTotalmoney()">
 							</el-input-number>
 						</template>
 					</el-table-column>
 					<el-table-column label="采购数量">
 						<template #default="scope">
-							<el-input-number v-model="scope.row.gbian" controls-position="right" :min="1" @change="changeTotalmoney()">
+							<el-input-number v-model="scope.row.gBian" controls-position="right" :min="1"
+								@change="changeTotalmoney()">
 							</el-input-number>
 						</template>
 					</el-table-column>
@@ -203,7 +204,7 @@
 						<div style="width: 180px;padding: 10px;" @click="cxsousuo()">
 							<el-input placeholder="输入关键字搜索" v-model="filterText">
 							</el-input>
-							<el-tree class="filter-tree" :data="typeData" :props="defaultProps" highlight-current
+							<el-tree class="filter-tree" :data="typeData" highlight-current
 								:filter-node-method="filterNode" ref="tree" @node-click="clickNode"
 								default-expand-all="true">
 							</el-tree>
@@ -217,13 +218,11 @@
 								</el-table-column>
 								<el-table-column prop="goId" label="用品编号" width="165px">
 								</el-table-column>
-								<el-table-column prop="gname" label="用品名称">
+								<el-table-column prop="gName" label="用品名称">
 								</el-table-column>
-								<el-table-column prop="gunit" label="单位">
+								<el-table-column prop="gUnit" label="单位">
 								</el-table-column>
-								<el-table-column prop="gprice" label="单价(元)">
-								</el-table-column>
-								<el-table-column prop="stocknum" label="库存">
+								<el-table-column prop="gPrice" label="单价(元)">
 								</el-table-column>
 							</el-table>
 						</el-container>
@@ -348,8 +347,8 @@
 				let $this = this;
 				let totalmoney = 0;
 				this.xzData.forEach(v => {
-					console.log("ss==============" + (v.gbian) * (v.gprice))
-					totalmoney = totalmoney + ((v.gbian) * (v.gprice));
+					console.log("ss==============" + (v.gBian) * (v.gPrice))
+					totalmoney = totalmoney + ((v.gBian) * (v.gPrice));
 					console.log("totalmoney=" + totalmoney);
 				})
 				this.form.totalmoney = totalmoney;
@@ -377,20 +376,21 @@
 							prid: this.form.prId,
 							xqtime: mytime,
 							state: this.state,
-							prname:this.form.prname,
+							prname: this.form.prname,
 							totalmoney: this.form.totalmoney
 						}
 						console.log("params=", params);
-						if(this.state==0){//新增采购订单
+						if (this.state == 0) { //新增采购订单
 							this.axios.post("/study/cgOrder/addorder",
 								params
 							).then(res => {
 								console.log("res=", res)
 								if (res.data == 1) {
+									this.goodsData = [];
 									this.$router.push("/cgorder");
 								}
 							})
-						}else{//新增报价单
+						} else { //新增报价单
 							this.axios.post("/study/cgPrice/add",
 								params
 							).then(res => {
@@ -398,6 +398,7 @@
 								if (res.data == 1) {
 									this.CgdialogVisible = false;
 									this.search();
+									this.goodsData = [];
 								}
 							})
 						}
@@ -414,12 +415,35 @@
 			},
 			handleSelectionChange(val) {
 				this.multipleSelection = val;
-				console.log("multipleSelection=", this.multipleSelection)
-				this.xzData = this.multipleSelection;
+				console.log("multipleSelection=", this.multipleSelection);
 			},
 			sure() { //商品数据弹框确定按钮
 				this.Spudialog = false;
+				//要判断之前商品已经存在就累加数量	
+				console.log("修改前xzData=", this.xzData);
+				this.multipleSelection.forEach(v => {
+					v.gBian = 1;
+				})
+				const map = new Map();
+				for (let i = 0; i < this.xzData.length; ++i) {
+					map.set(this.xzData[i].goId, this.xzData[i])
+				}
+				for (let i = 0; i < this.multipleSelection.length; ++i) {
+					if (map.has(this.multipleSelection[i].goId)) {
+						map.get(this.multipleSelection[i].goId).gBian++
+					} else {
+						map.set(this.multipleSelection[i].goId, this.multipleSelection[i])
+					}
+				}
+				this.xzData = [];
+				map.forEach(v => {
+					console.log("v=", v);
+					this.xzData.push(v);
+				})
+
+				console.log("修改后xzData=", this.xzData);
 				this.changeTotalmoney();
+				this.typeData = [];
 			},
 			filterNode(value, data) {
 				if (!value) return true;
@@ -472,27 +496,32 @@
 				this.Spudialog = true;
 				this.loadSpuType();
 				this.allgoods();
+				this.multipleSelection = [];
+				this.$refs["multipleTable"].clearSelection();
 			},
-			fuzhi(){//赋值操作
+			fuzhi() { //赋值操作
 				this.form.user.yhId = this.users[0].yhId;
 				this.form.gys.supId = this.suppliers[0].supId;
-				this.form.bm.bmId = this.depts[0].bmId;				
+				this.form.bm.bmId = this.depts[0].bmId;
 				this.changeTel();
 			},
 			caigou(prid) { //生成采购单
 				let $this = this;
-				this.state=0;
+				this.state = 0;
 				this.fuzhi();
 				this.form.prId = prid;
 				$this.form.cgcode = 'CGD' + this.getProjectNum() + Math.floor(Math.random() *
 					10000) // 如果是6位或者8位随机数，相应的 *1000000或者 *100000000就行了
 				console.log("xxx", this.getProjectNum() + Math.floor(Math.random() *
 					10000));
-				this.CgdialogVisible = true;				
-				$this.form.cgcode = 'CGD' + this.getProjectNum() + Math.floor(Math.random() *
-					10000) // 如果是6位或者8位随机数，相应的 *1000000或者 *100000000就行了
-				console.log("xxx", this.getProjectNum() + Math.floor(Math.random() *
-					10000));
+				this.CgdialogVisible = true;
+				//给订单对应的商品赋值
+				this.tableData.forEach(v => {
+					if (v.prId == prid) {
+						this.xzData = v.goods;
+					}
+				})
+				this.changeTotalmoney();
 			},
 			// 获取当前日期的方法
 			getProjectNum() {

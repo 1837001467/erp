@@ -30,20 +30,16 @@
 				<el-table-column label="状态" width="170px">
 					<template #default="scope">
 						<el-tag size="medium" type="danger" v-show="scope.row.stState==0">未审核</el-tag>
-						<el-tag size="medium" type="success" v-show="scope.row.stState==1">已审核未生成入库单</el-tag>
-						<el-tag size="medium" type="info" v-show="scope.row.stState==2">已审核已生成入库单</el-tag>
+						<el-tag size="medium" type="info" v-show="scope.row.stState==1">已审核未入库</el-tag>
+						<el-tag size="medium" type="success" v-show="scope.row.stState==2">已审核已入库</el-tag>
 						<el-tag size="medium" type="warning" v-show="scope.row.stState==3">已驳回</el-tag>
 					</template>
 				</el-table-column>
-				<el-table-column label="操作" width="200px">
+				<!-- <el-table-column label="操作" width="200px">
 					<template #default="scope">
-						<!-- <el-button @click="ruku(scope.row.orId)" :disabled="scope.row.stState==1?false:true"
-							v-show="scope.row.stState==1">入库</el-button>
-						<el-button type="primary" plain @click="examine(scope.row)"
-							:disabled="scope.row.stState==0?false:true" v-show="scope.row.stState==0">审核
-						</el-button> -->
+						
 					</template>
-				</el-table-column>
+				</el-table-column> -->
 			</el-table>
 			<!--分页插件-->
 			<el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
@@ -57,7 +53,7 @@
 				:cell-style="{'text-align':'center'}">
 				<el-table-column type="index" label="序号">
 				</el-table-column>
-				<el-table-column prop="gname" label="商品名称">
+				<el-table-column prop="gName" label="商品名称">
 				</el-table-column>
 				<el-table-column prop="cgStorageDetail.sdCount" label="采购数量">
 				</el-table-column>
@@ -88,11 +84,11 @@
 		<el-dialog title="采购入库单" v-model="RkdialogVisible" :close-on-click-modal="false" width="60%">
 			<div>
 				<div style="height: 50px;">
-					<el-button @click="hold" type="success" plain>保存</el-button>
+					<el-button @click="hold('form')" type="success" plain>保存</el-button>
 				</div>
-				<el-form :model="form">
+				<el-form :model="form" :rules="rules" ref="form">
 					<el-form-item>
-						<el-descriptions width="100%" v-model="taskdetails">
+						<el-descriptions width="100%">
 							<el-descriptions-item width="500px">
 								<el-form-item label="订单编号">
 									<el-input v-model="form.cgcode" disabled></el-input>
@@ -134,7 +130,7 @@
 								</el-form-item>
 							</el-descriptions-item>
 							<el-descriptions-item width="350px">
-								<el-form-item label="付款账户">
+								<el-form-item label="付款账户" prop="zh">
 									<el-select v-model="form.zh">
 										<el-option v-for="ct in zhtype" :label="ct" :value="ct" :key="ct">
 										</el-option>
@@ -155,19 +151,19 @@
 				<el-table :data="xzData" style="width: 100%">
 					<el-table-column prop="goId" label="商品编号">
 					</el-table-column>
-					<el-table-column prop="gname" label="商品名称">
+					<el-table-column prop="gName" label="商品名称">
 					</el-table-column>
-					<el-table-column prop="gunit" label="单位">
+					<el-table-column prop="gUnit" label="单位">
 					</el-table-column>
 					<el-table-column label="单价(元)">
 						<template #default="scope">
-							<el-input-number v-model="scope.row.gprice" controls-position="right" :min="1">
+							<el-input-number v-model="scope.row.gPrice" controls-position="right" :min="1">
 							</el-input-number>
 						</template>
 					</el-table-column>
 					<el-table-column label="数量">
 						<template #default="scope">
-							<el-input-number v-model="scope.row.gbian" controls-position="right" :min="1">
+							<el-input-number v-model="scope.row.gBian" controls-position="right" :min="1">
 							</el-input-number>
 						</template>
 					</el-table-column>
@@ -180,7 +176,7 @@
 						<div style="width: 180px;padding: 10px;" @click="cxsousuo()">
 							<el-input placeholder="输入关键字搜索" v-model="filterText">
 							</el-input>
-							<el-tree class="filter-tree" :data="typeData" :props="defaultProps" highlight-current
+							<el-tree class="filter-tree" :data="typeData" highlight-current
 								:filter-node-method="filterNode" ref="tree" @node-click="clickNode"
 								default-expand-all="true">
 							</el-tree>
@@ -194,13 +190,11 @@
 								</el-table-column>
 								<el-table-column prop="goId" label="用品编号" width="165px">
 								</el-table-column>
-								<el-table-column prop="gname" label="用品名称">
+								<el-table-column prop="gName" label="用品名称">
 								</el-table-column>
-								<el-table-column prop="gunit" label="单位">
+								<el-table-column prop="gUnit" label="单位">
 								</el-table-column>
-								<el-table-column prop="gprice" label="单价(元)">
-								</el-table-column>
-								<el-table-column prop="stocknum" label="库存">
+								<el-table-column prop="gPrice" label="单价(元)">
 								</el-table-column>
 							</el-table>
 						</el-container>
@@ -223,7 +217,14 @@
 	export default {
 		data() {
 			return {
-				state:0,//1新增，0点击生成采购订单
+				rules: {
+					zh: [{
+						required: true,
+						message: '请选择付款账户',
+						trigger: 'change'
+					}]
+				},
+				state: 0, //1新增，0点击生成采购订单
 				zhtype: ["现金", "工行", "交通行", "建设银行", "招商银行", "农行"], //账户
 				RkdialogVisible: false,
 				labelPosition: 'right',
@@ -268,12 +269,12 @@
 				goodsData: [] //商品详情数据
 			}
 		},
-		methods: {
-			add(){
-				this.state=1;
-				this.RkdialogVisible=true;
+		methods: {			
+			add() {
+				this.state = 1;
+				this.RkdialogVisible = true;
 				this.fuzhi();
-			},			
+			},
 			clickData(stid) { //获取商品详情
 				this.tableData.forEach(v => {
 					if (v.stId == stid) {
@@ -290,7 +291,7 @@
 				this.currentPage = currentPage;
 				console.log(this.currentPage) //点击第几页
 			},
-			fuzhi(){
+			fuzhi() {
 				this.form.user.yhId = this.users[0].yhId;
 				this.form.gys.supId = this.suppliers[0].supId;
 				this.form.bm.bmId = this.depts[0].bmId;
@@ -307,38 +308,45 @@
 				console.log("xxx", this.getProjectNum() + Math.floor(Math.random() *
 					10000));
 			},
-			hold() { //生成入库单的保存
-				let $this = this;
-				console.log("this.xzData=", this.xzData);
-				if (this.xzData.length == 0) {
-					ElMessage.warning({
-						message: '请选择商品',
-						type: 'warning'
-					});
-					return;
-				}
-				let params = {
-					ddcode: $this.form.cgcode,
-					user: this.form.user,
-					gys: this.form.gys,
-					bm: this.form.bm,
-					ck: this.form.ck,
-					tableData: $this.xzData,
-					explain: this.form.explain,
-					orid: this.form.orId,
-					zh: this.form.zh,
-					state:this.state
-				}
-				console.log("params=", params);
-				this.axios.post("/study/cgStorage/addstorage",
-					params
-				).then(res => {
-					console.log("res=", res)
-					if (res.data == 1) {
-						this.search();
-						this.RkdialogVisible = false;
+			hold(formName) { //生成入库单的保存
+				this.$refs[formName].validate((valid) => {
+					if (valid) {
+						let $this = this;
+						console.log("this.xzData=", this.xzData);
+						if (this.xzData.length == 0) {
+							ElMessage.warning({
+								message: '请选择商品',
+								type: 'warning'
+							});
+							return;
+						}
+						let params = {
+							ddcode: $this.form.cgcode,
+							user: this.form.user,
+							gys: this.form.gys,
+							bm: this.form.bm,
+							ck: this.form.ck,
+							tableData: $this.xzData,
+							explain: this.form.explain,
+							orid: this.form.orId,
+							zh: this.form.zh,
+							state: this.state
+						}
+						console.log("params=", params);
+						this.axios.post("/study/cgStorage/addstorage",
+							params
+						).then(res => {
+							console.log("res=", res)
+							if (res.data == 1) {
+								this.search();
+								this.RkdialogVisible = false;
+							}
+						})
+					} else {
+						console.log('error submit!!');
+						return false;
 					}
-				})
+				});
 			},
 			//商品渲染
 			cxsousuo() {
@@ -347,11 +355,31 @@
 			},
 			handleSelectionChange(val) {
 				this.multipleSelection = val;
-				console.log("multipleSelection=", this.multipleSelection)
-				this.xzData = this.multipleSelection;
 			},
 			sure() { //商品数据弹框确定按钮
 				this.Spudialog = false;
+				//要判断之前商品已经存在就累加数量
+				console.log("修改前xzData=", this.xzData);
+				this.multipleSelection.forEach(v => {
+					v.gBian = 1;
+				})
+				const map = new Map();
+				for (let i = 0; i < this.xzData.length; ++i) {
+					map.set(this.xzData[i].goId, this.xzData[i])
+				}
+				for (let i = 0; i < this.multipleSelection.length; ++i) {
+					if (map.has(this.multipleSelection[i].goId)) {
+						map.get(this.multipleSelection[i].goId).gBian++
+					} else {
+						map.set(this.multipleSelection[i].goId, this.multipleSelection[i])
+					}
+				}
+				this.xzData = [];
+				map.forEach(v => {
+					console.log("v=", v);
+					this.xzData.push(v);
+				})
+				this.typeData = [];
 			},
 			filterNode(value, data) {
 				if (!value) return true;
@@ -404,6 +432,8 @@
 				this.Spudialog = true;
 				this.loadSpuType();
 				this.allgoods();
+				this.multipleSelection = [];
+				this.$refs["multipleTable"].clearSelection();
 			},
 			OnSubmit(row) { //审批弹框确定
 				console.log("row==========", row);

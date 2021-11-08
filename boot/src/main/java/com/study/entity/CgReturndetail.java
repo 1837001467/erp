@@ -27,5 +27,15 @@ public class CgReturndetail implements Serializable {
 
     private BigDecimal rdPrice;
 
+    public CgReturndetail() {
+    }
 
+    public CgReturndetail(Integer rdId, Integer rdCount, BigDecimal rdPrice) {
+        this.rdId = rdId;
+        this.rdCount = rdCount;
+        this.rdPrice = rdPrice;
+    }
+
+    private JcGoods goods;
+    private CgReturn cgReturn;
 }

@@ -44,4 +44,44 @@ public class CgPricedetail implements Serializable {
         this.pdCount = pdCount;
         this.pdPrice = pdPrice;
     }
+
+    public Integer getPdId() {
+        return pdId;
+    }
+
+    public void setPdId(Integer pdId) {
+        this.pdId = pdId;
+    }
+
+    public Integer getPdCount() {
+        return pdCount;
+    }
+
+    public void setPdCount(Integer pdCount) {
+        this.pdCount = pdCount;
+    }
+
+    public BigDecimal getPdPrice() {
+        return pdPrice;
+    }
+
+    public void setPdPrice(BigDecimal pdPrice) {
+        this.pdPrice = pdPrice;
+    }
+
+    public JcGoods getGoods() {
+        return goods;
+    }
+
+    public void setGoods(JcGoods goods) {
+        this.goods = goods;
+    }
+
+    public CgPrice getCgPrice() {
+        return cgPrice;
+    }
+
+    public void setCgPrice(CgPrice cgPrice) {
+        this.cgPrice = cgPrice;
+    }
 }

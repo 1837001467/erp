@@ -32,6 +32,8 @@ public class CgStorageService{
     CgYinpayMapper yinpayMapper;
     @Autowired
     QxUserMapper qxUserMapper;
+    @Autowired
+    RkApplyService rkApplyService;
 
     public List<CgStorage> all(){
         return mapper.all();
@@ -47,6 +49,9 @@ public class CgStorageService{
         cgStorage.setQxUser(vo.getUser());
         cgStorage.setCk(vo.getCk());
         mapper.addstorage(cgStorage);
+        //入库申请
+        rkApplyService.cgAdd(vo.getDdcode());
+
         cgStorage.setStId(cgStorage.getStId());
 
         GoodsArr[] tableData= vo.getTableData();
@@ -64,8 +69,8 @@ public class CgStorageService{
             System.out.println("tableData[a].getGoId()="+tableData[a].getGoId());
             JcGoods goods=new JcGoods();
             goods.setGoId(tableData[a].getGoId());
-            System.out.println("tableData[a].getGBian()="+tableData[a].getGBian());
-            CgStorageDetail cgStorageDetail=new CgStorageDetail(null,tableData[a].getGBian(),tableData[a].getGPrice());
+            System.out.println("tableData[a].getGBian()="+tableData[a].getgBian());
+            CgStorageDetail cgStorageDetail=new CgStorageDetail(null,tableData[a].getgBian(),tableData[a].getgPrice());
             cgStorageDetail.setGoods(goods);
             cgStorageDetail.setCgStorage(cgStorage);
             i=detailMapper.addSdDetail(cgStorageDetail);

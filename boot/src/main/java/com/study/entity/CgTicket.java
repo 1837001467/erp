@@ -45,4 +45,36 @@ public class CgTicket implements Serializable {
         this.tiTime = tiTime;
         this.tiState=tiState;
     }
+
+    public Integer getTiId() {
+        return tiId;
+    }
+
+    public void setTiId(Integer tiId) {
+        this.tiId = tiId;
+    }
+
+    public Timestamp getTiTime() {
+        return tiTime;
+    }
+
+    public void setTiTime(Timestamp tiTime) {
+        this.tiTime = tiTime;
+    }
+
+    public Integer getTiState() {
+        return tiState;
+    }
+
+    public void setTiState(Integer tiState) {
+        this.tiState = tiState;
+    }
+
+    public CgYinpay getCgYinpay() {
+        return cgYinpay;
+    }
+
+    public void setCgYinpay(CgYinpay cgYinpay) {
+        this.cgYinpay = cgYinpay;
+    }
 }

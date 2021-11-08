@@ -57,6 +57,12 @@ public class CgReturn implements Serializable {
      */
     private Integer reState;
 
+
+
+    public Integer getReId() {
+        return reId;
+    }
+
     private JcSupplier supplier;
     private JcWhinformation ck;//仓库
     private QxUser user;//采购员
@@ -72,6 +78,60 @@ public class CgReturn implements Serializable {
         this.reResaon = reResaon;
         this.reSptime = reSptime;
         this.reSpopinon = reSpopinon;
+        this.reState=reState;
+    }
+    public void setReId(Integer reId) {
+        this.reId = reId;
+    }
+    public String getReCode() {
+        return reCode;
+    }
+
+    public void setReCode(String reCode) {
+        this.reCode = reCode;
+    }
+
+    public Timestamp getReTime() {
+        return reTime;
+    }
+
+    public void setReTime(Timestamp reTime) {
+        this.reTime = reTime;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public String getReResaon() {
+        return reResaon;
+    }
+
+    public void setReResaon(String reResaon) {
+        this.reResaon = reResaon;
+    }
+
+    public Timestamp getReSptime() {
+        return reSptime;
+    }
+
+    public void setReSptime(Timestamp reSptime) {
+        this.reSptime = reSptime;
+    }
+
+    public String getReSpopinon() {
+        return reSpopinon;
+    }
+
+    public void setReSpopinon(String reSpopinon) {
+        this.reSpopinon = reSpopinon;
+    }
+
+    public Integer getReState() {
+        return reState;
+    }
+
+    public void setReState(Integer reState) {
         this.reState = reState;
     }
 }

@@ -8,5 +8,8 @@
         <result column="rd_count" property="rdCount" />
         <result column="rd_price" property="rdPrice" />
     </resultMap>
+    <insert id="addDetail">
+        insert into cg_returndetail values(null,#{goods.goId},#{cgReturn.reId},#{rdCount},#{rdPrice})
+    </insert>
 
 </mapper>

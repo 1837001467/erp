@@ -63,6 +63,118 @@ public class CgPrice implements Serializable {
     private JcSupplier jcSupplier;//供应商
     private QxDepartment qxDepartment;//部门
     private QxUser sppeo;//审批人
+    public Integer getPrId() {
+        return prId;
+    }
+
+    public void setPrId(Integer prId) {
+        this.prId = prId;
+    }
+
+    public String getPrCode() {
+        return prCode;
+    }
+
+    public void setPrCode(String prCode) {
+        this.prCode = prCode;
+    }
+
+    public String getPrName() {
+        return prName;
+    }
+
+    public void setPrName(String prName) {
+        this.prName = prName;
+    }
+
+    public Timestamp getPrTime() {
+        return prTime;
+    }
+
+    public void setPrTime(Timestamp prTime) {
+        this.prTime = prTime;
+    }
+
+    public BigDecimal getPrPrice() {
+        return prPrice;
+    }
+
+    public void setPrPrice(BigDecimal prPrice) {
+        this.prPrice = prPrice;
+    }
+
+    public String getPrExplain() {
+        return prExplain;
+    }
+
+    public void setPrExplain(String prExplain) {
+        this.prExplain = prExplain;
+    }
+
+    public Timestamp getPrZdtime() {
+        return prZdtime;
+    }
+
+    public void setPrZdtime(Timestamp prZdtime) {
+        this.prZdtime = prZdtime;
+    }
+
+    public Timestamp getPrSptime() {
+        return prSptime;
+    }
+
+    public void setPrSptime(Timestamp prSptime) {
+        this.prSptime = prSptime;
+    }
+
+    public String getPrSpopinon() {
+        return prSpopinon;
+    }
+
+    public void setPrSpopinon(String prSpopinon) {
+        this.prSpopinon = prSpopinon;
+    }
+
+    public Integer getPrState() {
+        return prState;
+    }
+
+    public void setPrState(Integer prState) {
+        this.prState = prState;
+    }
+
+    public QxUser getQxUser() {
+        return qxUser;
+    }
+
+    public void setQxUser(QxUser qxUser) {
+        this.qxUser = qxUser;
+    }
+
+    public JcSupplier getJcSupplier() {
+        return jcSupplier;
+    }
+
+    public void setJcSupplier(JcSupplier jcSupplier) {
+        this.jcSupplier = jcSupplier;
+    }
+
+    public QxDepartment getQxDepartment() {
+        return qxDepartment;
+    }
+
+    public void setQxDepartment(QxDepartment qxDepartment) {
+        this.qxDepartment = qxDepartment;
+    }
+
+    public QxUser getSppeo() {
+        return sppeo;
+    }
+
+    public void setSppeo(QxUser sppeo) {
+        this.sppeo = sppeo;
+    }
+
     private List<JcGoods> goods;
 
     public CgPrice() {
@@ -80,4 +192,5 @@ public class CgPrice implements Serializable {
         this.prSpopinon = prSpopinon;
         this.prState = prState;
     }
+
 }
