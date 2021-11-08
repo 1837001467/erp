@@ -52,20 +52,23 @@ public class CgStorageService{
         GoodsArr[] tableData= vo.getTableData();
         System.out.println("tableData="+tableData);
 
+        int i=0;
         //根据id修改采购报价单状态
-        int i=orderMapper.updataCgStateById(vo.getOrid());
-        if(i>0){
-            for(int a=0;a<vo.getTableData().length;a++){
-                //订单商品详情
-                System.out.println("tableData[a].getGoId()="+tableData[a].getGoId());
-                JcGoods goods=new JcGoods();
-                goods.setGoId(tableData[a].getGoId());
-                System.out.println("tableData[a].getGBian()="+tableData[a].getGBian());
-                CgStorageDetail cgStorageDetail=new CgStorageDetail(null,tableData[a].getGBian(),tableData[a].getGPrice());
-                cgStorageDetail.setGoods(goods);
-                cgStorageDetail.setCgStorage(cgStorage);
-                i=detailMapper.addSdDetail(cgStorageDetail);
-            }
+        System.out.println("vo.getState+"+vo.getState());
+        if(vo.getState()!=null){
+            i=orderMapper.updataCgStateById(vo.getOrid());
+        }
+
+        for(int a=0;a<vo.getTableData().length;a++){
+            //订单商品详情
+            System.out.println("tableData[a].getGoId()="+tableData[a].getGoId());
+            JcGoods goods=new JcGoods();
+            goods.setGoId(tableData[a].getGoId());
+            System.out.println("tableData[a].getGBian()="+tableData[a].getGBian());
+            CgStorageDetail cgStorageDetail=new CgStorageDetail(null,tableData[a].getGBian(),tableData[a].getGPrice());
+            cgStorageDetail.setGoods(goods);
+            cgStorageDetail.setCgStorage(cgStorage);
+            i=detailMapper.addSdDetail(cgStorageDetail);
         }
 
         //生成应付记账记录

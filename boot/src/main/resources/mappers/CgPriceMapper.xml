@@ -40,7 +40,11 @@
             <result column="sup_tel" property="supTel" />
             <result column="sup_bian" property="supBian" />
         </association>
+        <collection property="goods" column="pr_id" select="com.study.mapper.JcGoodsMapper.getGoodsByPdid"  />
     </resultMap>
+    <insert id="addCgprice" useGeneratedKeys="true" keyProperty="prId">
+        insert into cg_price values(null,#{qxUser.yhId},#{sppeo.yhId},#{qxDepartment.bmId},#{jcSupplier.supId},#{prCode},#{prName},#{prTime},#{prPrice},#{prExplain},#{prZdtime},#{prSptime},#{prSpopinon},#{prState})
+    </insert>
     <update id="updateCgPrice">
         update cg_price set pr_sptime=#{prSptime},pr_spopinon=#{prSpopinon},pr_state=#{prState},spyh_id=#{sppeo.yhId} where pr_id=#{prId}
     </update>
@@ -49,16 +53,16 @@
     </update>
     <select id="selectByKeyword" resultMap="BaseResultMap">
         select cp.pr_id,cp. yh_id,cp. spyh_id,cp. bm_id,cp. sup_id,cp. pr_code,cp. pr_name,cp. pr_time,cp. pr_price,cp. pr_explain,cp. pr_zdtime,cp. pr_sptime,
-               cp. pr_spopinon,cp. pr_state,
-               js.sup_id,js. cp_id,js. sup_name,js. sup_tel,
-               js. sup_bian,qu.yh_id,qu. yh_card,qu. yh_name,qu. yh_pswd,qu. yh_phone,qu. pos_id,qu. yh_state,
-               qu2.yh_id as yh_id2,qu2. yh_card as yh_card2,qu2. yh_name yh_name2,qu2. yh_phone as yh_phone2,qu. pos_id,qu. yh_state as yh_state2,
-               qd.bm_id, qd.bm_name
+        cp. pr_spopinon,cp. pr_state,
+        js.sup_id,js. cp_id,js. sup_name,js. sup_tel,
+        js. sup_bian,qu.yh_id,qu. yh_card,qu. yh_name,qu. yh_pswd,qu. yh_phone,qu. pos_id,qu. yh_state,
+        qu2.yh_id as yh_id2,qu2. yh_card as yh_card2,qu2. yh_name yh_name2,qu2. yh_phone as yh_phone2,qu. pos_id,qu. yh_state as yh_state2,
+        qd.bm_id, qd.bm_name
         from cg_price cp
-                 left join jc_supplier js on cp.sup_id = js.sup_id
-                 left join qx_user qu on cp.yh_id = qu.yh_id
-                 left join qx_user qu2 on cp.spyh_id = qu2.yh_id
-                 left join qx_department qd on cp.bm_id = qd.bm_id
+        left join jc_supplier js on cp.sup_id = js.sup_id
+        left join qx_user qu on cp.yh_id = qu.yh_id
+        left join qx_user qu2 on cp.spyh_id = qu2.yh_id
+        left join qx_department qd on cp.bm_id = qd.bm_id
         <where>
             <if test="xmname!=null">
                 and cp.pr_name like concat('%',#{xmname},'%')

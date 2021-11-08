@@ -6,11 +6,16 @@
 			</el-form>
 		</el-row>
 		<div>
-			<el-table :data="tableData" :span-method="objectSpanMethod" border style="width: 100%"
+			<el-table :data="tableData" :span-method="objectSpanMethod" style="width: 100%"
 				:header-cell-style="{'text-align':'center'}" :cell-style="{'text-align':'center'}">
-				<el-table-column prop="stCode" label="订单编码">
+				<el-table-column label="订单编码">
+					<template #default="scope">
+						<el-tag size="medium" type="primary" plain @click="clickData(scope.row.stId)">
+							{{scope.row.stCode}}
+						</el-tag>
+					</template>
 				</el-table-column>
-				<el-table-column prop="stTime" label="制单日期">
+				<el-table-column prop="stTime" label="制单日期" width="180px">
 				</el-table-column>
 				<el-table-column prop="jcSupplier.supName" label="供应商">
 				</el-table-column>
@@ -22,7 +27,7 @@
 				</el-table-column>
 				<el-table-column prop="stTotalmoney" label="总额">
 				</el-table-column>
-				<el-table-column label="状态">
+				<el-table-column label="状态" width="170px">
 					<template #default="scope">
 						<el-tag size="medium" type="danger" v-show="scope.row.stState==0">未审核</el-tag>
 						<el-tag size="medium" type="success" v-show="scope.row.stState==1">已审核未生成入库单</el-tag>
@@ -32,11 +37,11 @@
 				</el-table-column>
 				<el-table-column label="操作" width="200px">
 					<template #default="scope">
-						<el-button @click="ruku(scope.row.orId)" :disabled="scope.row.stState==1?false:true"
+						<!-- <el-button @click="ruku(scope.row.orId)" :disabled="scope.row.stState==1?false:true"
 							v-show="scope.row.stState==1">入库</el-button>
 						<el-button type="primary" plain @click="examine(scope.row)"
 							:disabled="scope.row.stState==0?false:true" v-show="scope.row.stState==0">审核
-						</el-button>
+						</el-button> -->
 					</template>
 				</el-table-column>
 			</el-table>
@@ -45,6 +50,20 @@
 				style="text-align: center; margin-top: 10px" :current-page="currentPage" :page-sizes="[2,4,6,8]"
 				:page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
 			</el-pagination>
+		</div>
+		<div class="bootomdiv">
+			<span>商品详情：</span>
+			<el-table :data="goodsData" :header-cell-style="{'text-align':'center'}"
+				:cell-style="{'text-align':'center'}">
+				<el-table-column type="index" label="序号">
+				</el-table-column>
+				<el-table-column prop="gname" label="商品名称">
+				</el-table-column>
+				<el-table-column prop="cgStorageDetail.sdCount" label="采购数量">
+				</el-table-column>
+				<el-table-column prop="cgStorageDetail.sdPrice" label="采购价格">
+				</el-table-column>
+			</el-table>
 		</div>
 		<el-dialog title="采购入库单审批" v-model="ExaminedialogVisible" :close-on-click-modal="false">
 			<el-form :label-position="labelPosition" label-width="80px" :model="spopinion" :rules="sprules"
@@ -197,10 +216,14 @@
 		ref,
 		defineComponent
 	} from 'vue'
+	import {
+		ElMessage
+	} from 'element-plus'
 	import qs from 'qs'
 	export default {
 		data() {
 			return {
+				state:0,//1新增，0点击生成采购订单
 				zhtype: ["现金", "工行", "交通行", "建设银行", "招商银行", "农行"], //账户
 				RkdialogVisible: false,
 				labelPosition: 'right',
@@ -240,10 +263,24 @@
 				cks: [],
 				gfId: 0,
 				multipleSelection: [],
-				Spudialog: false
+				Spudialog: false,
+				state: 0, //1新增，0点击生成采购订单
+				goodsData: [] //商品详情数据
 			}
 		},
 		methods: {
+			add(){
+				this.state=1;
+				this.RkdialogVisible=true;
+				this.fuzhi();
+			},			
+			clickData(stid) { //获取商品详情
+				this.tableData.forEach(v => {
+					if (v.stId == stid) {
+						this.goodsData = v.goods;
+					}
+				})
+			},
 			// 初始页currentPage、初始每页数据数pagesize和数据data
 			handleSizeChange: function(size) {
 				this.pagesize = size;
@@ -253,13 +290,16 @@
 				this.currentPage = currentPage;
 				console.log(this.currentPage) //点击第几页
 			},
-			ruku(orid) { //生成入库单
-				let $this = this;
-				this.RkdialogVisible = true;
+			fuzhi(){
 				this.form.user.yhId = this.users[0].yhId;
 				this.form.gys.supId = this.suppliers[0].supId;
 				this.form.bm.bmId = this.depts[0].bmId;
 				this.form.ck.whId = this.cks[0].whId;
+			},
+			ruku(orid) { //生成入库单
+				let $this = this;
+				this.RkdialogVisible = true;
+				this.fuzhi();
 				this.form.orId = orid;
 				this.changeTel();
 				$this.form.cgcode = 'CGD' + this.getProjectNum() + Math.floor(Math.random() *
@@ -286,7 +326,8 @@
 					tableData: $this.xzData,
 					explain: this.form.explain,
 					orid: this.form.orId,
-					zh: this.form.zh
+					zh: this.form.zh,
+					state:this.state
 				}
 				console.log("params=", params);
 				this.axios.post("/study/cgStorage/addstorage",
@@ -294,7 +335,7 @@
 				).then(res => {
 					console.log("res=", res)
 					if (res.data == 1) {
-						this.$router.push("/cgstorage");
+						this.search();
 					}
 				})
 			},
@@ -467,5 +508,11 @@
 <style scoped="scoped">
 	.el-input-number {
 		width: 130px;
+	}
+
+	.bootomdiv {
+		margin-top: 100px;
+		margin-bottom: 0px;
+		position: relative;
 	}
 </style>

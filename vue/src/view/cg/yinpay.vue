@@ -6,7 +6,7 @@
 		</el-table-column>
 		<el-table-column prop="yiAccount" label="付款账户">
 		</el-table-column>
-		<el-table-column prop="yiTime" label="制单时间">
+		<el-table-column prop="yiTime" label="制单时间" width="180px">
 		</el-table-column>
 		<el-table-column prop="yiWay" label="付款方式">
 		</el-table-column>

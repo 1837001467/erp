@@ -36,4 +36,10 @@ public class JcGoods implements Serializable {
     private Integer gBian;
 
     private Integer gStatus;
+
+    private CgPricedetail cgPricedetail;//采购报价详情
+    private CgOrderdetail cgOrderdetail;//采购订单详情
+    private CgStorageDetail cgStorageDetail;//采购入库详情
+    private CgReturndetail cgReturndetail;//采购退货详情
+
 }

@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.List;
 
 /**
  * <p>
@@ -50,6 +51,8 @@ public class CgStorage implements Serializable {
     private JcSupplier jcSupplier;//供应商
     private QxUser sppeo;//审批人
     private JcWhinformation ck;//仓库
+
+    private List<JcGoods> goods;
 
     public CgStorage() {
     }

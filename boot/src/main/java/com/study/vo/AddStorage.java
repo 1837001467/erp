@@ -24,4 +24,5 @@ public class AddStorage {
     private GoodsArr[] tableData;
     private String zh;
     private BigDecimal totalmoney;
+    private Integer state;
 }

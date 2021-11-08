@@ -12,11 +12,16 @@
 		</el-row>
 
 		<div>
-			<el-table :data="tableData" :span-method="objectSpanMethod" border style="width: 100%"
+			<el-table :data="tableData" :span-method="objectSpanMethod" style="width: 100%"
 				:header-cell-style="{'text-align':'center'}" :cell-style="{'text-align':'center'}">
-				<el-table-column prop="orCode" label="订单编码">
+				<el-table-column label="订单编码">
+					<template #default="scope">
+						<el-tag size="medium" type="primary" plain @click="clickData(scope.row.orId)">
+							{{scope.row.orCode}}
+						</el-tag>
+					</template>
 				</el-table-column>
-				<el-table-column prop="orTime" label="制单日期">
+				<el-table-column prop="orTime" label="制单日期" width="170px">
 				</el-table-column>
 				<el-table-column prop="jcSupplier.supName" label="供应商">
 				</el-table-column>
@@ -48,6 +53,20 @@
 				:page-sizes="[2, 5, 10, 15]" :page-size="pageSize" layout="total, sizes, prev, pager, next, jumper"
 				:total="total">
 			</el-pagination>
+		</div>
+		<div class="bootomdiv">
+			<span>商品详情：</span>
+			<el-table :data="goodsData" :header-cell-style="{'text-align':'center'}"
+				:cell-style="{'text-align':'center'}">
+				<el-table-column type="index" label="序号">
+				</el-table-column>
+				<el-table-column prop="gname" label="商品名称">
+				</el-table-column>
+				<el-table-column prop="cgOrderdetail.odCount" label="采购数量">
+				</el-table-column>
+				<el-table-column prop="cgOrderdetail.odPrice" label="采购价格">
+				</el-table-column>
+			</el-table>
 		</div>
 		<el-dialog title="采购入库单审批" v-model="ExaminedialogVisible" :close-on-click-modal="false">
 			<el-form :label-position="labelPosition" label-width="80px" :model="spopinion" :rules="sprules"
@@ -102,14 +121,14 @@
 							</el-descriptions-item>
 							<el-descriptions-item width="600px">
 								<el-form-item label="供应商">
-									<el-select v-model="form.gys.supId" @change="changeTel">
+									<el-select v-model="form.gys.supId">
 										<el-option v-for="ct in suppliers" :label="ct.supName" :value="ct.supId"
 											:key="ct.supId">
 										</el-option>
 									</el-select>
 								</el-form-item>
 							</el-descriptions-item>
-							<el-descriptions-item width="350px">
+							<el-descriptions-item width="350px" v-show="state!=1" v-if="state!=1">
 								<el-form-item label="进货仓">
 									<el-select v-model="form.ck.whId">
 										<el-option v-for="ct in cks" :label="ct.whName" :value="ct.whId" :key="ct.whId">
@@ -117,7 +136,7 @@
 									</el-select>
 								</el-form-item>
 							</el-descriptions-item>
-							<el-descriptions-item width="350px">
+							<el-descriptions-item width="350px" v-show="state!=1" v-if="state!=1">
 								<el-form-item label="付款账户">
 									<el-select v-model="form.zh">
 										<el-option v-for="ct in zhtype" :label="ct" :value="ct" :key="ct">
@@ -125,7 +144,7 @@
 									</el-select>
 								</el-form-item>
 							</el-descriptions-item>
-							<el-descriptions-item width="350px">
+							<el-descriptions-item width="350px"  v-show="state!=1" v-if="state!=1">
 								<el-form-item label="总金额">
 									<el-input v-model="form.totalmoney" disabled></el-input>
 								</el-form-item>
@@ -208,9 +227,13 @@
 		defineComponent
 	} from 'vue'
 	import qs from 'qs'
+	import {
+		ElMessage
+	} from 'element-plus'
 	export default {
 		data() {
 			return {
+				state: 0, //1新增，0点击生成采购订单
 				zhtype: ["现金", "工行", "交通行", "建设银行", "招商银行", "农行"], //账户
 				RkdialogVisible: false,
 				labelPosition: 'right',
@@ -251,19 +274,33 @@
 				cks: [],
 				gfId: 0,
 				multipleSelection: [],
+				goodsData: [], //商品详情数据
 				Spudialog: false
 			}
 		},
 		methods: {
-			ruku(orid) { //生成入库单
-				let $this = this;
-				this.RkdialogVisible = true;
+			clickData(orid) { //获取商品详情
+				this.tableData.forEach(v => {
+					if (v.orId == orid) {
+						this.goodsData = v.goods;
+					}
+				})
+				console.log("orderspdata=",this.goodsData);
+			},
+			fuzhi(){
 				this.form.user.yhId = this.users[0].yhId;
 				this.form.gys.supId = this.suppliers[0].supId;
 				this.form.bm.bmId = this.depts[0].bmId;
 				this.form.ck.whId = this.cks[0].whId;
+				this.form.zh=this.zhtype[0];
+			},
+			ruku(orid) { //生成入库单
+				let $this = this;
+				this.state=0;
+				this.xzData=[];
+				this.RkdialogVisible = true;
+				this.fuzhi();
 				this.form.orId = orid;
-				this.changeTel();
 				$this.form.cgcode = 'CGD' + this.getProjectNum() + Math.floor(Math.random() *
 					10000) // 如果是6位或者8位随机数，相应的 *1000000或者 *100000000就行了
 				console.log("xxx", this.getProjectNum() + Math.floor(Math.random() *
@@ -289,17 +326,30 @@
 					explain: this.form.explain,
 					orid: this.form.orId,
 					zh: this.form.zh,
-					totalmoney:this.form.totalmoney
+					totalmoney: this.form.totalmoney,
+					state:this.state
 				}
 				console.log("params=", params);
-				this.axios.post("/study/cgStorage/addstorage",
-					params
-				).then(res => {
-					console.log("res=", res)
-					if (res.data == 1) {
-						this.$router.push("/cgstorage");
-					}
-				})
+				if(this.state==0){
+					this.axios.post("/study/cgStorage/addstorage",
+						params
+					).then(res => {
+						console.log("res=", res)
+						if (res.data == 1) {
+							this.$router.push("/cgstorage");
+						}
+					})
+				}else{//采购订单新增
+					this.axios.post("/study/cgOrder/addorder",
+						params
+					).then(res => {
+						console.log("res=", res)
+						if (res.data == 1) {
+							this.search();
+							this.RkdialogVisible = false;
+						}
+					})
+				}
 			},
 			//商品渲染
 			cxsousuo() {
@@ -407,7 +457,14 @@
 				console.log("sqmessage", $this.sqmessage);
 			},
 			add() {
-
+				let $this=this;
+				this.RkdialogVisible = true;
+				this.state=1;
+				this.fuzhi();
+				$this.form.cgcode = 'CGD' + this.getProjectNum() + Math.floor(Math.random() *
+					10000) // 如果是6位或者8位随机数，相应的 *1000000或者 *100000000就行了
+				console.log("xxx", this.getProjectNum() + Math.floor(Math.random() *
+					10000));
 			},
 			//每页请求的页码数发生改变时触发
 			handleSizeChange(size) {
@@ -431,8 +488,8 @@
 				).then(res => {
 					console.log("carData-------：", res.data.list);
 					$this.tableData = res.data.list;
-					console.log("res.data.list.size=", res.data.list.length);
-					$this.total = res.data.list.length;
+					console.log("哈哈res=", res);
+					$this.total = res.data.total;
 				})
 			},
 			all() {
@@ -494,5 +551,11 @@
 <style scoped="scoped">
 	.el-input-number {
 		width: 130px;
+	}
+
+	.bootomdiv {
+		margin-top: 100px;
+		margin-bottom: 0px;
+		position: relative;
 	}
 </style>

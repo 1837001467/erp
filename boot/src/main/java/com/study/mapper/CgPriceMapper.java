@@ -24,6 +24,10 @@ public interface CgPriceMapper{
 
     Integer updateStateById(Integer prId);
 
+    Integer addCgprice(CgPrice cgPrice);
+
+
+
 
 
 }

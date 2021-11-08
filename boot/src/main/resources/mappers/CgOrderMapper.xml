@@ -37,6 +37,7 @@
             <result column="sup_tel" property="supTel" />
             <result column="sup_bian" property="supBian" />
         </association>
+        <collection property="goods" column="or_id" select="com.study.mapper.JcGoodsMapper.findGoodsOrderByOrid"  />
     </resultMap>
     <insert id="addOrder" useGeneratedKeys="true" keyProperty="orId">
         insert into cg_order values(null,#{jcSupplier.supId},#{qxUser.yhId},#{qxDepartment.bmId},null,#{orCode},#{orExplain},#{orTime},null,null,#{orState})

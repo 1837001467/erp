@@ -13,7 +13,7 @@
         <result column="yi_state" property="yiState" />
     </resultMap>
     <insert id="addYinPay" useGeneratedKeys="true" keyProperty="yiId">
-        insert into cg_yinpay values(null,#{user.yhId},#{supplier.supId},#{yiType},#{yiWay},#{yiPrice},#{yiTime},#{yiState})
+        insert into cg_yinpay values(null,#{user.yhId},#{supplier.supId},#{yiAccount},#{yiType},#{yiWay},#{yiPrice},#{yiTime},#{yiState})
     </insert>
     <update id="updateById">
         update cg_yinpay set yi_way=#{yiWay},yi_type=#{yiType},yi_state=#{yiState} where yi_id=#{yiId}

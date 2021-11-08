@@ -12,6 +12,62 @@
         <result column="g_status" property="gStatus" />
     </resultMap>
 
+    <resultMap id="goodsMapper" type="com.study.entity.JcGoods">
+        <id column="go_id" property="goId" />
+        <result column="g_name" property="gName" />
+        <result column="g_price" property="gPrice" />
+        <result column="g_unit" property="gUnit" />
+        <result column="g_bian" property="gBian" />
+        <result column="g_status" property="gStatus" />
+        <association property="cgPricedetail" javaType="com.study.entity.CgPricedetail">
+            <result column="pd_id" property="pdId"/>
+            <result column="pd_count" property="pdCount" />
+            <result column="pd_price" property="pdPrice" />
+        </association>
+    </resultMap>
+
+    <resultMap id="goodsOrderMapper" type="com.study.entity.JcGoods">
+        <id column="go_id" property="goId" />
+        <result column="g_name" property="gName" />
+        <result column="g_price" property="gPrice" />
+        <result column="g_unit" property="gUnit" />
+        <result column="g_bian" property="gBian" />
+        <result column="g_status" property="gStatus" />
+        <association property="cgOrderdetail" javaType="com.study.entity.CgOrderdetail">
+            <id column="od_id" property="odId" />
+            <result column="od_count" property="odCount" />
+            <result column="od_price" property="odPrice" />
+        </association>
+    </resultMap>
+
+    <resultMap id="goodsStorageMapper" type="com.study.entity.JcGoods">
+        <id column="go_id" property="goId" />
+        <result column="g_name" property="gName" />
+        <result column="g_price" property="gPrice" />
+        <result column="g_unit" property="gUnit" />
+        <result column="g_bian" property="gBian" />
+        <result column="g_status" property="gStatus" />
+        <association property="cgStorageDetail" javaType="com.study.entity.CgStorageDetail">
+            <id column="sd_id" property="sdId" />
+            <result column="sd_count" property="sdCount" />
+            <result column="sd_price" property="sdPrice" />
+        </association>
+    </resultMap>
+
+    <resultMap id="goodsReturnMapper" type="com.study.entity.JcGoods">
+        <id column="go_id" property="goId" />
+        <result column="g_name" property="gName" />
+        <result column="g_price" property="gPrice" />
+        <result column="g_unit" property="gUnit" />
+        <result column="g_bian" property="gBian" />
+        <result column="g_status" property="gStatus" />
+        <association property="cgReturndetail" javaType="com.study.entity.CgReturndetail">
+            <id column="rd_id" property="rdId" />
+            <result column="rd_count" property="rdCount" />
+            <result column="rd_price" property="rdPrice" />
+        </association>
+    </resultMap>
+
         <select id="selectById" resultMap="BaseResultMap" parameterType="com.study.entity.JcGoods">
             select go_id, gf_id, g_name, g_price, g_unit, g_bian from where go_id = #{goId}
         </select>
@@ -30,6 +86,20 @@
     </select>
     <select id="selectOwn" resultType="com.study.entity.JcGoods">
         select go_id,g_name from jc_goods
+    </select>
+
+
+    <select id="getGoodsByPdid" resultMap="goodsMapper">
+        select * from jc_goods go left join cg_pricedetail de on de.g_id=go.go_id where de.pr_id=#{prId}
+    </select>
+    <select id="findGoodsOrderByOrid" resultMap="goodsOrderMapper">
+        select * from jc_goods go left join cg_orderdetail de on de.g_id=go.go_id where de.or_id=#{orId}
+    </select>
+    <select id="findGoodsStorageByStid" resultMap="goodsStorageMapper">
+        select * from jc_goods go left join cg_storagedetai de on de.g_id=go.go_id where de.st_id=#{stId}
+    </select>
+    <select id="findGoodsReturnByReid" resultMap="goodsReturnMapper">
+        select * from jc_goods go left join cg_returndetail de on de.g_id=go.go_id where de.re_id=#{reId}
     </select>
 
 </mapper>

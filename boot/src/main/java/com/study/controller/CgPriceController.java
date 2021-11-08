@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.study.entity.CgOrder;
 import com.study.entity.CgPrice;
 import com.study.service.CgPriceService;
+import com.study.vo.AddOrder;
 import com.study.vo.SearchOrderAndPage;
 import com.study.vo.SearchPriceByPager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +45,11 @@ public class CgPriceController {
                            @RequestParam(value = "spidea") String spidea,
                            @RequestParam(value = "applystate") String applystate){
         return service.examine(prid,spidea,applystate);
+    }
+
+    @PostMapping("/add")
+    public Integer add(@RequestBody AddOrder vo){
+        return  service.add(vo);
     }
 
 }

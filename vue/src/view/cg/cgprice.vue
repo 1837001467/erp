@@ -1,15 +1,42 @@
 <template>
 	<div>
+		<el-row>
+			<el-form :label-position="labelPosition" label-width="80px">
+				<el-form-item label="项目名称:" size="medium" style="float: left;">
+					<el-input placeholder="项目名称" v-model="searchform.xmname" clearable style="width: 120px;">
+					</el-input>
+				</el-form-item>
+				<el-form-item label="采购部门:" size="medium" style="float: left;">
+					<el-select v-model="searchform.cgbm" clearable>
+						<el-option v-for="ct in depts" :label="ct.bmName" :value="ct.bmId" :key="ct.bmId">
+						</el-option>
+					</el-select>
+				</el-form-item>
+				<el-form-item label="经手人:" size="medium" style="float: left;margin-right: 50px;">
+					<el-select v-model="searchform.cgbm" clearable>
+						<el-option v-for="ct in users" :label="ct.yhName" :value="ct.yhId" :key="ct.yhId">
+						</el-option>
+					</el-select>
+				</el-form-item>
+				<el-button @click="search()">查询</el-button>
+				<el-button @click="add()">新增</el-button>
+			</el-form>
+		</el-row>
 		<div>
 			<el-table :data="tableData" :header-cell-style="{'text-align':'center'}"
 				:cell-style="{'text-align':'center'}">
-				<el-table-column prop="prCode" label="订单编码">
+				<el-table-column label="订单编码">
+					<template #default="scope">
+						<el-tag size="medium" type="primary" plain @click="clickData(scope.row.prId)">
+							{{scope.row.prCode}}
+						</el-tag>
+					</template>
 				</el-table-column>
 				<el-table-column prop="prName" label="项目名称">
 				</el-table-column>
 				<el-table-column prop="qxDepartment.bmName" label="采购部门">
 				</el-table-column>
-				<el-table-column prop="prZdtime" label="制单日期">
+				<el-table-column prop="prZdtime" label="制单日期" width="170px">
 				</el-table-column>
 				<el-table-column prop="jcSupplier.supName" label="供应商">
 				</el-table-column>
@@ -27,19 +54,33 @@
 				</el-table-column>
 				<el-table-column label="操作">
 					<template #default="scope">
-						<el-button type="success" plain @click="caigou(scope.row.prId)" :disabled="scope.row.prState==1?false:true"
-							v-show="scope.row.prState==1">
+						<el-button type="success" plain @click="caigou(scope.row.prId)"
+							:disabled="scope.row.prState==1?false:true" v-show="scope.row.prState==1">
 							生成采购单</el-button>
 						<el-button type="primary" plain @click="examine(scope.row)"
 							:disabled="scope.row.prState==0?false:true" v-show="scope.row.prState==0">审核
 						</el-button>
 					</template>
-				</el-table-column>				
+				</el-table-column>
 			</el-table>
 			<el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="pageNo"
 				:page-sizes="[2, 5, 10, 15]" :page-size="pageSize" layout="total, sizes, prev, pager, next, jumper"
 				:total="total">
 			</el-pagination>
+		</div>
+		<div class="bootomdiv">
+			<span>商品详情：</span>
+			<el-table :data="goodsData" :header-cell-style="{'text-align':'center'}"
+				:cell-style="{'text-align':'center'}">
+				<el-table-column type="index" label="序号">
+				</el-table-column>
+				<el-table-column prop="gname" label="商品名称">
+				</el-table-column>
+				<el-table-column prop="cgPricedetail.pdCount" label="采购数量">
+				</el-table-column>
+				<el-table-column prop="cgPricedetail.pdPrice" label="采购价格">
+				</el-table-column>
+			</el-table>
 		</div>
 		<el-dialog title="采购报价审批" v-model="ExaminedialogVisible" :close-on-click-modal="false">
 			<el-form :label-position="labelPosition" label-width="80px" :model="spopinion" :rules="sprules"
@@ -63,15 +104,20 @@
 		</el-dialog>
 		<el-dialog title="采购订单" v-model="CgdialogVisible" :close-on-click-modal="false" width="60%">
 			<div>
-				<div style="height: 50px;">
-					<el-button @click="hold" type="success" plain>保存</el-button>
-				</div>
-				<el-form :model="form">
+				<el-form :model="form" :rules="rules" ref="form">
+					<div style="height: 50px;">
+						<el-button @click="hold('form')" type="success" plain>保存</el-button>
+					</div>
 					<el-form-item>
 						<el-descriptions width="100%" v-model="taskdetails">
 							<el-descriptions-item width="600px">
 								<el-form-item label="订单编号">
 									<el-input v-model="form.cgcode" disabled></el-input>
+								</el-form-item>
+							</el-descriptions-item>
+							<el-descriptions-item width="300px" v-show="state==1" v-if="state==1">
+								<el-form-item label="项目名称" prop="prname">
+									<el-input v-model="form.prname"></el-input>
 								</el-form-item>
 							</el-descriptions-item>
 							<el-descriptions-item width="300px">
@@ -106,7 +152,19 @@
 									<el-input v-model="form.tel" disabled=""></el-input>
 								</el-form-item>
 							</el-descriptions-item>
-							<el-descriptions-item width="900px">
+							<el-descriptions-item width="500px" v-show="state==1" v-if="state==1">
+								<el-form-item label="需求日期">
+									<el-date-picker v-model="form.xqtime" type="datetime" placeholder="选择日期时间"
+										style="width: 100%;">
+									</el-date-picker>
+								</el-form-item>
+							</el-descriptions-item>
+							<el-descriptions-item width="350px" v-show="state==1" v-if="state==1">
+								<el-form-item label="总金额">
+									<el-input v-model="form.totalmoney" disabled></el-input>
+								</el-form-item>
+							</el-descriptions-item>
+							<el-descriptions-item width="500px">
 								<el-form-item label="说明:" prop="explain">
 									<el-input v-model="form.explain"></el-input>
 								</el-form-item>
@@ -126,13 +184,13 @@
 					</el-table-column>
 					<el-table-column label="采购单价(元)">
 						<template #default="scope">
-							<el-input-number v-model="scope.row.gprice" controls-position="right" :min="1">
+							<el-input-number v-model="scope.row.gprice" controls-position="right" :min="1" @change="changeTotalmoney()">
 							</el-input-number>
 						</template>
 					</el-table-column>
 					<el-table-column label="采购数量">
 						<template #default="scope">
-							<el-input-number v-model="scope.row.gbian" controls-position="right" :min="1">
+							<el-input-number v-model="scope.row.gbian" controls-position="right" :min="1" @change="changeTotalmoney()">
 							</el-input-number>
 						</template>
 					</el-table-column>
@@ -185,9 +243,19 @@
 		ElMessage
 	} from 'element-plus'
 	import qs from 'qs'
+	import dayjs from 'dayjs'
 	export default {
 		data() {
 			return {
+				rules: {
+					prname: [{
+						required: true,
+						message: '请输入项目名称',
+						trigger: 'change'
+					}]
+				},
+				state: 0, //1新增，0点击生成采购订单
+				goodsData: [], //商品详情数据
 				labelPosition: 'right',
 				searchform: {},
 				pageNo: 1,
@@ -199,18 +267,18 @@
 				users: [],
 				order: {},
 				form: {
-					user:{
-						yhId:''
+					user: {
+						yhId: ''
 					},
-					cgcode:"",
-					gys:{
-						supId:''
+					cgcode: "",
+					gys: {
+						supId: ''
 					},
-					bm:{
-						bmId:''
+					bm: {
+						bmId: ''
 					},
-					explain:'',
-					prId:''
+					explain: '',
+					prId: ''
 				},
 				dialogTableVisible: true,
 				ExaminedialogVisible: false,
@@ -228,40 +296,116 @@
 				pageSize: 5,
 				total: 0,
 				typeData: [], //用品分类
-				spudata: [],//商品数据
+				spudata: [], //商品数据
 				gfId: 0,
 				multipleSelection: []
 			}
 		},
 		methods: {
-			hold() { //保存
-				let $this = this;
-				console.log("this.xzData=", this.xzData);
-				if (this.xzData.length == 0) {
-					ElMessage.warning({
-						message: '请选择商品',
-						type: 'warning'
-					});
-					return;
+			/*时间格式化 yyyy-mm=dd HH:MM:ss*/
+			formatDate: function(value) {
+				var date = new Date(value);
+				var year = date.getFullYear();
+				var month = date.getMonth() + 1;
+				var day = date.getDate();
+				var hours = date.getHours();
+				var minutes = date.getMinutes();
+				var sec = date.getSeconds()
+				if (month < 10) {
+					month = "0" + month;
 				}
-				let params = {
-					ddcode: $this.form.cgcode,
-					user: this.form.user,
-					gys: this.form.gys,
-					bm: this.form.bm,
-					tableData: $this.xzData,
-					explain:this.form.explain,
-					prid:this.form.prId
+				if (day < 10) {
+					day = "0" + day;
 				}
-				console.log("params=", params);
-				this.axios.post("/study/cgOrder/addorder",
-					params
-				).then(res => {
-					console.log("res=", res)
-					if(res.data==1){
-						this.$router.push("/cgorder");	
+				if (hours < 10) {
+					hours = '0' + hours;
+				}
+				if (minutes < 10) {
+					minutes = '0' + minutes;
+				}
+				if (sec < 10) {
+					sec = '0' + sec;
+				}
+				return year + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + sec;
+			},
+			add() { //新增
+				this.CgdialogVisible = true;
+				this.state = 1;
+				this.fuzhi();
+				this.form.cgcode = 'BJD' + this.getProjectNum() + Math.floor(Math.random() *
+					10000) // 如果是6位或者8位随机数，相应的 *1000000或者 *100000000就行了
+				console.log("xxx", this.getProjectNum() + Math.floor(Math.random() *
+					10000));
+			},
+			clickData(prid) { //获取商品详情
+				this.tableData.forEach(v => {
+					if (v.prId == prid) {
+						this.goodsData = v.goods;
 					}
 				})
+			},
+			changeTotalmoney() {
+				let $this = this;
+				let totalmoney = 0;
+				this.xzData.forEach(v => {
+					console.log("ss==============" + (v.gbian) * (v.gprice))
+					totalmoney = totalmoney + ((v.gbian) * (v.gprice));
+					console.log("totalmoney=" + totalmoney);
+				})
+				this.form.totalmoney = totalmoney;
+			},
+			hold(formName) { //保存
+				this.$refs[formName].validate((valid) => {
+					if (valid) {
+						let $this = this;
+						console.log("this.xzData=", this.xzData);
+						if (this.xzData.length == 0) {
+							ElMessage.warning({
+								message: '请选择商品',
+								type: 'warning'
+							});
+							return;
+						}
+						let mytime = dayjs(this.form.xqtime).format('YYYY-MM-DD HH:mm:ss');
+						let params = {
+							ddcode: $this.form.cgcode,
+							user: this.form.user,
+							gys: this.form.gys,
+							bm: this.form.bm,
+							tableData: $this.xzData,
+							explain: this.form.explain,
+							prid: this.form.prId,
+							xqtime: mytime,
+							state: this.state,
+							prname:this.form.prname,
+							totalmoney: this.form.totalmoney
+						}
+						console.log("params=", params);
+						if(this.state==0){//新增采购订单
+							this.axios.post("/study/cgOrder/addorder",
+								params
+							).then(res => {
+								console.log("res=", res)
+								if (res.data == 1) {
+									this.$router.push("/cgorder");
+								}
+							})
+						}else{//新增报价单
+							this.axios.post("/study/cgPrice/add",
+								params
+							).then(res => {
+								console.log("res=", res)
+								if (res.data == 1) {
+									this.CgdialogVisible = false;
+									this.search();
+								}
+							})
+						}
+					} else {
+						console.log('error submit!!');
+						return false;
+					}
+				});
 			},
 			//商品渲染
 			cxsousuo() {
@@ -275,6 +419,7 @@
 			},
 			sure() { //商品数据弹框确定按钮
 				this.Spudialog = false;
+				this.changeTotalmoney();
 			},
 			filterNode(value, data) {
 				if (!value) return true;
@@ -328,14 +473,22 @@
 				this.loadSpuType();
 				this.allgoods();
 			},
-			caigou(prid) { //生成采购单
-				let $this = this;
-				this.CgdialogVisible = true;
+			fuzhi(){//赋值操作
 				this.form.user.yhId = this.users[0].yhId;
 				this.form.gys.supId = this.suppliers[0].supId;
-				this.form.bm.bmId = this.depts[0].bmId;
-				this.form.prId=prid;
+				this.form.bm.bmId = this.depts[0].bmId;				
 				this.changeTel();
+			},
+			caigou(prid) { //生成采购单
+				let $this = this;
+				this.state=0;
+				this.fuzhi();
+				this.form.prId = prid;
+				$this.form.cgcode = 'CGD' + this.getProjectNum() + Math.floor(Math.random() *
+					10000) // 如果是6位或者8位随机数，相应的 *1000000或者 *100000000就行了
+				console.log("xxx", this.getProjectNum() + Math.floor(Math.random() *
+					10000));
+				this.CgdialogVisible = true;				
 				$this.form.cgcode = 'CGD' + this.getProjectNum() + Math.floor(Math.random() *
 					10000) // 如果是6位或者8位随机数，相应的 *1000000或者 *100000000就行了
 				console.log("xxx", this.getProjectNum() + Math.floor(Math.random() *
@@ -404,7 +557,7 @@
 				this.ExaminedialogVisible = false;
 				this.spopinion.radio = "1";
 				this.spopinion.opinion = "";
-			},			
+			},
 			//每页请求的页码数发生改变时触发
 			handleSizeChange(size) {
 				this.pageSize = size;
@@ -450,10 +603,6 @@
 					console.log(res, "sup：", res.data);
 					$this.suppliers = res.data;
 				})
-				$this.form.cgcode = 'CGD' + this.getProjectNum() + Math.floor(Math.random() *
-					10000) // 如果是6位或者8位随机数，相应的 *1000000或者 *100000000就行了
-				console.log("xxx", this.getProjectNum() + Math.floor(Math.random() *
-					10000));
 			}
 		},
 		created() {
@@ -466,5 +615,11 @@
 <style scoped="scoped">
 	.el-input-number {
 		width: 130px;
+	}
+
+	.bootomdiv {
+		margin-top: 100px;
+		margin-bottom: 0px;
+		position: relative;
 	}
 </style>

@@ -5,8 +5,6 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.study.entity.CgReturndetail">
         <id column="rd_id" property="rdId" />
-        <result column="g_id" property="gId" />
-        <result column="re_id" property="reId" />
         <result column="rd_count" property="rdCount" />
         <result column="rd_price" property="rdPrice" />
     </resultMap>
