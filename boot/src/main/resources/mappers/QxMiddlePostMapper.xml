@@ -7,5 +7,11 @@
         <result column="pos_id" property="posId" />
         <result column="jsdn_id" property="jsdnId" />
     </resultMap>
-
+    <!--    中间表批量新增-->
+    <insert id="insertMiddle">
+        insert into qx_middle_post values
+        <foreach collection="listArr" index="index"  item="i" separator=",">
+            (#{posId},#{i})
+        </foreach>
+    </insert>
 </mapper>

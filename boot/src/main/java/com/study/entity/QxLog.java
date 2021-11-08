@@ -45,8 +45,8 @@ public class QxLog implements Serializable {
     /**
      * 操作时间
      */
-    @JsonFormat(pattern = "yyyy-MM-dd",timezone="Asia/Shanghai")//将数据库的类型返回成指定类型
-    private LocalDateTime logTime;
+    @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss",timezone="Asia/Shanghai")//将数据库的类型返回成指定类型
+    private java.sql.Timestamp logTime;
     //用户
     @TableField(exist = false)
     private QxUser yh;

@@ -23,7 +23,7 @@ public class QxDepartment{
      * 部门id
      */
     @TableId(value = "bm_id",type = IdType.AUTO)
-    private Long bmId;
+    private Integer bmId;
     /**
      * 部门名称
      */

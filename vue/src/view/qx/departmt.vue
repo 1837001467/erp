@@ -25,7 +25,7 @@
         <el-row>
           <el-col :span="10">
             <el-form-item label="账号" prop="yhCard" label-width="120px">
-              <el-input v-model="yh.yhCard"></el-input>
+              <el-input v-model="yh.yhCard" onkeyup="value=value.replace(/[^\w\.\/]/ig,'')"></el-input>
             </el-form-item>
           </el-col>
           <el-col :offset="1" :span="10">
@@ -51,7 +51,7 @@
         <el-row>
           <el-col :span="21">
             <el-form-item label="手机号：" label-width="120px" prop="yhPhone">
-              <el-input v-model="yh.yhPhone"></el-input>
+              <el-input  v-model="yh.yhPhone"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -84,13 +84,12 @@
             label="手机号">
         </el-table-column>
         <el-table-column
-            prop="yhState"
-            label="状态">
-          <template #default="scope">
-            <div class="name-wrapper">
-              <el-tag :type="scope.row.yhState==0?'success':'warning'" size="medium">{{ scope.row.yhState==0?'在职':'离职' }}</el-tag>
-            </div>
-          </template>
+            prop="ybm.bm.bmName"
+            label="部门">
+        </el-table-column>
+        <el-table-column
+            prop="ybm.posName"
+            label="职位">
         </el-table-column>
         <el-table-column
             label="操作">
@@ -115,16 +114,6 @@
   </el-row>
 
 
-  <el-dialog title="填写检查结果" v-model="txjg" width="40%" center  ><!-- 弹窗  新增   -=-=-=-=-=-=-==-=-=-=-=--=-=-=-=-=-=-检查结果填写 -->
-    <span v-for="(t,i) in aloneg" >{{t.checkName}}:<el-input  v-model="t.tjCodeIndex"></el-input></span>
-    <span style="color: red">医生建议：<el-input v-model="manProposal"  type="textarea"> </el-input></span>
-    <el-row>
-      <el-col :span="2" :offset="10">
-        <el-button type="primary" style="margin-top: 20px" @click="txjgForm">确定</el-button>
-      </el-col>
-    </el-row>
-
-  </el-dialog>
 
 </template>
 
@@ -151,6 +140,7 @@ export default {
       ruleyh:{
         yhCard: [
           {required: true, message: '请输入账号', trigger: 'blur'},
+
         ],
         yhName: [
           {required: true, message: '请输入用户名', trigger: 'blur'},
@@ -160,7 +150,10 @@ export default {
           {required: true, message: '请选择职位', trigger: 'blur' }
         ],
         yhPhone: [
-          {required: true, message: '请输入手机号', trigger: 'blur'},
+          {required: true, message: '请输入手机号', trigger: 'blur'},{
+            pattern: /^1(3|4|5|6|7|8)\d{9}$/,
+            message: '请输入正确的手机号'
+          },
         ]
       },
       currentPage: 1, //1初始页
@@ -201,7 +194,7 @@ export default {
             this.yh.yhId=row.yhId,
             this.yh.yhPswd=row.yhPswd
       }else {
-        this.bm.bmName=""
+
       }
       this.yhtk=true
     },
@@ -213,35 +206,90 @@ export default {
     xgYhmm(row){
       let params = {
         yhId:row.yhId,
-        yhPswd:123456222,
+        yhPswd:123456,
       }
       console.log(params)
-      this.axios.post("/upd-yhps",params).then((v) => {
-        if (v.data === 'ok') {
-          this.getData()
-          // this.$refs[formName].resetFields();
-          this.$message.success("新增成功")
-        } else {
-          console.log(v.data)
-        }
-      }).catch();
+      this.$confirm('此操作将重置该员工密码，重置后为123456, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.axios.post("/upd-yhps",params).then((v) => {
+          if (v.data === 'ok') {
+            this.getData()
+            this.rzAdd("重置密码")
+          } else {
+            console.log(v.data)
+          }
+        }).catch();
+        this.$message({
+          type: 'success',
+          message: '重置成功!'
+        });
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消'
+        });
+      });
     },
-    //打开确认弹框
+    //新增日志方法
+    rzAdd(action){
+      let params = {
+        logAction:action,
+        yhId:this.$store.state.token.yhId,
+        logTime:this.getNowFormatDate
+      }
+        this.axios.post("http://localhost:8095/add-rz",params).then((v) => {
+          if (v.data === 'ok') {
+          } else {
+            console.log(v.data)
+          }
+        }).catch();
+    },
+    //用户确认弹框
     yhForm(formName){
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.axios.post("http://localhost:8095/add-bm",
-              this.bm
-          ).then((v) => {
-            if (v.data === 'ok') {
-              this.getData()
-              this.$refs[formName].resetFields();
-              this.$message.success("新增成功")
-            } else {
-              console.log(v.data)
+          this.yh.yhPswd='123456';
+
+          //查询去重
+          this.axios.get("http://localhost:8095/yhqc", {
+            params: {
+              yhCard:this.yh.yhCard
             }
-          }).catch();
-          this.bmtk=false
+          }).then((res) => {
+            let aa=res.data;
+            if(res.data==true){
+              console.log(res.data)
+              this.axios.post("http://localhost:8095/adu-yh",
+                  this.yh
+              ).then((v) => {
+                if (v.data === 'ok') {
+                  this.getData()
+                  this.$refs[formName].resetFields();
+                  if(this.yhtit=='新增用户'){
+                    this.$message.success("新增成功")
+                    this.rzAdd("新增员工")
+                  }else {
+                    this.$message.success("修改成功")
+                    this.rzAdd("修改员工")
+                  }
+                  this.yhtk=false
+                } else {
+                  console.log(v.data)
+                  this.$message.info("该账号名已使用")
+                }
+              }).catch();
+            }else{
+              this.$message.info("该账号名已使用")
+            }
+          }).catch()
+
+
+
+
+
         } else {
           console.log('error submit!!');
           return false;

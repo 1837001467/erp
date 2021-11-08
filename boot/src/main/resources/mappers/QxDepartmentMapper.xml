@@ -17,5 +17,9 @@
         </where>
         ORDER BY bm_id desc
     </select>
+    <select id="bmqc" resultMap="BaseResultMap">
+        select * from qx_department where bm_name like'${bmName}'
+        ORDER BY bm_id desc
+    </select>
 
 </mapper>
