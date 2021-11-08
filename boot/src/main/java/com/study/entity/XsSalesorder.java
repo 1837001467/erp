@@ -4,11 +4,16 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.io.Serializable;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 /**
  * <p>
@@ -22,9 +27,33 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 public class XsSalesorder implements Serializable {
+    public XsSalesorder() {
+    }
+
+    public XsSalesorder(Integer orderId, Integer yhId, Integer salesId, Integer khId, Integer qxYhId, String orderYard, String orderName, Timestamp goodsTime, String orderSite, String orderGoods, String orderLinkman, String orderPhone, BigDecimal orderMoney, Timestamp orderTime, Timestamp orderTimes, String orderState, Timestamp date1, Timestamp date2) {
+        this.orderId = orderId;
+        this.yhId = yhId;
+        this.salesId = salesId;
+        this.khId = khId;
+        this.qxYhId = qxYhId;
+        this.orderYard = orderYard;
+        this.orderName = orderName;
+        this.goodsTime = goodsTime;
+        this.orderSite = orderSite;
+        this.orderGoods = orderGoods;
+        this.orderLinkman = orderLinkman;
+        this.orderPhone = orderPhone;
+        this.orderMoney = orderMoney;
+        this.orderTime = orderTime;
+        this.orderTimes = orderTimes;
+        this.orderState = orderState;
+        this.date1 = date1;
+        this.date2 = date2;
+    }
 
     private static final long serialVersionUID=1L;
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)//主键自增
     private Integer orderId;
 
     private Integer yhId;
@@ -38,7 +67,7 @@ public class XsSalesorder implements Serializable {
     private String orderYard;
 
     private String orderName;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd" , timezone = "GMT+8")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss" , timezone = "GMT+8")
     private Timestamp goodsTime;
 
     private String orderSite;
@@ -50,16 +79,20 @@ public class XsSalesorder implements Serializable {
     private String orderPhone;
 
     private BigDecimal orderMoney;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd" , timezone = "GMT+8")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss" , timezone = "GMT+8")
     private Timestamp orderTime;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd" , timezone = "GMT+8")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss" , timezone = "GMT+8")
     private Timestamp orderTimes;
 
     private String orderState;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd" , timezone = "GMT+8")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss" , timezone = "GMT+8")
     private Timestamp date1;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd" , timezone = "GMT+8")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss" , timezone = "GMT+8")
     private Timestamp date2;
+
+    private List<JcGoods> goods;
+
+    private List<XsOrderdetails> details;
 
     @Override
     public String toString() {
