@@ -4,6 +4,7 @@ import com.study.entity.*;
 import com.study.mapper.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -16,7 +17,7 @@ public class QxService {
     @Autowired
     QxPostMapper js;//角色mapper
     @Autowired
-    QxUserMapper user;//角色mapper
+    QxUserMapper ss;//角色mapper
     @Autowired
     QxJsdnMapper jsdn;//权限mapper
     //查询部门模糊查询
@@ -44,11 +45,14 @@ public class QxService {
         List<QxPost> listsp = js.pstcx(seach);
         return listsp;
     }
+    //登录
 
+    public QxUser login(QxUser user){
+     return ss.login(user);
+    }
     //查询用户模糊查询
     public List<QxUser> selcUser(String seach){
-        List<QxUser> listsp = user.selectUser(seach);
-        return listsp;
+        return ss.selectUser(seach);
     }
     //查询角色权限
     public List<QxJsdn> selcJsdnj(Integer posId){
@@ -60,18 +64,18 @@ public class QxService {
         List<QxJsdn> listsp = jsdn.dlqx(yhId);
         return listsp;
     }
+    //查询权限
+    public List<QxJsdn> selactq(){
+        List<QxJsdn> listsp = jsdn.sycx();
+        return listsp;
+    }
     /**
      * 新增修改部门
      * @return
      */
-    public boolean bmUpdate(QxDepartment proj){
-        int is = 0;//判断是否新增成功
-        if(proj.getBmId() == 0){//新增
-            bm.insert(proj);
-        }else{//修改
-            is = bm.updateById(proj);
-        }
-        return is == 0?false:true;
+    public void bmUpdate(Long bmId,String bmName){
+            System.out.println(bmName);
+            bm.insertbm(bmId,bmName);
     }
     /**
      * 新增修改角色
@@ -86,6 +90,8 @@ public class QxService {
         }
         return is == 0?false:true;
     }
+
+
     /**
      * 新增修改用户
      * @return
@@ -93,16 +99,16 @@ public class QxService {
     public boolean yhUpdate(QxUser proj){
         int is = 0;//判断是否新增成功
         if(proj.getYhId() == 0){//新增
-            user.insert(proj);
+            ss.insert(proj);
         }else{//修改
-            is = user.updateById(proj);
+            is = ss.updateById(proj);
         }
         return is == 0?false:true;
     }
     //重置密码
     public String updUserpsw(Integer yhId,String yhPswd){
         try {
-            user.updUserPswd(yhId,yhPswd);
+            ss.updUserPswd(yhId,yhPswd);
             return "ok";
         } catch (Exception e) {
             e.printStackTrace();
