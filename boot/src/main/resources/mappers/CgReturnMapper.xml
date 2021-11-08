@@ -5,16 +5,38 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.study.entity.CgReturn">
         <id column="re_id" property="reId" />
-        <result column="sup_id" property="supId" />
-        <result column="yh_id" property="yhId" />
-        <result column="wh_id" property="whId" />
-        <result column="spyh_id" property="spyhId" />
         <result column="re_code" property="reCode" />
         <result column="re_time" property="reTime" />
         <result column="re_resaon" property="reResaon" />
         <result column="re_sptime" property="reSptime" />
         <result column="re_spopinon" property="reSpopinon" />
         <result column="re_state" property="reState" />
+        <association property="supplier" javaType="com.study.entity.JcSupplier">
+            <id column="sup_id" property="supId" />
+            <result column="sup_name" property="supName" />
+            <result column="sup_tel" property="supTel" />
+            <result column="sup_bian" property="supBian" />
+        </association>
+        <association property="ck" javaType="com.study.entity.JcWhinformation">
+            <id column="wh_id" property="whId" />
+            <result column="wh_name" property="whName" />
+            <result column="wh_bian" property="whBian" />
+        </association>
+        <association property="user" javaType="com.study.entity.QxUser">
+            <id column="yh_id" property="yhId" />
+            <result column="yh_card" property="yhCard" />
+            <result column="yh_name" property="yhName" />
+            <result column="yh_pswd" property="yhPswd" />
+            <result column="yh_phone" property="yhPhone" />
+            <result column="yh_state" property="yhState" />
+        </association>
+        <collection property="goods" column="re_id" select="com.study.mapper.JcGoodsMapper.findGoodsReturnByReid"  />
     </resultMap>
+    <select id="all" resultMap="BaseResultMap">
+        select * from cg_return re
+          left join jc_supplier js on re.sup_id = js.sup_id
+          left join  qx_user qu on re.yh_id = qu.yh_id
+          left join jc_whinformation jw on re.wh_id = jw.wh_id
+    </select>
 
 </mapper>

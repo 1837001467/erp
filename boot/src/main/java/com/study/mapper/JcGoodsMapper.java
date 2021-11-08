@@ -31,4 +31,16 @@ public interface JcGoodsMapper{
 
     List<JcGoods> selectOwn();
 
+    List<JcGoods> getGoodsByPdid(Integer pdid);//通过采购报价单id找对对应商品(查找商品，以及中间表报价单详情得数量、价格)
+
+    List<JcGoods> findGoodsOrderByOrid(Integer orid);////通过采购订单id找对对应商品
+
+    List<JcGoods> findGoodsStorageByStid(Integer stid);////通过采购入库单id找对对应商品
+
+    List<JcGoods> findGoodsReturnByReid(Integer reid);////通过采购退货单id找对对应商品
+
+
+
+
+
 }

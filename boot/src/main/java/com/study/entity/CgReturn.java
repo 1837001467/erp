@@ -7,6 +7,7 @@ import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.List;
 
 /**
  * <p>
@@ -24,23 +25,6 @@ public class CgReturn implements Serializable {
     private static final long serialVersionUID=1L;
 
     private Integer reId;
-
-    private Integer supId;
-
-    /**
-     * 采购员
-     */
-    private Integer yhId;
-
-    /**
-     * 退货仓
-     */
-    private Integer whId;
-
-    /**
-     * 审批人
-     */
-    private Integer spyhId;
 
     private String reCode;
 
@@ -71,6 +55,12 @@ public class CgReturn implements Serializable {
     public Integer getReId() {
         return reId;
     }
+
+    private JcSupplier supplier;
+    private JcWhinformation ck;//仓库
+    private QxUser user;//采购员
+    private List<JcGoods> goods;
+
 
     public void setReId(Integer reId) {
         this.reId = reId;

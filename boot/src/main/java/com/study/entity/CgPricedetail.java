@@ -4,6 +4,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -24,15 +26,22 @@ public class CgPricedetail implements Serializable {
     private static final long serialVersionUID=1L;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)//主键自增
     private Integer pdId;
-
-    private Integer gId;
-
-    private Integer prId;
 
     private Integer pdCount;
 
     private BigDecimal pdPrice;
 
+    private JcGoods goods;
+    private CgPrice cgPrice;
 
+    public CgPricedetail() {
+    }
+
+    public CgPricedetail(Integer pdId, Integer pdCount, BigDecimal pdPrice) {
+        this.pdId = pdId;
+        this.pdCount = pdCount;
+        this.pdPrice = pdPrice;
+    }
 }

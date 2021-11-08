@@ -90,6 +90,7 @@ public class CgOrderService {
         GoodsArr[] tableData= vo.getTableData();
         System.out.println("tableData="+tableData);
 
+        int i=0;
         //根据id修改采购报价单状态
         int i=priceMapper.updateStateById(vo.getPrid());
         if(i>0){

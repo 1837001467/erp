@@ -5,10 +5,13 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.List;
 
 /**
  * <p>
@@ -26,6 +29,7 @@ public class CgPrice implements Serializable {
     private static final long serialVersionUID=1L;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)//主键自增
     private Integer prId;
 
     /**
@@ -59,7 +63,6 @@ public class CgPrice implements Serializable {
     private JcSupplier jcSupplier;//供应商
     private QxDepartment qxDepartment;//部门
     private QxUser sppeo;//审批人
-
     public Integer getPrId() {
         return prId;
     }
@@ -171,4 +174,23 @@ public class CgPrice implements Serializable {
     public void setSppeo(QxUser sppeo) {
         this.sppeo = sppeo;
     }
+
+    private List<JcGoods> goods;
+
+    public CgPrice() {
+    }
+
+    public CgPrice(Integer prId, String prCode, String prName, Timestamp prTime, BigDecimal prPrice, String prExplain, Timestamp prZdtime, Timestamp prSptime, String prSpopinon, Integer prState) {
+        this.prId = prId;
+        this.prCode = prCode;
+        this.prName = prName;
+        this.prTime = prTime;
+        this.prPrice = prPrice;
+        this.prExplain = prExplain;
+        this.prZdtime = prZdtime;
+        this.prSptime = prSptime;
+        this.prSpopinon = prSpopinon;
+        this.prState = prState;
+    }
+
 }

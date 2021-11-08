@@ -104,4 +104,5 @@ public class AddStorage {
     public void setTotalmoney(BigDecimal totalmoney) {
         this.totalmoney = totalmoney;
     }
+    private Integer state;
 }

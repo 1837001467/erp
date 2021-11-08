@@ -8,7 +8,7 @@
         <result column="sd_price" property="sdPrice" />
     </resultMap>
     <insert id="addSdDetail" useGeneratedKeys="true" keyProperty="sdId">
-        insert into cg_storagedetai values(null,#{goods.goId},#{cgStorage.stId},#{sdCount},#{sdPrice})
+        insert into cg_storagedetai values(null,#{cgStorage.stId},#{goods.goId},#{sdCount},#{sdPrice})
     </insert>
 
 

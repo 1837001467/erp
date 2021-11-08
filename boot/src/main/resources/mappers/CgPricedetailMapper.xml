@@ -5,10 +5,11 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.study.entity.CgPricedetail">
         <id column="pd_id" property="pdId" />
-        <result column="g_id" property="gId" />
-        <result column="pr_id" property="prId" />
         <result column="pd_count" property="pdCount" />
         <result column="pd_price" property="pdPrice" />
     </resultMap>
+    <insert id="addDetail" useGeneratedKeys="true" keyProperty="pdId">
+        insert into cg_pricedetail values(null,#{goods.goId},#{cgPrice.prId},#{pdCount},#{pdPrice})
+    </insert>
 
 </mapper>

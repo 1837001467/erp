@@ -23,10 +23,6 @@ public class CgReturndetail implements Serializable {
 
     private Integer rdId;
 
-    private Integer gId;
-
-    private Integer reId;
-
     private Integer rdCount;
 
     private BigDecimal rdPrice;

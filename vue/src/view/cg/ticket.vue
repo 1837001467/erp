@@ -6,7 +6,7 @@
 		</el-table-column>
 		<el-table-column prop="cgYinpay.yiAccount" label="付款账户">
 		</el-table-column>
-		<el-table-column prop="tiTime" label="制单时间">
+		<el-table-column prop="tiTime" label="制单时间" width="180px">
 		</el-table-column>
 		<el-table-column prop="cgYinpay.yiWay" label="付款方式">
 		</el-table-column>
@@ -23,9 +23,9 @@
 		<el-table-column label="操作" width="200px">
 			<template #default="scope">
 				<el-button @click="delticket(scope.row)"
-					v-show="scope.row.tiState==0">删除</el-button>
+					v-show="scope.row.tiState==0" type="danger" plain>删除</el-button>
 					<el-button @click="delticket(scope.row)"
-						v-show="scope.row.tiState==1">启用</el-button>
+						v-show="scope.row.tiState==1" type="success" plain>启用</el-button>
 			</template>
 		</el-table-column>
 	</el-table>

@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.List;
 
 /**
  * <p>
@@ -48,6 +49,7 @@ public class CgOrder implements Serializable {
     private JcSupplier jcSupplier;//供应商
     private QxDepartment qxDepartment;//部门
     private QxUser sppeo;//审批人
+    private List<JcGoods> goods;
 
     public CgOrder() {
     }

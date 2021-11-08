@@ -1,9 +1,11 @@
 package com.study.service;
 
-import com.study.entity.CgPrice;
-import com.study.entity.QxUser;
+import com.study.entity.*;
 import com.study.mapper.CgPriceMapper;
+import com.study.mapper.CgPricedetailMapper;
 import com.study.mapper.QxUserMapper;
+import com.study.vo.AddOrder;
+import com.study.vo.GoodsArr;
 import com.study.vo.SearchPriceByPager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +29,8 @@ public class CgPriceService{
     CgPriceMapper mapper;
     @Autowired
     QxUserMapper qxUserMapper;
+    @Autowired
+    CgPricedetailMapper cgPricedetailMapper;
 
     public List<CgPrice> SearchPriceByPager(SearchPriceByPager vo){
         return  mapper.selectByKeyword(vo);
@@ -48,6 +52,33 @@ public class CgPriceService{
         QxUser qxUser=qxUserMapper.selectCgZg();
         cgPrice.setSppeo(qxUser);
         return mapper.updateCgPrice(cgPrice);
+    }
+
+    //新增采购报价单
+    public Integer add(AddOrder vo){
+        System.out.println("进入add"+vo);
+        Timestamp nowtime= new Timestamp(System.currentTimeMillis());
+        CgPrice cgPrice=new CgPrice(null,vo.getDdcode(),vo.getPrname(),vo.getXqtime(),vo.getTotalmoney(),vo.getExplain(),nowtime,null,null,0);
+        cgPrice.setJcSupplier(vo.getGys());
+        cgPrice.setQxDepartment(vo.getBm());
+        cgPrice.setQxUser(vo.getUser());
+        int i= mapper.addCgprice(cgPrice);
+        cgPrice.setPrId(cgPrice.getPrId());
+        GoodsArr[] tableData= vo.getTableData();
+        if(i>0){
+            for(int a=0;a<vo.getTableData().length;a++){
+                //订单商品详情
+                System.out.println("tableData[a].getGoId()="+tableData[a].getGoId());
+                JcGoods goods=new JcGoods();
+                goods.setGoId(tableData[a].getGoId());
+                System.out.println("tableData[a].getGBian()="+tableData[a].getGBian());
+                CgPricedetail cgPricedetail=new CgPricedetail(null,tableData[a].getGBian(),tableData[a].getGPrice());
+                cgPricedetail.setGoods(goods);
+                cgPricedetail.setCgPrice(cgPrice);
+                i=cgPricedetailMapper.addDetail(cgPricedetail);
+            }
+        }
+        return i;
     }
 
 }

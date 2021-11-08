@@ -40,6 +40,7 @@
             <result column="wh_name" property="whName" />
             <result column="wh_bian" property="whBian" />
         </association>
+        <collection property="goods" column="st_id" select="com.study.mapper.JcGoodsMapper.findGoodsStorageByStid"  />
     </resultMap>
     <insert id="addstorage" useGeneratedKeys="true" keyProperty="stId">
         insert into cg_storage values(null,#{jcSupplier.supId},#{qxUser.yhId},null,#{ck.whId},#{stCode},#{stExplain},#{stAccount},#{stTime},null,null,#{stState},#{stTotalmoney})
