@@ -65,39 +65,6 @@ public class CgReturn implements Serializable {
     public void setReId(Integer reId) {
         this.reId = reId;
     }
-
-    public Integer getSupId() {
-        return supId;
-    }
-
-    public void setSupId(Integer supId) {
-        this.supId = supId;
-    }
-
-    public Integer getYhId() {
-        return yhId;
-    }
-
-    public void setYhId(Integer yhId) {
-        this.yhId = yhId;
-    }
-
-    public Integer getWhId() {
-        return whId;
-    }
-
-    public void setWhId(Integer whId) {
-        this.whId = whId;
-    }
-
-    public Integer getSpyhId() {
-        return spyhId;
-    }
-
-    public void setSpyhId(Integer spyhId) {
-        this.spyhId = spyhId;
-    }
-
     public String getReCode() {
         return reCode;
     }
@@ -112,6 +79,10 @@ public class CgReturn implements Serializable {
 
     public void setReTime(Timestamp reTime) {
         this.reTime = reTime;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
     }
 
     public String getReResaon() {

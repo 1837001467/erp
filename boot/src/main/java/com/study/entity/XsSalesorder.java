@@ -265,4 +265,20 @@ public class XsSalesorder implements Serializable {
     public void setDate2(Timestamp date2) {
         this.date2 = date2;
     }
+
+    public List<JcGoods> getGoods() {
+        return goods;
+    }
+
+    public void setGoods(List<JcGoods> goods) {
+        this.goods = goods;
+    }
+
+    public List<XsOrderdetails> getDetails() {
+        return details;
+    }
+
+    public void setDetails(List<XsOrderdetails> details) {
+        this.details = details;
+    }
 }

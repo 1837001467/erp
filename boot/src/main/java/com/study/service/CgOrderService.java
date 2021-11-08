@@ -92,19 +92,17 @@ public class CgOrderService {
 
         int i=0;
         //根据id修改采购报价单状态
-        int i=priceMapper.updateStateById(vo.getPrid());
-        if(i>0){
-            for(int a=0;a<vo.getTableData().length;a++){
-                //订单商品详情
-                System.out.println("tableData[a].getGoId()="+tableData[a].getGoId());
-                JcGoods goods=new JcGoods();
-                goods.setGoId(tableData[a].getGoId());
-                System.out.println("tableData[a].getGBian()="+tableData[a].getgBian());
-                CgOrderdetail cgOrderdetail=new CgOrderdetail(null,tableData[a].getgBian(),tableData[a].getgPrice());
-                cgOrderdetail.setOrder(cgOrder);
-                cgOrderdetail.setGoods(goods);
-                i=orderdetailMapper.addOrderDetail(cgOrderdetail);
-            }
+        i=priceMapper.updateStateById(vo.getPrid());
+        for(int a=0;a<vo.getTableData().length;a++){
+            //订单商品详情
+            System.out.println("tableData[a].getGoId()="+tableData[a].getGoId());
+            JcGoods goods=new JcGoods();
+            goods.setGoId(tableData[a].getGoId());
+            System.out.println("tableData[a].getGBian()="+tableData[a].getgBian());
+            CgOrderdetail cgOrderdetail=new CgOrderdetail(null,tableData[a].getgBian(),tableData[a].getgPrice());
+            cgOrderdetail.setOrder(cgOrder);
+            cgOrderdetail.setGoods(goods);
+            i=orderdetailMapper.addOrderDetail(cgOrderdetail);
         }
         return i;
     }

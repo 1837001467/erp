@@ -11,8 +11,7 @@
         <result column="g_bian" property="gBian" />
         <result column="g_status" property="gStatus" />
     </resultMap>
-
-<<<<<<< HEAD
+    
     <resultMap id="goodsMapper" type="com.study.entity.JcGoods">
         <id column="go_id" property="goId" />
         <result column="g_name" property="gName" />

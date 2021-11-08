@@ -62,8 +62,8 @@ public class XsSalesorderService{
         BigDecimal money = new BigDecimal(0);
         List<JcGoods> goods = order.getGoods();
         for(int i = 0;i<goods.size();i++){
-            System.out.println(goods.get(i).getGName()+"的总价为："+goods.get(i).getGPrice().multiply(BigDecimal.valueOf(goods.get(i).getGBian())));
-            BigDecimal num = goods.get(i).getGPrice().multiply(BigDecimal.valueOf(goods.get(i).getGBian()));
+            System.out.println(goods.get(i).getgName()+"的总价为："+goods.get(i).getgPrice().multiply(BigDecimal.valueOf(goods.get(i).getgBian())));
+            BigDecimal num = goods.get(i).getgPrice().multiply(BigDecimal.valueOf(goods.get(i).getgBian()));
             money = money.add(num);
         }
         System.out.println("商品总价为："+money);
@@ -72,7 +72,7 @@ public class XsSalesorderService{
         Integer orderId = xsSalesorderMapper.selectIdMax();
         System.out.println("id:"+orderId);
         for (JcGoods good : order.getGoods()){
-            XsOrderdetails detalis = new XsOrderdetails(null,null,orderId,good.getGBian(),good.getGoId());
+            XsOrderdetails detalis = new XsOrderdetails(null,null,orderId,good.getgBian(),good.getGoId());
             xsOrderdetailsMapper.addDetails(detalis);
         }
         return 1;

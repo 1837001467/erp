@@ -83,4 +83,36 @@ public class AddOrder {
     private Integer state;
     private String prname;
     private BigDecimal totalmoney;
+
+    public Timestamp getXqtime() {
+        return xqtime;
+    }
+
+    public void setXqtime(Timestamp xqtime) {
+        this.xqtime = xqtime;
+    }
+
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
+    }
+
+    public String getPrname() {
+        return prname;
+    }
+
+    public void setPrname(String prname) {
+        this.prname = prname;
+    }
+
+    public BigDecimal getTotalmoney() {
+        return totalmoney;
+    }
+
+    public void setTotalmoney(BigDecimal totalmoney) {
+        this.totalmoney = totalmoney;
+    }
 }
