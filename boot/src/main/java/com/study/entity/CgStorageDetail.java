@@ -33,4 +33,36 @@ public class CgStorageDetail {
         this.sdCount = sdCount;
         this.sdPrice = sdPrice;
     }
+
+    public Integer getSdCount() {
+        return sdCount;
+    }
+
+    public void setSdCount(Integer sdCount) {
+        this.sdCount = sdCount;
+    }
+
+    public BigDecimal getSdPrice() {
+        return sdPrice;
+    }
+
+    public void setSdPrice(BigDecimal sdPrice) {
+        this.sdPrice = sdPrice;
+    }
+
+    public JcGoods getGoods() {
+        return goods;
+    }
+
+    public void setGoods(JcGoods goods) {
+        this.goods = goods;
+    }
+
+    public CgStorage getCgStorage() {
+        return cgStorage;
+    }
+
+    public void setCgStorage(CgStorage cgStorage) {
+        this.cgStorage = cgStorage;
+    }
 }

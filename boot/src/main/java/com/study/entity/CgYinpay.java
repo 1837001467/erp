@@ -60,4 +60,80 @@ public class CgYinpay implements Serializable {
         this.yiTime = yiTime;
         this.yiState = yiState;
     }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public Integer getYiId() {
+        return yiId;
+    }
+
+    public void setYiId(Integer yiId) {
+        this.yiId = yiId;
+    }
+
+    public String getYiAccount() {
+        return yiAccount;
+    }
+
+    public void setYiAccount(String yiAccount) {
+        this.yiAccount = yiAccount;
+    }
+
+    public String getYiType() {
+        return yiType;
+    }
+
+    public void setYiType(String yiType) {
+        this.yiType = yiType;
+    }
+
+    public String getYiWay() {
+        return yiWay;
+    }
+
+    public void setYiWay(String yiWay) {
+        this.yiWay = yiWay;
+    }
+
+    public BigDecimal getYiPrice() {
+        return yiPrice;
+    }
+
+    public void setYiPrice(BigDecimal yiPrice) {
+        this.yiPrice = yiPrice;
+    }
+
+    public Timestamp getYiTime() {
+        return yiTime;
+    }
+
+    public void setYiTime(Timestamp yiTime) {
+        this.yiTime = yiTime;
+    }
+
+    public Integer getYiState() {
+        return yiState;
+    }
+
+    public void setYiState(Integer yiState) {
+        this.yiState = yiState;
+    }
+
+    public JcSupplier getSupplier() {
+        return supplier;
+    }
+
+    public void setSupplier(JcSupplier supplier) {
+        this.supplier = supplier;
+    }
+
+    public QxUser getUser() {
+        return user;
+    }
+
+    public void setUser(QxUser user) {
+        this.user = user;
+    }
 }

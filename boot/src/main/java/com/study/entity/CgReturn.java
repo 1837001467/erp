@@ -68,5 +68,91 @@ public class CgReturn implements Serializable {
      */
     private Integer reState;
 
+    public Integer getReId() {
+        return reId;
+    }
 
+    public void setReId(Integer reId) {
+        this.reId = reId;
+    }
+
+    public Integer getSupId() {
+        return supId;
+    }
+
+    public void setSupId(Integer supId) {
+        this.supId = supId;
+    }
+
+    public Integer getYhId() {
+        return yhId;
+    }
+
+    public void setYhId(Integer yhId) {
+        this.yhId = yhId;
+    }
+
+    public Integer getWhId() {
+        return whId;
+    }
+
+    public void setWhId(Integer whId) {
+        this.whId = whId;
+    }
+
+    public Integer getSpyhId() {
+        return spyhId;
+    }
+
+    public void setSpyhId(Integer spyhId) {
+        this.spyhId = spyhId;
+    }
+
+    public String getReCode() {
+        return reCode;
+    }
+
+    public void setReCode(String reCode) {
+        this.reCode = reCode;
+    }
+
+    public Timestamp getReTime() {
+        return reTime;
+    }
+
+    public void setReTime(Timestamp reTime) {
+        this.reTime = reTime;
+    }
+
+    public String getReResaon() {
+        return reResaon;
+    }
+
+    public void setReResaon(String reResaon) {
+        this.reResaon = reResaon;
+    }
+
+    public Timestamp getReSptime() {
+        return reSptime;
+    }
+
+    public void setReSptime(Timestamp reSptime) {
+        this.reSptime = reSptime;
+    }
+
+    public String getReSpopinon() {
+        return reSpopinon;
+    }
+
+    public void setReSpopinon(String reSpopinon) {
+        this.reSpopinon = reSpopinon;
+    }
+
+    public Integer getReState() {
+        return reState;
+    }
+
+    public void setReState(Integer reState) {
+        this.reState = reState;
+    }
 }

@@ -5,7 +5,6 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.study.entity.RkDetails">
         <id column="rkd_id" property="rkdId" />
-        <result column="g_id" property="gId" />
         <result column="rkd_num" property="rkdNum" />
         <result column="rk_id" property="rkId" />
     </resultMap>

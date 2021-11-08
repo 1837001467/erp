@@ -98,8 +98,8 @@ public class CgOrderService {
                 System.out.println("tableData[a].getGoId()="+tableData[a].getGoId());
                 JcGoods goods=new JcGoods();
                 goods.setGoId(tableData[a].getGoId());
-                System.out.println("tableData[a].getGBian()="+tableData[a].getGBian());
-                CgOrderdetail cgOrderdetail=new CgOrderdetail(null,tableData[a].getGBian(),tableData[a].getGPrice());
+                System.out.println("tableData[a].getGBian()="+tableData[a].getgBian());
+                CgOrderdetail cgOrderdetail=new CgOrderdetail(null,tableData[a].getgBian(),tableData[a].getgPrice());
                 cgOrderdetail.setOrder(cgOrder);
                 cgOrderdetail.setGoods(goods);
                 i=orderdetailMapper.addOrderDetail(cgOrderdetail);

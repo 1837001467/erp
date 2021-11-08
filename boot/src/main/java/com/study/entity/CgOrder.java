@@ -61,4 +61,92 @@ public class CgOrder implements Serializable {
         this.orSpopinon = orSpopinon;
         this.orState = orState;
     }
+
+    public Integer getOrId() {
+        return orId;
+    }
+
+    public void setOrId(Integer orId) {
+        this.orId = orId;
+    }
+
+    public String getOrCode() {
+        return orCode;
+    }
+
+    public void setOrCode(String orCode) {
+        this.orCode = orCode;
+    }
+
+    public String getOrExplain() {
+        return orExplain;
+    }
+
+    public void setOrExplain(String orExplain) {
+        this.orExplain = orExplain;
+    }
+
+    public Timestamp getOrTime() {
+        return orTime;
+    }
+
+    public void setOrTime(Timestamp orTime) {
+        this.orTime = orTime;
+    }
+
+    public Timestamp getOrSptime() {
+        return orSptime;
+    }
+
+    public void setOrSptime(Timestamp orSptime) {
+        this.orSptime = orSptime;
+    }
+
+    public String getOrSpopinon() {
+        return orSpopinon;
+    }
+
+    public void setOrSpopinon(String orSpopinon) {
+        this.orSpopinon = orSpopinon;
+    }
+
+    public Integer getOrState() {
+        return orState;
+    }
+
+    public void setOrState(Integer orState) {
+        this.orState = orState;
+    }
+
+    public QxUser getQxUser() {
+        return qxUser;
+    }
+
+    public void setQxUser(QxUser qxUser) {
+        this.qxUser = qxUser;
+    }
+
+    public JcSupplier getJcSupplier() {
+        return jcSupplier;
+    }
+
+    public void setJcSupplier(JcSupplier jcSupplier) {
+        this.jcSupplier = jcSupplier;
+    }
+
+    public QxDepartment getQxDepartment() {
+        return qxDepartment;
+    }
+
+    public void setQxDepartment(QxDepartment qxDepartment) {
+        this.qxDepartment = qxDepartment;
+    }
+
+    public QxUser getSppeo() {
+        return sppeo;
+    }
+
+    public void setSppeo(QxUser sppeo) {
+        this.sppeo = sppeo;
+    }
 }

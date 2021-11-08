@@ -60,8 +60,8 @@ public class CgStorageService{
                 System.out.println("tableData[a].getGoId()="+tableData[a].getGoId());
                 JcGoods goods=new JcGoods();
                 goods.setGoId(tableData[a].getGoId());
-                System.out.println("tableData[a].getGBian()="+tableData[a].getGBian());
-                CgStorageDetail cgStorageDetail=new CgStorageDetail(null,tableData[a].getGBian(),tableData[a].getGPrice());
+                System.out.println("tableData[a].getGBian()="+tableData[a].getgBian());
+                CgStorageDetail cgStorageDetail=new CgStorageDetail(null,tableData[a].getgBian(),tableData[a].getgPrice());
                 cgStorageDetail.setGoods(goods);
                 cgStorageDetail.setCgStorage(cgStorage);
                 i=detailMapper.addSdDetail(cgStorageDetail);

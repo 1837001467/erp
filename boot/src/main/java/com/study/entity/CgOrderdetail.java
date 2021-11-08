@@ -44,4 +44,44 @@ public class CgOrderdetail implements Serializable {
 
     private CgOrder order;//订单
     private JcGoods goods;//商品
+
+    public Integer getOdId() {
+        return odId;
+    }
+
+    public void setOdId(Integer odId) {
+        this.odId = odId;
+    }
+
+    public Integer getOdCount() {
+        return odCount;
+    }
+
+    public void setOdCount(Integer odCount) {
+        this.odCount = odCount;
+    }
+
+    public BigDecimal getOdPrice() {
+        return odPrice;
+    }
+
+    public void setOdPrice(BigDecimal odPrice) {
+        this.odPrice = odPrice;
+    }
+
+    public CgOrder getOrder() {
+        return order;
+    }
+
+    public void setOrder(CgOrder order) {
+        this.order = order;
+    }
+
+    public JcGoods getGoods() {
+        return goods;
+    }
+
+    public void setGoods(JcGoods goods) {
+        this.goods = goods;
+    }
 }

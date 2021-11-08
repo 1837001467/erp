@@ -65,4 +65,108 @@ public class CgStorage implements Serializable {
         this.stState = stState;
         this.stTotalmoney = stTotalmoney;
     }
+
+    public Integer getStId() {
+        return stId;
+    }
+
+    public void setStId(Integer stId) {
+        this.stId = stId;
+    }
+
+    public String getStCode() {
+        return stCode;
+    }
+
+    public void setStCode(String stCode) {
+        this.stCode = stCode;
+    }
+
+    public String getStExplain() {
+        return stExplain;
+    }
+
+    public void setStExplain(String stExplain) {
+        this.stExplain = stExplain;
+    }
+
+    public String getStAccount() {
+        return stAccount;
+    }
+
+    public void setStAccount(String stAccount) {
+        this.stAccount = stAccount;
+    }
+
+    public Timestamp getStTime() {
+        return stTime;
+    }
+
+    public void setStTime(Timestamp stTime) {
+        this.stTime = stTime;
+    }
+
+    public Timestamp getStSptime() {
+        return stSptime;
+    }
+
+    public void setStSptime(Timestamp stSptime) {
+        this.stSptime = stSptime;
+    }
+
+    public String getStSpopinon() {
+        return stSpopinon;
+    }
+
+    public void setStSpopinon(String stSpopinon) {
+        this.stSpopinon = stSpopinon;
+    }
+
+    public Integer getStState() {
+        return stState;
+    }
+
+    public void setStState(Integer stState) {
+        this.stState = stState;
+    }
+
+    public BigDecimal getStTotalmoney() {
+        return stTotalmoney;
+    }
+
+    public void setStTotalmoney(BigDecimal stTotalmoney) {
+        this.stTotalmoney = stTotalmoney;
+    }
+
+    public QxUser getQxUser() {
+        return qxUser;
+    }
+
+    public void setQxUser(QxUser qxUser) {
+        this.qxUser = qxUser;
+    }
+
+    public JcSupplier getJcSupplier() {
+        return jcSupplier;
+    }
+
+    public void setJcSupplier(JcSupplier jcSupplier) {
+        this.jcSupplier = jcSupplier;
+    }
+
+    public QxUser getSppeo() {
+        return sppeo;
+    }
+
+    public void setSppeo(QxUser sppeo) {
+        this.sppeo = sppeo;
+    }
+
+    public JcWhinformation getCk() {
+        return ck;
+    }
+
+    public void setCk(JcWhinformation ck) {
+        this.ck = ck;
+    }
 }
