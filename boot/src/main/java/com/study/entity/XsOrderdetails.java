@@ -30,5 +30,60 @@ public class XsOrderdetails implements Serializable {
 
     private Integer detailsNum;
 
-    private List<JcGoods> goId;
+    private Integer goId;
+
+    public XsOrderdetails() {
+    }
+
+    public XsOrderdetails(Integer detailsId, Integer salesId, Integer orderId, Integer detailsNum, Integer goId) {
+        this.detailsId = detailsId;
+        this.salesId = salesId;
+        this.orderId = orderId;
+        this.detailsNum = detailsNum;
+        this.goId = goId;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public Integer getDetailsId() {
+        return detailsId;
+    }
+
+    public void setDetailsId(Integer detailsId) {
+        this.detailsId = detailsId;
+    }
+
+    public Integer getSalesId() {
+        return salesId;
+    }
+
+    public void setSalesId(Integer salesId) {
+        this.salesId = salesId;
+    }
+
+    public Integer getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(Integer orderId) {
+        this.orderId = orderId;
+    }
+
+    public Integer getDetailsNum() {
+        return detailsNum;
+    }
+
+    public void setDetailsNum(Integer detailsNum) {
+        this.detailsNum = detailsNum;
+    }
+
+    public Integer getGoId() {
+        return goId;
+    }
+
+    public void setGoId(Integer goId) {
+        this.goId = goId;
+    }
 }

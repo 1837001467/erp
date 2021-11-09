@@ -54,6 +54,14 @@ public class CgStorage implements Serializable {
 
     private List<JcGoods> goods;
 
+    public List<JcGoods> getGoods() {
+        return goods;
+    }
+
+    public void setGoods(List<JcGoods> goods) {
+        this.goods = goods;
+    }
+
     public CgStorage() {
     }
 

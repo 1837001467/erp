@@ -193,4 +193,11 @@ public class CgPrice implements Serializable {
         this.prState = prState;
     }
 
+    public List<JcGoods> getGoods() {
+        return goods;
+    }
+
+    public void setGoods(List<JcGoods> goods) {
+        this.goods = goods;
+    }
 }

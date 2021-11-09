@@ -13,7 +13,7 @@
 					</el-select>
 				</el-form-item>
 				<el-form-item label="经手人:" size="medium" style="float: left;margin-right: 50px;">
-					<el-select v-model="searchform.cgbm" clearable>
+					<el-select v-model="searchform.jsr" clearable>
 						<el-option v-for="ct in users" :label="ct.yhName" :value="ct.yhId" :key="ct.yhId">
 						</el-option>
 					</el-select>
@@ -23,7 +23,7 @@
 			</el-form>
 		</el-row>
 		<div>
-			<el-table :data="tableData.slice((pageNo)*pageSize,pageNo*pageSize)">
+			<el-table :data="tableData">
 				<el-table-column label="订单编码">
 					<template #default="scope">
 						<el-tag size="medium" type="primary" plain @click="clickData(scope.row.prId)">
@@ -328,6 +328,7 @@
 				return year + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + sec;
 			},
 			add() { //新增
+				this.xzData = [];
 				this.CgdialogVisible = true;
 				this.state = 1;
 				this.fuzhi();

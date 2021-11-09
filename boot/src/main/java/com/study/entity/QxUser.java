@@ -66,4 +66,5 @@ public class QxUser {
      */
     @TableField(exist = false)
     private QxDepartment bm;
+
 }

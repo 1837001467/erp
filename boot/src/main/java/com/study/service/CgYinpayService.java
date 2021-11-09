@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -33,7 +34,7 @@ public class CgYinpayService{
     }
 
     //付款操作
-    public Integer fukuan(Integer yiid,String way,String fktype){
+    public Integer fukuan(Integer yiid, String way, String fktype, BigDecimal totalmoney){
         //1、改应付款单状态
         Timestamp nowtime= new Timestamp(System.currentTimeMillis());
         CgYinpay cgYinpay=new CgYinpay();

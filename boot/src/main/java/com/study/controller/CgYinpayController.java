@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import org.springframework.stereotype.Controller;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -30,8 +31,8 @@ public class CgYinpayController {
     }
 
     @PostMapping("/fukuan")
-    public Integer fukuan(@RequestParam("yiid") Integer yiid,@RequestParam("way") String way,@RequestParam("fktype") String fktype ){
-        return service.fukuan(yiid,way,fktype);
+    public Integer fukuan(@RequestParam("yiid") Integer yiid, @RequestParam("way") String way, @RequestParam("fktype") String fktype, @RequestParam(value = "totalmoney")BigDecimal totalmoney){
+        return service.fukuan(yiid,way,fktype,totalmoney);
     }
 
 

@@ -84,4 +84,6 @@ public class CgOrderdetail implements Serializable {
     public void setGoods(JcGoods goods) {
         this.goods = goods;
     }
+
+
 }

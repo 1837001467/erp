@@ -31,5 +31,35 @@ public class CcStock implements Serializable {
 
     private Integer ccNum;
 
+    public Integer getCcId() {
+        return ccId;
+    }
 
+    public void setCcId(Integer ccId) {
+        this.ccId = ccId;
+    }
+
+    public Integer getWhId() {
+        return whId;
+    }
+
+    public void setWhId(Integer whId) {
+        this.whId = whId;
+    }
+
+    public Integer getgId() {
+        return gId;
+    }
+
+    public void setgId(Integer gId) {
+        this.gId = gId;
+    }
+
+    public Integer getCcNum() {
+        return ccNum;
+    }
+
+    public void setCcNum(Integer ccNum) {
+        this.ccNum = ccNum;
+    }
 }

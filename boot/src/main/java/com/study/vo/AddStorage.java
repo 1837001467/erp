@@ -25,6 +25,8 @@ public class AddStorage {
     private String zh;
     private BigDecimal totalmoney;
 
+
+
     public QxUser getUser() {
         return user;
     }

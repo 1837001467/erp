@@ -44,7 +44,7 @@
           left join  qx_user qu on re.yh_id = qu.yh_id
           left join jc_whinformation jw on re.wh_id = jw.wh_id
         <where>
-            <if test="zt!=null and zt!=2">
+            <if test="zt!=null and zt!=3">
                 and re.re_state=#{zt}
             </if>
         </where>

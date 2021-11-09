@@ -27,5 +27,27 @@ public class JcWhinformation implements Serializable {
 
     private Integer whBian;
 
+    public Integer getWhId() {
+        return whId;
+    }
 
+    public void setWhId(Integer whId) {
+        this.whId = whId;
+    }
+
+    public String getWhName() {
+        return whName;
+    }
+
+    public void setWhName(String whName) {
+        this.whName = whName;
+    }
+
+    public Integer getWhBian() {
+        return whBian;
+    }
+
+    public void setWhBian(Integer whBian) {
+        this.whBian = whBian;
+    }
 }

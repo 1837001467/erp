@@ -151,4 +151,12 @@ public class CgOrder implements Serializable {
     public void setSppeo(QxUser sppeo) {
         this.sppeo = sppeo;
     }
+
+    public List<JcGoods> getGoods() {
+        return goods;
+    }
+
+    public void setGoods(List<JcGoods> goods) {
+        this.goods = goods;
+    }
 }

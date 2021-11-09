@@ -16,5 +16,32 @@
         <result column="proceeds_times" property="proceedsTimes" />
         <result column="proceeds_state" property="proceedsState" />
     </resultMap>
-
+<!--    新增收款单-->
+    <insert id="addProceeds" useGeneratedKeys="true" keyProperty="proceedsId">
+        insert into xs_proceeds values (null,#{yhId},#{khId},#{salesId},#{qxYhId},#{proceedsYard},#{proceedsWay},#{proceedsAccount},
+                                        #{proceedsTime},#{proceedsTimes},#{proceedsState})
+    </insert>
+<!--    收款单查询所有-->
+    <select id="selectAll" resultMap="BaseResultMap" parameterType="com.study.entity.XsProceeds">
+        select proceeds_id, yh_id, kh_id, sales_id, qx__yh_id, proceeds_yard, proceeds_way,
+               proceeds_account, proceeds_time, proceeds_times, proceeds_state
+        from xs_proceeds
+        order by proceeds_id desc
+    </select>
+<!--    修改收款单状态-->
+    <update id="updateProceeds" parameterType="com.study.entity.XsProceeds">
+        update xs_proceeds
+        <set>
+            <if test="proceedsState!=null and proceedsState!=''">
+                proceeds_state=#{proceedsState},
+            </if>
+            <if test="qxYhId!=null and qxYhId!=''">
+                qx__yh_id =#{qxYhId},
+            </if>
+            <if test="proceedsTimes!=null">
+                proceeds_times =#{proceedsTimes},
+            </if>
+        </set>
+        where proceeds_id = #{proceedsId}
+    </update>
 </mapper>

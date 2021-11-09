@@ -1,5 +1,5 @@
 <template>
-	<el-table ref="multipleTable" :data="yfData" style="width: 100%" :header-cell-style="{'text-align':'center'}"
+	<el-table ref="multipleTable" :data="yfData.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%" :header-cell-style="{'text-align':'center'}"
 		:cell-style="{'text-align':'center'}" row-key="spuid"
 		:tree-props="{children: 'children', hasChildren: 'hasChildren'}">
 		<el-table-column prop="tiId" label="ID">

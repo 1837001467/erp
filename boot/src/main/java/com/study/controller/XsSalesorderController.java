@@ -3,6 +3,7 @@ package com.study.controller;
 
 import com.study.entity.XsSalesorder;
 import com.study.service.XsSalesorderService;
+import com.study.vo.XsOrderAll;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,15 +34,14 @@ public class XsSalesorderController {
         return xsSalesorderService.selectById(xsSalesorder);
     }
     @PostMapping("/add")
-    public void addOrder(@RequestBody XsSalesorder xsSalesorder){
-        System.out.println("xxx");
-        System.out.println("xxxx"+xsSalesorder);
-//        Integer i = xsSalesorderService.addOrder(xsSalesorder);
-//        if (i>0){
-//            System.out.println("销售订单表新增成功");
-//        }else{
-//            System.out.println("销售订单表新增失败");
-//        }
+    public void addOrder(@RequestBody XsOrderAll order){
+        Integer i = xsSalesorderService.addOrder(order);
+    }
+    @PostMapping("/update")
+    public void updateOrderSetState(@RequestBody XsSalesorder xsSalesorder){
+        System.out.println("进入修改");
+        xsSalesorderService.updateOrderSetState(xsSalesorder.getOrderState(),xsSalesorder.getQxYhId(),xsSalesorder.getOrderId());
+
     }
 }
 

@@ -13,7 +13,7 @@
 			</el-form>
 		</el-row>
 		<div>
-			<el-table :data="tableData" :span-method="objectSpanMethod" style="width: 100%"
+			<el-table :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" :span-method="objectSpanMethod" style="width: 100%"
 				:header-cell-style="{'text-align':'center'}" :cell-style="{'text-align':'center'}">
 				<el-table-column label="订单编码">
 					<template #default="scope">
@@ -217,11 +217,11 @@
 				multipleSelection: [],
 				Spudialog: false,
 				states: [{
-						value: 0,
+						value: 1,
 						name: '正常'
 					},
 					{
-						value: 1,
+						value: 2,
 						name: '停用'
 					}
 				],
@@ -421,15 +421,22 @@
 			search() {
 				let $this = this;
 				console.log("$this.searchform.stateoption", $this.searchform.stateoption);
-				let cs = 2;
-				if ($this.searchform.stateoption == undefined) {
-					cs = 2;
-				} else {
-					cs = $this.searchform.stateoption;
+				let cs = 3;
+				console.log($this.searchform.stateoption == undefined, "555555");
+				console.log($this.searchform.stateoption);
+				if ($this.searchform.stateoption == undefined || $this.searchform.stateoption == '') {
+					console.log("11111");
+					cs = 3;
+				} else if($this.searchform.stateoption == 1){
+					cs=0;
+				}else if($this.searchform.stateoption == 2){
+					cs=1;
 				}
+				
 				let searchmessages = {
 					zt: cs
-				};
+				}
+				console.log("searchmessages", searchmessages);
 				this.axios.post("/cgReturn/all", qs.stringify(searchmessages)).then(res => {
 					console.log(res, "carData-------：", res.data);
 					$this.tableData = res.data;

@@ -11,7 +11,7 @@
         <result column="g_bian" property="gBian" />
         <result column="g_status" property="gStatus" />
     </resultMap>
-
+    
     <resultMap id="goodsMapper" type="com.study.entity.JcGoods">
         <id column="go_id" property="goId" />
         <result column="g_name" property="gName" />
@@ -68,9 +68,9 @@
         </association>
     </resultMap>
 
-        <select id="selectById" resultMap="BaseResultMap" parameterType="com.study.entity.JcGoods">
-            select go_id, gf_id, g_name, g_price, g_unit, g_bian from where go_id = #{goId}
-        </select>
+    <select id="selectById" resultMap="BaseResultMap" parameterType="com.study.entity.JcGoods">
+        select go_id, gf_id, g_name, g_price, g_unit, g_bian from jc_goods where go_id = #{goId}
+    </select>
 
     <select id="selectAll" resultMap="BaseResultMap">
         select * from jc_goods where g_status=0 order by go_id
@@ -84,7 +84,7 @@
             </if>
         </where>
     </select>
-    <select id="selectOwn" resultType="com.study.entity.JcGoods">
+    <select id="selectOwn" resultMap="BaseResultMap">
         select go_id,g_name from jc_goods
     </select>
 

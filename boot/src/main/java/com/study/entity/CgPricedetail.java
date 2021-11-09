@@ -84,4 +84,6 @@ public class CgPricedetail implements Serializable {
     public void setCgPrice(CgPrice cgPrice) {
         this.cgPrice = cgPrice;
     }
+
+
 }

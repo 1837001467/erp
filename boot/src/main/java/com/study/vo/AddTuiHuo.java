@@ -18,6 +18,8 @@ public class AddTuiHuo {
     private String explain;
     private GoodsArr[] tableData;
 
+
+
     public String getDdcode() {
         return ddcode;
     }

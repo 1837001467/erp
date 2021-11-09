@@ -14,21 +14,21 @@
 	    </div>
 	  </div>
 	  <div id="login">
-		<el-form :model="user" :rules="rules"
+		<el-form :model="user" ref="loginForm" :rules="rules"
 		  class="login-container" label-position="left" label-width="0px">
 		  <h3 class="login_title">账号密码登录</h3>
 		    <el-form-item prop="account"><!-- prop属性中是验证器的键 -->
-		      <el-input type="text" v-model="user.account"
+		      <el-input type="text" v-model="user.yhCard"
 		                auto-complete="off" placeholder="账号">			
 			  </el-input>
 		    </el-form-item>
 		    <el-form-item prop="password">
-		      <el-input type="password" v-model="user.password"
+		      <el-input type="password" v-model="user.yhPswd"
 		                auto-complete="off" placeholder="密码">			
 			  </el-input>
 		    </el-form-item>
 		    <el-form-item style="width: 100%">
-		      <el-button type="primary" style="width: 100%;" @click="submitClick">登录</el-button>
+		      <el-button type="primary" style="width: 100%;" @click="submitClick('loginForm')">登录</el-button>
 		    </el-form-item>
 		  </el-form>
 		</div>
@@ -43,17 +43,17 @@
         fixStyle: '',
 		rules: {
 			  account: [
-				  {required: true, message: '请输入用户名', trigger: 'blur'},
+				  {required: false, message: '请输入用户名', trigger: 'blur'},
 			  ],
 			  password: [
-				  {required: true, message: '请输入密码', trigger: 'blur'},
-				  {min:6,max:18,message:'密码长度在6-18之间',trigger:'blur'}
+				  {required: false, message: '请输入密码', trigger: 'blur'},
+				  {min:4,max:18,message:'密码长度在6-18之间',trigger:'blur'}
 			  ]
 			},
 		checked: true,
 		user: {
-			 account: '谢灵伟',
-			 password: '123456',
+			 yhCard:'',
+			 yhPswd: '',
 			 name:'登录',
 			}
 		}
@@ -62,10 +62,36 @@
       canplay() {
         this.vedioCanPlay = true
       },
-	  submitClick: function () {
-						let n = Object.assign({},this.user);
-						this.$store.commit('login',n);
-						this.$router.replace("/");
+	  submitClick(formName) {
+      // 为表单绑定验证功能
+        this.$refs[formName].validate(valid => {
+          if (valid) {
+            this.axios.post("http://localhost:8095/login",this.user).then((res)=>{
+              if(res.data !== 'fail'){
+                this.$store.state.token = res.data;
+                sessionStorage.setItem("token",JSON.stringify(res.data))
+                //存state
+                this.$router.push('/')
+                let n = Object.assign({},this.user);
+                this.$store.commit('login',n);
+                this.$router.replace("/");
+              }else {
+                this.$message({
+                  message: '账号或密码错误',
+                  type: 'info'
+                });
+              }
+            }).catch(()=>{
+
+            })
+          } else {
+            console.log('验证失败');
+            return false;
+          }
+        });
+						// let n = Object.assign({},this.user);
+						// this.$store.commit('login',n);
+						// this.$router.replace("/");
 					}
     },
     mounted: function() {
