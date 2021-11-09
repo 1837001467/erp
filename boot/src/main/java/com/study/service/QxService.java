@@ -38,9 +38,13 @@ public class QxService {
         return listsp;
     }
     //查询用户去重
-    public List<QxUser> yhqc(String yhCard){
+    public Integer yhqc(String yhCard){
         List<QxUser> listsp = ss.selectUserq(yhCard);
-        return listsp;
+        if (listsp.size()==0){
+            return 0;
+        }else {
+            return 1;
+        }
     }
     //查询日志模糊查询
     public List<QxLog> selcrz(String seach){

@@ -45,33 +45,12 @@ public class CgReturnService{
         return mapper.updateTh(cgReturn);
     }
 
+    //查询所有采购退货单
     public List<CgReturn> all(Integer searchState){
-        return mapper.all(searchState);
+        return mapper.selectAll(searchState);
     }
 
-    //退货(入库不通过，进入退货)//新增
-    public Integer tuihuo(String rkcode){
-        Timestamp nowtime= new Timestamp(System.currentTimeMillis());
-        //入库单
-        CgStorage rk=storageMapper.selectByCode(rkcode);
-        System.out.println("rk="+rk);
-        JcSupplier supplier=rk.getJcSupplier();//供应商
-        QxUser user=rk.getQxUser();//采购员
-        JcWhinformation ck=rk.getCk();//仓库
-        //生成退货编码
-        Calendar now = Calendar.getInstance();
-        String year = String.valueOf(now.get(Calendar.YEAR));
-        String month = String.valueOf(now.get(Calendar.MONTH)+1);
-        String day = String.valueOf(now.get(Calendar.DAY_OF_MONTH));
-        String num = String.valueOf((int)((Math.random()*9+1)*1000));
-        String proceedsYard = "THD"+year+month+day+num;
 
-        CgReturn cgReturn=new CgReturn(null,proceedsYard,nowtime,"入库失败，商品有质量问题",null,null,0);
-        cgReturn.setSupplier(supplier);
-        cgReturn.setUser(user);
-        cgReturn.setCk(ck);
-        return mapper.addTh(cgReturn);
-    }
 
     //采购退货页面新增
     public Integer add(AddTuiHuo vo){

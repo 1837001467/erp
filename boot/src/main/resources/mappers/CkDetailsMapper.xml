@@ -9,5 +9,8 @@
         <result column="ckd_num" property="ckdNum" />
         <result column="ck_id" property="ckId" />
     </resultMap>
+    <insert id="addCkDetailsMapper" useGeneratedKeys="true" keyProperty="ckdId">
+        insert into ck_details values(null,#{gId},#{ckdNum},#{ckId})
+    </insert>
 
 </mapper>

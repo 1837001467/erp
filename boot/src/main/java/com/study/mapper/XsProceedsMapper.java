@@ -1,6 +1,10 @@
 package com.study.mapper;
 
+import com.study.entity.XsProceeds;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.sql.Timestamp;
+import java.util.List;
 
 /**
  * <p>
@@ -12,5 +16,13 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface XsProceedsMapper{
+    //新增收款单
+    Integer addProceeds(XsProceeds xsProceeds);
+    //查询所有收款单
+    List<XsProceeds> selectAll();
+    XsProceeds selectById(Integer proceedsId);
 
+    XsProceeds selectBySalesId(Integer Salesid);
+    //收款单审核
+    Integer updateProceeds(String proceedsState, Integer qxYhId, Integer proceedsId, Timestamp proceedsTimes);
 }

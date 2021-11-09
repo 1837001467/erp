@@ -39,6 +39,7 @@ public class DpAllocationController {
         return ds.selectByPager(pageNO,pageSize);
     }
 
+    //根据不同的调拨审批操作执行不同的操作
     @GetMapping("updateState")
     public Integer  updateState(@RequestParam("dpBian") String dpBian,
                                 @RequestParam("rkState")Integer rkState,
@@ -46,10 +47,13 @@ public class DpAllocationController {
         return ds.updateState(dpBian,rkState,yhId);
     }
 
+    //查询仓库内拥有的所有商品
     @GetMapping("stock")
     public List<JcGoods> stock(@RequestParam("out")Integer out){
         return ds.selectByWhid(out);
     }
+
+    //新增一条仓库调拨记录去审核
     @GetMapping("add")
     public Integer add(@RequestParam("outhouse")Integer outhouse,
                        @RequestParam("inhouse")Integer inhouse,

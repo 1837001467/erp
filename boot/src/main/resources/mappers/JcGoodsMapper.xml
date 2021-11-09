@@ -69,11 +69,11 @@
     </resultMap>
 
         <select id="selectById" resultMap="BaseResultMap" parameterType="com.study.entity.JcGoods">
-            select go_id, gf_id, g_name, g_price, g_unit, g_bian from where go_id = #{goId}
+            select go_id, gf_id, g_name, g_price, g_unit, g_bian from jc_goods  where go_id = #{goId}
         </select>
 
     <select id="selectAll" resultMap="BaseResultMap">
-        select * from jc_goods where g_status=0 order by go_id
+        select * from jc_goods where g_status=0 order by go_id asc
     </select>
     <select id="selectByTypeId" resultMap="BaseResultMap">
         select * from jc_goods jg
@@ -84,7 +84,7 @@
             </if>
         </where>
     </select>
-    <select id="selectOwn" resultType="com.study.entity.JcGoods">
+    <select id="selectOwn" resultMap="BaseResultMap">
         select go_id,g_name from jc_goods
     </select>
 

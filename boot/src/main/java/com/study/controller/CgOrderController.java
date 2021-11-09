@@ -31,6 +31,7 @@ public class CgOrderController {
     @Autowired
     CgOrderService service;
 
+    //查询所有
     @PostMapping("allcgorder")
     public List<CgOrder> selectAllorder(){
         System.out.println("进入selectAllorder");
@@ -38,6 +39,7 @@ public class CgOrderController {
         return  list;
     }
 
+    //分页查询
     @PostMapping("selectByPager")
     public PageInfo<CgOrder> selectByPager(@RequestBody SearchOrderAndPage vo) throws ParseException {
         System.out.println("实体---------------------------："+vo);

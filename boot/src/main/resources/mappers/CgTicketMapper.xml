@@ -26,6 +26,7 @@
     <select id="selectAll" resultMap="BaseResultMap">
         select * from cg_ticket ck
         left join cg_yinpay yp on ck.pa_id=yp.yi_id
+        order by ti_id desc
     </select>
 
 </mapper>

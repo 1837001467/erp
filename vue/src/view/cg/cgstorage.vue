@@ -6,7 +6,7 @@
 			</el-form>
 		</el-row>
 		<div>
-			<el-table :data="tableData" :span-method="objectSpanMethod" style="width: 100%"
+			<el-table :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" :span-method="objectSpanMethod" style="width: 100%"
 				:header-cell-style="{'text-align':'center'}" :cell-style="{'text-align':'center'}">
 				<el-table-column label="订单编码">
 					<template #default="scope">
@@ -157,13 +157,15 @@
 					</el-table-column>
 					<el-table-column label="单价(元)">
 						<template #default="scope">
-							<el-input-number v-model="scope.row.gPrice" controls-position="right" :min="1">
+							<el-input-number v-model="scope.row.gPrice" controls-position="right" :min="1"
+								@change="changeTotalmoney()">
 							</el-input-number>
 						</template>
 					</el-table-column>
 					<el-table-column label="数量">
 						<template #default="scope">
-							<el-input-number v-model="scope.row.gBian" controls-position="right" :min="1">
+							<el-input-number v-model="scope.row.gBian" controls-position="right" :min="1"
+								@change="changeTotalmoney()">
 							</el-input-number>
 						</template>
 					</el-table-column>
@@ -185,6 +187,7 @@
 							<el-table ref="multipleTable" :data="spudata" style="width: 100%"
 								:header-cell-style="{'text-align':'center'}" :cell-style="{'text-align':'center'}"
 								row-key="spuid" :tree-props="{children: 'children', hasChildren: 'hasChildren'}"
+								 :default-sort="{prop: 'goId', order: 'descending'}"
 								@selection-change="handleSelectionChange">
 								<el-table-column type="selection" width="55">
 								</el-table-column>
@@ -265,11 +268,12 @@
 				gfId: 0,
 				multipleSelection: [],
 				Spudialog: false,
+				totalmoney:'',
 				state: 0, //1新增，0点击生成采购订单
 				goodsData: [] //商品详情数据
 			}
 		},
-		methods: {			
+		methods: {
 			add() {
 				this.state = 1;
 				this.RkdialogVisible = true;
@@ -330,7 +334,8 @@
 							explain: this.form.explain,
 							orid: this.form.orId,
 							zh: this.form.zh,
-							state: this.state
+							state: this.state,
+							totalmoney:this.totalmoney
 						}
 						console.log("params=", params);
 						this.axios.post("/study/cgStorage/addstorage",
@@ -379,7 +384,18 @@
 					console.log("v=", v);
 					this.xzData.push(v);
 				})
+				this.changeTotalmoney();
 				this.typeData = [];
+			},
+			changeTotalmoney() {
+				let $this = this;
+				let mytotalmoney = 0;
+				this.xzData.forEach(v => {
+					console.log("ss==============" + (v.gBian) * (v.gPrice))
+					mytotalmoney = mytotalmoney + ((v.gBian) * (v.gPrice));
+					console.log("mytotalmoney=" + mytotalmoney);
+				})
+				this.totalmoney = mytotalmoney;
 			},
 			filterNode(value, data) {
 				if (!value) return true;

@@ -97,7 +97,7 @@ export default {
 				whs:[],
 				dialogTableVisible: false,
 				goods: [],
-				max:1,
+				max:100,
 				num:1,
 				products:[],
 				sqr: {
@@ -125,6 +125,7 @@ export default {
 					.then(res => {
 						if (res.status == 200) {
 							//后台返回的是PageInfo对象，当前分页数据存储在list中
+							console.log(res)
 							this.ckdbs = res.data.list;
 							this.total = res.data.total;
 						}
@@ -147,7 +148,7 @@ export default {
 					params:{
 						outhouse:this.warehouseallForm.wareallOut,
 						inhouse:this.warehouseallForm.wareallIn,
-						num:this.num,
+						num:this.warehouseallForm.waredtNum,
 						gid:this.warehouseallForm.product.proId,
 						yhid:1,
 					}

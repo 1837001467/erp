@@ -42,8 +42,9 @@ public class CgOrderService {
     @Autowired
     QxUserMapper qxUserMapper;
 
+    //查询所有
     public List<CgOrder> selectlist(){
-        return mapper.list();
+        return mapper.selectlist();
     }
 
     //审批
@@ -76,6 +77,7 @@ public class CgOrderService {
         return new PageInfo(list);/*将查询结果封装到PageInfo对象中并返回*/
     }
 
+    //新增订单
     public Integer addorder(AddOrder vo){
         System.out.println("进入addorder"+vo);
         Timestamp nowtime= new Timestamp(System.currentTimeMillis());

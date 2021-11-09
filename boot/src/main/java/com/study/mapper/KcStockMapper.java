@@ -1,6 +1,10 @@
 package com.study.mapper;
 
+import com.study.entity.KcStock;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
 
 /**
  * <p>
@@ -12,6 +16,9 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface KcStockMapper {
+    Integer  change(KcStock kcStock);
 
+    List<KcStock>  selectAll();
 
+    List<KcStock> selectPager(String kcBian);
 }

@@ -1,6 +1,5 @@
 package com.study.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.study.entity.*;
 import com.study.service.QxService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +27,7 @@ public class QxController {
     }
     //用户去重查询
     @RequestMapping("yhqc")
-    public List<QxUser> yhqc(String yhCard){
+    public Integer yhqc(String yhCard){
         return  qx.yhqc(yhCard);
     }
     //角色去重查询

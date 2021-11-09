@@ -58,9 +58,87 @@
 </template>
 
 <script>
-export default {
-name: "rksq"
-}
+	export default {
+		data() {
+			return {
+				rksqs: [],
+				pageNo: 1,
+				pageSize: 5,
+				total: 0,
+				dialogTableVisible: false,
+				goods: [],
+				sqr: {
+					yhName: '',
+					rkApplicationtime: '',
+				},
+			}
+		},
+		methods: {
+			loadData() {
+				this.axios.get("/rkApply/pager", {
+						params: {
+							no: this.pageNo,
+							size: this.pageSize,
+						}
+					})
+					.then(res => {
+						if (res.status == 200) {
+							//后台返回的是PageInfo对象，当前分页数据存储在list中
+							this.rksqs = res.data.list;
+							this.total = res.data.total;
+						}
+					})
+			},
+			look(row) {
+				this.sqr.yhName = row.yhShen.yhName;
+				this.sqr.rkApplicationtime = row.rkApplicationtime;
+				this.axios.get("/rkApply/look", {
+						params: {
+							rkId: row.rkId,
+						}
+					})
+					.then(res => {
+						if (res.status == 200) {
+							console.log(res.data)
+							this.dialogTableVisible = true;
+							this.goods = res.data;
+						}
+					})
+			},
+			update(row,num) {
+				this.axios.get("/rkApply/updateState", {
+						params: {
+							rkId: row.rkId,
+							yhId: 1,
+							rkState:parseInt(num),
+							stcode:row.stCode
+						}
+					})
+					.then(res => {
+						if (res.status == 200) {
+							this.loadData();
+							this.$message.success({
+								message: '已修改状态'
+							});
+						}
+					})
+			},
+			change(pageNo) {
+				//参数表示待跳转的页码
+				this.pageNo = pageNo;
+				this.loadData();
+			},
+			change2(pageSize) {
+				/* 参数表示每页条数 */
+				this.pageNo = 1;
+				this.pageSize = pageSize;
+				this.loadData()
+			},
+		},
+		created() {
+			this.loadData();
+		}
+	}
 </script>
 
 <style scoped>

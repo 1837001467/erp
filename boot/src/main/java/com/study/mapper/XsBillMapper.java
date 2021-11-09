@@ -1,6 +1,9 @@
 package com.study.mapper;
 
+import com.study.entity.XsBill;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 /**
  * <p>
@@ -12,5 +15,8 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface XsBillMapper{
-
+    List<XsBill> selectAll();
+    Integer addBill(XsBill xsBill);
+    XsBill selectById(Integer billId);
+    Integer selecIdMax();
 }

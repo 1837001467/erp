@@ -252,7 +252,6 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.yh.yhPswd='123456';
-
           //查询去重
           this.axios.get("http://localhost:8095/yhqc", {
             params: {
@@ -260,8 +259,8 @@ export default {
             }
           }).then((res) => {
             let aa=res.data;
-            if(res.data==true){
-              console.log(res.data)
+			
+            if(res.data==0){
               this.axios.post("http://localhost:8095/adu-yh",
                   this.yh
               ).then((v) => {

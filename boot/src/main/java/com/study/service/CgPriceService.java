@@ -1,11 +1,14 @@
 package com.study.service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.study.entity.*;
 import com.study.mapper.CgPriceMapper;
 import com.study.mapper.CgPricedetailMapper;
 import com.study.mapper.QxUserMapper;
 import com.study.vo.AddOrder;
 import com.study.vo.GoodsArr;
+import com.study.vo.SearchOrderAndPage;
 import com.study.vo.SearchPriceByPager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,8 +35,11 @@ public class CgPriceService{
     @Autowired
     CgPricedetailMapper cgPricedetailMapper;
 
-    public List<CgPrice> SearchPriceByPager(SearchPriceByPager vo){
-        return  mapper.selectByKeyword(vo);
+    //分页条件查询
+    public PageInfo<CgPrice> SearchPriceByPager(SearchPriceByPager vo){
+        PageHelper.startPage(vo.getNo(),vo.getSize());/*开启分页模式*/
+        List<CgPrice> list = mapper.selectByKeyword(vo);/*调用mapper的查询方法*/
+        return new PageInfo(list);/*将查询结果封装到PageInfo对象中并返回*/
     }
 
     //审批

@@ -49,8 +49,7 @@ public class CgStorageService{
         cgStorage.setQxUser(vo.getUser());
         cgStorage.setCk(vo.getCk());
         mapper.addstorage(cgStorage);
-        //入库申请
-        rkApplyService.cgAdd(vo.getDdcode());
+
 
         cgStorage.setStId(cgStorage.getStId());
 
@@ -75,6 +74,8 @@ public class CgStorageService{
             cgStorageDetail.setCgStorage(cgStorage);
             i=detailMapper.addSdDetail(cgStorageDetail);
         }
+        //入库申请
+        rkApplyService.cgAdd(vo.getDdcode());
 
         //生成应付记账记录
         CgYinpay cgYinpay=new CgYinpay(null,vo.getZh(),null,null,vo.getTotalmoney(),nowtime,0);

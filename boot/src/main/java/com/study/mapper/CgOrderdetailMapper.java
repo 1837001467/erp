@@ -14,6 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 @Mapper
 public interface CgOrderdetailMapper{
-    Integer addOrderDetail(CgOrderdetail orderdetail);
+    Integer addOrderDetail(CgOrderdetail orderdetail);//新增订单详情
 
 }

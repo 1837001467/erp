@@ -31,6 +31,7 @@ public class CgStorageController {
         return service.addstorage(vo);
     }
 
+    //查询所有
     @GetMapping("/all")
     public List<CgStorage> all(){
         return service.all();

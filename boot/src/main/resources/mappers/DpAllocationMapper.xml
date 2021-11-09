@@ -38,7 +38,7 @@
             <result property="whName" column="outName"></result>
         </association>
         <association property="gId" javaType="com.study.entity.JcGoods">
-            <id column="gId" property="goId" />
+            <id column="goId" property="goId" />
             <result column="gName" property="gName" />
         </association>
     </resultMap>

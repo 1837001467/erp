@@ -41,7 +41,7 @@
 				</el-table-column>
 				<el-table-column label="操作" width="200px">
 					<template #default="scope">
-						<el-button size="medium" @click="ruku(scope.row.orId)"
+						<el-button size="medium" @click="ruku(scope.row)"
 							:disabled="scope.row.orState==1?false:true" v-show="scope.row.orState==1">生成入库单</el-button>
 						<el-button size="medium" type="primary" plain @click="examine(scope.row)"
 							:disabled="scope.row.orState==0?false:true" v-show="scope.row.orState==0">审核
@@ -199,6 +199,7 @@
 							<el-table ref="multipleTable" :data="spudata" style="width: 100%"
 								:header-cell-style="{'text-align':'center'}" :cell-style="{'text-align':'center'}"
 								row-key="spuid" :tree-props="{children: 'children', hasChildren: 'hasChildren'}"
+								:default-sort="{prop: 'goId', order: 'descending'}"
 								@selection-change="handleSelectionChange">
 								<el-table-column type="selection" width="55">
 								</el-table-column>
@@ -271,7 +272,7 @@
 				spudata: [], //商品数据
 				cks: [],
 				gfId: 0,
-				multipleSelection: [],//勾选了的商品
+				multipleSelection: [], //勾选了的商品
 				goodsData: [], //商品详情数据
 				Spudialog: false
 			}
@@ -292,24 +293,25 @@
 				this.form.ck.whId = this.cks[0].whId;
 				this.form.zh = this.zhtype[0];
 			},
-			ruku(orid) { //生成入库单
+			ruku(row) { //生成入库单
+				console.log(row)
 				let $this = this;
+				this.RkdialogVisible = true;
 				this.state = 0;
 				this.xzData = [];
-				this.RkdialogVisible = true;
 				this.fuzhi();
-				this.form.orId = orid;
+				this.form.orId = row.orId;
 				$this.form.cgcode = 'CGD' + this.getProjectNum() + Math.floor(Math.random() *
 					10000) // 如果是6位或者8位随机数，相应的 *1000000或者 *100000000就行了
 				console.log("xxx", this.getProjectNum() + Math.floor(Math.random() *
 					10000));
-				//给订单对应的商品赋值
-				this.tableData.forEach(v => {
-					if (v.orId == orid) {
-						this.xzData = v.goods;
-					}
+				var sum = 0;
+				row.goods.forEach(v => {
+					sum += (v.cgOrderdetail.odCount * v.cgOrderdetail.odPrice)
 				})
-				this.changeTotalmoney();
+				this.form.totalmoney = sum;
+				//给订单对应的商品赋值
+				this.xzData = row.goods;
 			},
 			hold() { //生成入库单的保存
 				let $this = this;

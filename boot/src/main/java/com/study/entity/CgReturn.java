@@ -80,6 +80,39 @@ public class CgReturn implements Serializable {
         this.reSpopinon = reSpopinon;
         this.reState=reState;
     }
+
+    public JcSupplier getSupplier() {
+        return supplier;
+    }
+
+    public void setSupplier(JcSupplier supplier) {
+        this.supplier = supplier;
+    }
+
+    public JcWhinformation getCk() {
+        return ck;
+    }
+
+    public void setCk(JcWhinformation ck) {
+        this.ck = ck;
+    }
+
+    public QxUser getUser() {
+        return user;
+    }
+
+    public void setUser(QxUser user) {
+        this.user = user;
+    }
+
+    public List<JcGoods> getGoods() {
+        return goods;
+    }
+
+    public void setGoods(List<JcGoods> goods) {
+        this.goods = goods;
+    }
+
     public void setReId(Integer reId) {
         this.reId = reId;
     }

@@ -16,6 +16,6 @@ import java.util.List;
  */
 @Mapper
 public interface CgPricedetailMapper{
-    Integer addDetail(CgPricedetail detail);
+    Integer addDetail(CgPricedetail detail);//新增采购报价详情
 
 }

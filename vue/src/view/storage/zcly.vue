@@ -11,7 +11,7 @@
 		<el-table-column prop="bm.bmName" label="领用部门"></el-table-column>
 		<el-table-column prop="zcApplicationtime" label="申请时间" width="150"></el-table-column>
 		<el-table-column prop="wh.whName" label="出货仓库"></el-table-column>
-		<el-table-column prop="zc.Text" label="领用说明" show-overflow-tooltip></el-table-column>
+		<el-table-column prop="zcText" label="领用说明" show-overflow-tooltip></el-table-column>
 		<el-table-column prop="shen.yhName" label="审批人"></el-table-column>
 		<el-table-column prop="zcApprovaltime" label="审批时间" width="150"></el-table-column>
 		<el-table-column prop="zcState" label="状态">
@@ -29,11 +29,11 @@
 						style="font-size: 18px;cursor: pointer;margin-right: 25px;"></i>
 				</el-tooltip>
 				<el-tooltip effect="dark" content="通过" placement="bottom">
-					<i class="el-icon-check" @click="update(scope.row),dialogFormVisible = true"
+					<i class="el-icon-check" @click="adopt(scope.row)"
 						v-show="scope.row.zcState==0" style="font-size: 18px;cursor: pointer;margin-right: 25px;"></i>
 				</el-tooltip>
 				<el-tooltip effect="dark" content="归还" placement="bottom">
-					<i class="el-icon-check" @click="update(scope.row),dialogFormVisible = true"
+					<i class="el-icon-check" @click="update(scope.row)"
 						v-show="scope.row.zcState==1" style="font-size: 18px;cursor: pointer;margin-right: 25px;"></i>
 				</el-tooltip>
 			</template>
@@ -56,14 +56,14 @@
 			<el-descriptions-item label="申请时间">{{sqr.zcApplicationtime}}</el-descriptions-item>
 		</el-descriptions>
 		<el-table :data="goods">
-			<el-table-column property="goods.gname" label="商品名" width="200"></el-table-column>
+			<el-table-column property="goods.gName" label="商品名" width="200"></el-table-column>
 			<el-table-column property="lyNum" label="领取数量" width="150"></el-table-column>
 		</el-table>
 	</el-dialog>
 	<el-dialog title="领用申请表" v-model="dialogFormVisible">
 		<el-form :model="form">
 			<el-form-item label="申请人" :label-width="formLabelWidth">
-				<el-select v-model="form.user" placeholder="请选择申请人">
+				<el-select v-model="form.user.yhId" placeholder="请选择申请人">
 					<el-option :label="i.yhName" :value="i.yhId" v-for="i in users"
 						@click="linkage(i.ybm.bm.bmName,i.ybm.bm.bmId)"></el-option>
 				</el-select>
@@ -72,17 +72,20 @@
 				<el-input v-model="form.bm.bmName" autocomplete="off" style="width: 120px;" readonly></el-input>
 			</el-form-item>
 			<el-form-item label="出货仓" :label-width="formLabelWidth">
-				<el-select v-model="form.Warehouse.whId" placeholder="请选择出货仓">
+				<el-select v-model="form.cangku.whId" placeholder="请选择出货仓">
 					<el-option :label="i.whName" :value="i.whId" v-for="i in Warehouses"></el-option>
 				</el-select>
 			</el-form-item>
 			<el-form-item label="商品名" :label-width="formLabelWidth">
 				<el-select v-model="form.commodity.goId" placeholder="请选择商品">
-					<el-option :label="i.gname" :value="i.goId" v-for="i in commoditys"></el-option>
+					<el-option :label="i.gName" :value="i.goId" v-for="i in commoditys"></el-option>
 				</el-select>
 			</el-form-item>
 			<el-form-item label="数量" :label-width="formLabelWidth">
-				<el-input v-model="form.lyNum" autocomplete="off" style="width: 120px;" readonly></el-input>
+				  <el-input-number
+				    v-model="form.lyNum"
+				    :min="1"
+				  ></el-input-number>
 			</el-form-item>
 			<el-form-item label="申请说明" :label-width="formLabelWidth">
 				<el-input v-model="form.zcText" autocomplete="off" style="width: 200px;"></el-input>
@@ -90,7 +93,7 @@
 		</el-form>
 		<template #footer>
 			<span class="dialog-footer">
-				<el-button @click="dialogFormVisible = false">取 消</el-button>
+				<el-button @click="cancel()">取 消</el-button>
 				<el-button type="primary" @click="sure()">确 定</el-button>
 			</span>
 		</template>
@@ -117,14 +120,16 @@
 					zcApplicationtime: '',
 				},
 				form: {
-					user:'',
-					lyNum:'',
+					user:{
+						yhId:''
+					},
+					lyNum:1,
 					zcText:'',
 					bm: {
 						bmId: '',
 						bmName: '',
 					},
-					Warehouse:{
+					cangku:{
 						whId:'',
 						whName:'',
 					},
@@ -166,6 +171,38 @@
 							this.goods = res.data;
 						}
 					})
+			},
+			cancel(){
+				this.dialogFormVisible=false;
+			},
+			adopt(row){
+				this.axios.get("/kcStock/adopt", {
+						params: {
+							zcId: row.zcId,
+							yuId:1,
+						}
+					})
+					.then(res => {
+						if (res.status == 200) {
+							this.loadData();
+							this.$message.success({
+								message: '已修改状态'
+							});
+						}
+					})
+			},
+			sure(){
+				console.log(this.form)
+				this.axios.post("/zcClaim/add",this.form)
+				.then(res =>{
+					if (res.status == 200) {
+						this.cancel();
+						this.loadData();
+						this.$message.success({
+							message: '添加成功'
+						});
+					}
+				})
 			},
 			update(row) {
 				this.axios.get("/zcClaim/update", {
@@ -212,7 +249,7 @@
 							this.Warehouses = res.data;
 						}
 					})	
-				this.axios.get("/JcGoods/own")
+				this.axios.get("/own")
 					.then(res => {
 						if (res.status == 200) {
 							this.commoditys = res.data;

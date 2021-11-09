@@ -3,6 +3,7 @@ package com.study.mapper;
 import com.study.entity.XsSalesorder;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -23,4 +24,8 @@ public interface XsSalesorderMapper {
     Integer addOrder(XsSalesorder xsSalesorder);
     //查询最大索引
     Integer selectIdMax();
+    //修改销售订单状态
+    Integer updateOrderSetState(String orderState, Integer qxYhId, Integer orderId, Timestamp orderTimes);
+    //销售订单表根据id查询
+    XsSalesorder selectByOrderId(Integer orderId);
 }

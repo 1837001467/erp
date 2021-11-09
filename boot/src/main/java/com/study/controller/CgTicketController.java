@@ -30,6 +30,7 @@ public class CgTicketController {
         return service.all();
     }
 
+    //删除收票（修改状态）
     @PostMapping("/delticket")
     public Integer updateTicket(@RequestParam(value = "tiid") Integer tiid, @RequestParam("tistate") Integer tistate) {
         return service.updateTicket(tiid, tistate);

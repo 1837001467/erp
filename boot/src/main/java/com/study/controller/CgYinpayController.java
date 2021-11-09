@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import org.springframework.stereotype.Controller;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -24,13 +25,15 @@ public class CgYinpayController {
     @Autowired
     CgYinpayService service;
 
+    //查询所有
     @GetMapping("/all")
     public List<CgYinpay> all(){
         return service.all();
     }
 
+    //付款操作
     @PostMapping("/fukuan")
-    public Integer fukuan(@RequestParam("yiid") Integer yiid,@RequestParam("way") String way,@RequestParam("fktype") String fktype ){
+    public Integer fukuan(@RequestParam("yiid") Integer yiid, @RequestParam("way") String way, @RequestParam("fktype") String fktype){
         return service.fukuan(yiid,way,fktype);
     }
 

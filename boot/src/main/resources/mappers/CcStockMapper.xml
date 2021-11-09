@@ -9,5 +9,11 @@
         <result column="g_id" property="gId" />
         <result column="cc_num" property="ccNum" />
     </resultMap>
+    <update id="updateNum">
+        update cc_stock set cc_num =#{ccNum} where cc_id =#{ccId}
+    </update>
+    <select id="selectByWidAndGid" resultMap="BaseResultMap">
+        select  cc_id, wh_id, g_id, cc_num  from cc_stock    where g_id  = #{gId}   and   wh_id  =#{whId}
+    </select>
 
 </mapper>

@@ -40,7 +40,7 @@ public class DpAllocationService{
 
     public Integer updateState(String dpBian, Integer rkState,Integer yhId) {
         DpAllocation dpAllocation = dpAllocationMapper.selectBydpBian(dpBian);
-        dpAllocationMapper.UpdateBydpBian(dpBian, rkState);
+       Integer State = dpAllocationMapper.UpdateBydpBian(dpBian, rkState);
         this.adopt(yhId,new Timestamp(System.currentTimeMillis()),dpBian);
         QxUser  qxUser = new QxUser();
         qxUser.setYhId(yhId);
@@ -56,7 +56,7 @@ public class DpAllocationService{
             outStock.setGoods(dpAllocation.getgId());
             outStock.setKcTime(new Timestamp(System.currentTimeMillis()));
             outStock.setKcBian(this.automatic("kc"));
-            kcStockMapper.change(outStock);
+           Integer id = kcStockMapper.change(outStock);
             //一条入库记录
             KcStock  inStock =new KcStock();
             inStock.setKcNum(dpAllocation.getDpNum());
@@ -75,8 +75,9 @@ public class DpAllocationService{
             CcStock ccInStock = ccStockMapper.selectByWidAndGid(dpAllocation.getWhIn().getWhId(),dpAllocation.getgId().getGoId());
             ccInStock.setCcNum(ccInStock.getCcNum()+dpAllocation.getDpNum());
             ccStockMapper.updateNum(ccInStock.getCcId(),ccInStock.getCcNum());
+            return id;
         }
-        return 0;
+        return State;
     }
 
     public  void  adopt(Integer yhId, Timestamp time, String dpBian){

@@ -67,4 +67,75 @@ public class QxUser {
     @TableField(exist = false)
     private QxDepartment bm;
 
+    public Integer getYhId() {
+        return yhId;
+    }
+
+    public void setYhId(Integer yhId) {
+        this.yhId = yhId;
+    }
+
+    public String getYhCard() {
+        return yhCard;
+    }
+
+    public void setYhCard(String yhCard) {
+        this.yhCard = yhCard;
+    }
+
+    public String getYhName() {
+        return yhName;
+    }
+
+    public void setYhName(String yhName) {
+        this.yhName = yhName;
+    }
+
+    public String getYhPswd() {
+        return yhPswd;
+    }
+
+    public void setYhPswd(String yhPswd) {
+        this.yhPswd = yhPswd;
+    }
+
+    public String getYhPhone() {
+        return yhPhone;
+    }
+
+    public void setYhPhone(String yhPhone) {
+        this.yhPhone = yhPhone;
+    }
+
+    public Integer getPosId() {
+        return posId;
+    }
+
+    public void setPosId(Integer posId) {
+        this.posId = posId;
+    }
+
+    public Integer getYhState() {
+        return yhState;
+    }
+
+    public void setYhState(Integer yhState) {
+        this.yhState = yhState;
+    }
+
+    public QxPost getYbm() {
+        return ybm;
+    }
+
+    public void setYbm(QxPost ybm) {
+        this.ybm = ybm;
+    }
+
+    public QxDepartment getBm() {
+        return bm;
+    }
+
+    public void setBm(QxDepartment bm) {
+        this.bm = bm;
+    }
 }

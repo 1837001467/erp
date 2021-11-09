@@ -1,5 +1,5 @@
 <template>
-	<el-table ref="multipleTable" :data="yfData" style="width: 100%" :header-cell-style="{'text-align':'center'}"
+	<el-table ref="multipleTable" :data="yfData.slice((currentPage-1)*pagesize,currentPage*pagesize)" style="width: 100%" :header-cell-style="{'text-align':'center'}"
 		:cell-style="{'text-align':'center'}" row-key="spuid"
 		:tree-props="{children: 'children', hasChildren: 'hasChildren'}">
 		<el-table-column prop="yiId" label="ID">
@@ -47,7 +47,7 @@
 				</el-select>
 			</el-form-item>
 			<div style="margin: 0 auto;">
-				<el-button @click="sure" >确定</el-button>
+				<el-button @click="sure">确定</el-button>
 			</div>
 
 		</el-form>
@@ -91,19 +91,21 @@
 			},
 			fk(row) { //付款
 				console.log("row=", row);
-				this.fkDialog = false;
-				this.form.way=this.ways[0];
-				this.form.type=this.types[0];
-				this.form.yiid=row.yiId;
+				this.fkDialog = true;
+				this.form.way = this.ways[0];
+				this.form.type = this.types[0];
+				this.form.yiid = row.yiId;
 			},
 			sure() { //付款确定按钮
 				let params = {
-					yiid:this.form.yiid,
+					yiid: this.form.yiid,
 					way: this.form.way,
 					fktype: this.form.type
 				}
 				this.axios.post("/yinpay/fukuan", qs.stringify(params)).then(res => {
-					console.log("res=", res)
+					console.log("res=", res);
+					this.allData();
+					this.fkDialog = false;
 				})
 			}
 		},

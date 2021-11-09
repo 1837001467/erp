@@ -17,8 +17,8 @@ import java.util.List;
 public interface CgTicketMapper{
     Integer addTicket(CgTicket cgTicket);//新增
 
-    List<CgTicket> selectAll();
+    List<CgTicket> selectAll();//查询所有收票
 
-    Integer updateTickt(CgTicket ticket);
+    Integer updateTickt(CgTicket ticket);//修改收票（删除操作）
 
 }
