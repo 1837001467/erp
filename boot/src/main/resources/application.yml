@@ -1,8 +1,14 @@
 spring:
   datasource:
+<<<<<<< HEAD
     url: jdbc:mysql://39.108.55.93:3306/erp?useSSL=false&useUnicode=true&characterEncoding=UTF-8
     password: 123456
     username: erp
+=======
+    url: jdbc:mysql://127.0.0.1:3306/erp?useSSL=false&useUnicode=true&characterEncoding=UTF-8
+    password: 123456
+    username: root
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.jdbc.Driver
     filter: stat

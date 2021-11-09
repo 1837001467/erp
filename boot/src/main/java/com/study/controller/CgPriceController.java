@@ -34,7 +34,7 @@ public class CgPriceController {
 
     //查询带条件分页
     @PostMapping("selectByPager")
-    public List<CgPrice> selectByPager(@RequestBody SearchPriceByPager vo) throws ParseException {
+    public PageInfo<CgPrice> selectByPager(@RequestBody SearchPriceByPager vo) throws ParseException {
         System.out.println("实体---------------------------："+vo);
         return service.SearchPriceByPager(vo);
     }
@@ -47,6 +47,7 @@ public class CgPriceController {
         return service.examine(prid,spidea,applystate);
     }
 
+    //新增
     @PostMapping("/add")
     public Integer add(@RequestBody AddOrder vo){
         return  service.add(vo);

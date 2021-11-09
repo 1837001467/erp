@@ -18,6 +18,10 @@
             <result column="yh_state" property="yhState" />
         </association>
     </resultMap>
+    <!--新增日志-->
+    <insert id="addLog" useGeneratedKeys="true" keyProperty="logId">
+        insert into qx_log values(null,#{logAction},#{yhId},#{logTime})
+    </insert>
     <select id="rzcx" resultMap="BaseResultMap">
         select * from qx_log a inner join qx_user b on a.yh_id=b.yh_id
         <where>

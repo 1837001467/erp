@@ -12,6 +12,14 @@
             <result column="bm_name"   property="bmName" />
         </association>
     </resultMap>
+<!--新增角色-->
+    <insert id="addPostq" useGeneratedKeys="true" keyProperty="posId">
+        insert into qx_post values(null,#{posName},#{bmId})
+    </insert>
+<!--    修改角色-->
+    <update id="updatePostq">
+        update qx_post set pos_name=#{posName},bm_id=#{bmId} where pos_id=#{posId}
+    </update>
     <select id="pstcx" resultMap="BaseResultMap">
         select * from qx_post a inner join qx_department b on a.bm_id=b.bm_id
         <where>

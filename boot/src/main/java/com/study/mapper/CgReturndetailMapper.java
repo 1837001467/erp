@@ -13,6 +13,6 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface CgReturndetailMapper{
-    Integer addDetail(CgReturndetail cgReturndetail);
+    Integer addDetail(CgReturndetail cgReturndetail);//新增采购报价详情
 
 }

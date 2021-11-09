@@ -109,11 +109,16 @@
       left join jc_whinformation jw on cs.wh_id = jw.wh_id
       where  cs.st_code =#{stCode}
     </select>
+<<<<<<< HEAD
 <!--    <select id="selectAll" resultMap="all">-->
 <!--        select * from rkall order  by  rk_id desc-->
 <!--    </select>-->
     <select id="selectAll" resultMap="all">
         select * from rk_details order  by  rk_id desc
+=======
+    <select id="selectAll" resultMap="all">
+        select * from rkall order  by  rk_id desc
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
     </select>
     <select id="selectBystId" resultMap="csDetail">
           select sd_id,sd_count,sd_price,go_id,g_name from cg_storagedetai  c left join
@@ -123,7 +128,11 @@
     <select id="selectById" resultMap="selectById">
 select rkd_id, g_id, rkd_num, rk_id , g_name from  rk_details  d
                    left  join  jc_goods  g on
+<<<<<<< HEAD
         d.g_id = g.go_id where rk_id
+=======
+        d.g_id = g.go_id where rk_id =#{rkId}
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
     </select>
 
 </mapper>

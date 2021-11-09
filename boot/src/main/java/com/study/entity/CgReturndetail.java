@@ -38,4 +38,44 @@ public class CgReturndetail implements Serializable {
 
     private JcGoods goods;
     private CgReturn cgReturn;
+
+    public Integer getRdId() {
+        return rdId;
+    }
+
+    public void setRdId(Integer rdId) {
+        this.rdId = rdId;
+    }
+
+    public Integer getRdCount() {
+        return rdCount;
+    }
+
+    public void setRdCount(Integer rdCount) {
+        this.rdCount = rdCount;
+    }
+
+    public BigDecimal getRdPrice() {
+        return rdPrice;
+    }
+
+    public void setRdPrice(BigDecimal rdPrice) {
+        this.rdPrice = rdPrice;
+    }
+
+    public JcGoods getGoods() {
+        return goods;
+    }
+
+    public void setGoods(JcGoods goods) {
+        this.goods = goods;
+    }
+
+    public CgReturn getCgReturn() {
+        return cgReturn;
+    }
+
+    public void setCgReturn(CgReturn cgReturn) {
+        this.cgReturn = cgReturn;
+    }
 }

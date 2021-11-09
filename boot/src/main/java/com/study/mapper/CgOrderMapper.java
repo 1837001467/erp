@@ -16,9 +16,9 @@ import java.util.List;
  */
 @Mapper
 public interface CgOrderMapper{
-    List<CgOrder> list();
+    List<CgOrder> selectlist();//查询所有
 
-    List<CgOrder> searchByKeyword(SearchOrderAndPage vo);
+    List<CgOrder> searchByKeyword(SearchOrderAndPage vo);//通过条件查询
 
     Integer addOrder(CgOrder cgOrder);//新增
 

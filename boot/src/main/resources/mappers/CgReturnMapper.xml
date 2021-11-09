@@ -38,7 +38,7 @@
     <update id="updateTh">
         update cg_return set re_state=#{reState} where re_id=#{reId}
     </update>
-    <select id="all" resultMap="BaseResultMap">
+    <select id="selectAll" resultMap="BaseResultMap">
         select * from cg_return re
           left join jc_supplier js on re.sup_id = js.sup_id
           left join  qx_user qu on re.yh_id = qu.yh_id

@@ -16,15 +16,15 @@ import java.util.List;
  */
 @Mapper
 public interface CgPriceMapper{
-    List<CgPrice> selectByKeyword(SearchPriceByPager vo);
+    List<CgPrice> selectByKeyword(SearchPriceByPager vo);//条件搜索
 
-    CgPrice selectByPrid(Integer prid);
+    CgPrice selectByPrid(Integer prid);//通过主键查找具体的采购报价单
 
-    Integer updateCgPrice(CgPrice cgPrice);
+    Integer updateCgPrice(CgPrice cgPrice);//修改采购报价单
 
-    Integer updateStateById(Integer prId);
+    Integer updateStateById(Integer prId);//根据主键修改
 
-    Integer addCgprice(CgPrice cgPrice);
+    Integer addCgprice(CgPrice cgPrice);//新增采购报价单
 
 
 

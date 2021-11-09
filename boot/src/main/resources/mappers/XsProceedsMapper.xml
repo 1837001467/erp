@@ -44,4 +44,20 @@
         </set>
         where proceeds_id = #{proceedsId}
     </update>
+<<<<<<< HEAD
+=======
+    <select id="selectById" resultMap="BaseResultMap" parameterType="com.study.entity.XsProceeds">
+        select proceeds_id, yh_id, kh_id, sales_id, qx__yh_id, proceeds_yard, proceeds_way,
+               proceeds_account, proceeds_time, proceeds_times, proceeds_state
+        from xs_proceeds
+        where proceeds_id = #{proceedsId}
+    </select>
+    <select id="selectBySalesId" resultMap="BaseResultMap" parameterType="com.study.entity.XsProceeds">
+        select proceeds_id, yh_id, kh_id, sales_id, qx__yh_id, proceeds_yard, proceeds_way,
+               proceeds_account, proceeds_time, proceeds_times, proceeds_state
+        from xs_proceeds
+        where sales_id = #{proceedsId}
+        order by proceeds_id desc
+    </select>
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
 </mapper>

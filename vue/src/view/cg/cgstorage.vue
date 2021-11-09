@@ -187,6 +187,7 @@
 							<el-table ref="multipleTable" :data="spudata" style="width: 100%"
 								:header-cell-style="{'text-align':'center'}" :cell-style="{'text-align':'center'}"
 								row-key="spuid" :tree-props="{children: 'children', hasChildren: 'hasChildren'}"
+								 :default-sort="{prop: 'goId', order: 'descending'}"
 								@selection-change="handleSelectionChange">
 								<el-table-column type="selection" width="55">
 								</el-table-column>

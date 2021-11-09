@@ -16,7 +16,11 @@
 						      </span>
               <template #dropdown>
                 <el-dropdown-menu>
+<<<<<<< HEAD
                   <el-dropdown-item icon="el-icon-setting">修改密码</el-dropdown-item>
+=======
+                  <el-dropdown-item @click="mmtk=true" icon="el-icon-setting">修改密码</el-dropdown-item>
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
                   <el-dropdown-item @click="Dely" icon="el-icon-close">退出登录</el-dropdown-item>
                 </el-dropdown-menu>
               </template>
@@ -25,6 +29,33 @@
         </el-col>
 			</el-row>
 		</el-header>
+
+    <!--sssssssssssssssssss角色弹框sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss-->
+
+    <el-dialog width="40%" :before-close="xgMm" title='修改密码' v-model="mmtk">
+      <el-form ref="mmFrom" :rules="rulemm" :model="mm">
+        <el-row>
+          <el-col :span="16">
+            <el-form-item label="原密码:" prop="yPswd" label-width="120px">
+              <el-input v-model="mm.yPswd"  placeholder="请输入原密码" show-password></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="16">
+          <el-form-item label="现密码:" prop="xPswd" label-width="120px">
+            <el-input v-model="mm.xPswd" placeholder="请输入现密码" show-password></el-input>
+          </el-form-item>
+        </el-col>
+        </el-row>
+        <el-form-item>
+          <el-col :span="1" :offset="11">
+            <el-button type="primary" @click="mmForm('mmFrom')">确定</el-button>
+          </el-col>
+        </el-form-item>
+      </el-form>
+    </el-dialog>
+
 		<el-container>
 			<el-aside width="200px">
 				<!-- el-menu导航菜单 -->
@@ -56,6 +87,23 @@
 export default {
   data () {
     return {
+<<<<<<< HEAD
+=======
+      mmtk:false,
+      mm:{
+        yPswd:'',
+        xPswd:''
+      },
+      rulemm:{
+        yPswd: [
+          {required: true, message: '请输入原始密码', trigger: 'blur'},
+        ],
+        xPswd: [
+          {required: true, message: '请输入新密码', trigger: 'blur'},
+          { min: 6, max: 10, message: '长度在 6 到 10 个字符', trigger: 'blur' }
+        ],
+      },
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
       menus:[]
     }
   },
@@ -68,11 +116,89 @@ export default {
         console.log(this.menus)
       }).catch()
     },
+<<<<<<< HEAD
     handleCommand(command) {
       this.$message('click on item ' + command);
       if(command==a){
         this.Dely
       }
+=======
+    //修改密码弹框X
+    xgMm(){
+      this.mmtk=false
+      this.$refs['mmFrom'].resetFields();
+    },
+    //修改密码弹框确认
+    mmForm(formName){
+      //查询原密码
+      let params = {
+        yhCard:this.$store.state.token.yhCard,
+        yhPswd:this.mm.yPswd,
+      }
+
+      let paramsq = {
+        yhId:this.$store.state.token.yhId,
+        yhPswd:this.mm.xPswd,
+      }
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          //查询原密码
+          this.axios.post("http://localhost:8095/login",params).then((res)=>{
+            if(res.data !== 'fail'){
+              this.axios.post("http://localhost:8095/upd-yhps",paramsq).then((v) => {
+                if (v.data === 'ok') {
+                  this.rzAdd("修改密码")
+                  this.Dely()
+                } else {
+                  console.log(v.data)
+                }
+              }).catch();
+            }else {
+              this.$message({
+                message: '原密码错误',
+                type: 'info'
+              });
+            }
+          }).catch(()=>{
+
+          })
+          // this.axios.get("http://localhost:8095/login", params).then((res) => {
+          //   let aa=res.data;
+          //   if(res.data=null||res.data==""){
+          //     //修改密码
+          //     this.axios.post("http://localhost:8095/upd-yhps",paramsq).then((v) => {
+          //       if (v.data === 'ok') {
+          //         this.rzAdd("修改密码")
+          //         this.Dely()
+          //       } else {
+          //         console.log(v.data)
+          //       }
+          //     }).catch();
+          //     this.bmtk=false
+          //   }else{
+          //     console.log(this.bmji1)
+          //     this.$message.info("已有该部门")
+          //   }
+          // }).catch()
+        } else {
+          console.log('error submit!!');
+          return false;
+        }
+      });
+    },
+    rzAdd(action){
+      let params = {
+        logAction:action,
+        yhId:this.$store.state.token.yhId,
+        logTime:this.getNowFormatDate
+      }
+      this.axios.post("http://localhost:8095/add-rz",params).then((v) => {
+        if (v.data === 'ok') {
+        } else {
+          console.log(v.data)
+        }
+      }).catch();
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
     },
     //注销
     Dely(){
@@ -80,6 +206,31 @@ export default {
     this.$router.replace("/login");
     }
   },
+<<<<<<< HEAD
+=======
+computed:{
+  //获取当前时间
+  getNowFormatDate() {
+    var date = new Date();
+    var seperator1 = "-";
+    var seperator2 = ":";
+    var year = date.getFullYear();
+    var month = date.getMonth() + 1;
+    var strDate = date.getDate();
+    if (month >= 1 && month <= 9) {
+      month = "0" + month;
+    }
+    if (strDate >= 0 && strDate <= 9) {
+      strDate = "0" + strDate;
+    }
+    let hh = new Date().getHours();
+    let mf = new Date().getMinutes()<10 ? '0'+new Date().getMinutes() : new Date().getMinutes();
+    let ss = new Date().getSeconds()<10 ? '0'+new Date().getSeconds() : new Date().getSeconds();
+    var currentdate = year + seperator1 + month + seperator1 + strDate+' '+ +hh+seperator2+mf+seperator2+ss;
+    return currentdate;
+  }
+},
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
   created() {
     //取token值
     this.token = this.$store.state.token

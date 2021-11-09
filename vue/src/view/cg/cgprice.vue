@@ -64,7 +64,7 @@
 			</el-table>
 			<el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="pageNo"
 				:page-sizes="[2, 5, 10, 15]" :page-size="pageSize" layout="total, sizes, prev, pager, next, jumper"
-				:total="tableData.length">
+				:total="total">
 			</el-pagination>
 		</div>
 		<div class="bootomdiv">
@@ -213,6 +213,7 @@
 							<el-table ref="multipleTable" :data="spudata" style="width: 100%"
 								:header-cell-style="{'text-align':'center'}" :cell-style="{'text-align':'center'}"
 								row-key="spuid" :tree-props="{children: 'children', hasChildren: 'hasChildren'}"
+								 :default-sort="{prop: 'goId', order: 'descending'}"
 								@selection-change="handleSelectionChange">
 								<el-table-column type="selection" width="55">
 								</el-table-column>
@@ -291,9 +292,6 @@
 				suppliers: [],
 				Spudialog: false,
 				filterText: '',
-				pageNo: 1,
-				pageSize: 5,
-				total: 0,
 				typeData: [], //用品分类
 				spudata: [], //商品数据
 				gfId: 0,
@@ -500,7 +498,7 @@
 				this.multipleSelection = [];
 				this.$refs["multipleTable"].clearSelection();
 			},
-			fuzhi() { //赋值操作
+			fuzhi() { //赋值操作			
 				this.form.user.yhId = this.users[0].yhId;
 				this.form.gys.supId = this.suppliers[0].supId;
 				this.form.bm.bmId = this.depts[0].bmId;
@@ -610,9 +608,9 @@
 				this.axios.post("/study/cgPrice/selectByPager",
 					$this.searchmessages
 				).then(res => {
-					console.log(res, "priceData-------：", res.data);
-					$this.tableData = res.data;
-					$this.total = res.data.length;
+					console.log(res, "res：", res.data);
+					$this.tableData = res.data.list;
+					$this.total = res.data.total;
 				})
 			},
 			all() {

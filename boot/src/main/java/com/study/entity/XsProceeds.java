@@ -1,5 +1,9 @@
 package com.study.entity;
 
+<<<<<<< HEAD
+=======
+import java.math.BigDecimal;
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.io.Serializable;
@@ -46,6 +50,49 @@ public class XsProceeds implements Serializable {
 
     private String proceedsState;
 
+<<<<<<< HEAD
+=======
+    private BigDecimal proceedsMoney;
+
+    private String proceedsName;
+
+    private String orderYard;
+
+    private String yonghuName;
+
+    public String getYonghuName() {
+        return yonghuName;
+    }
+
+    public void setYonghuName(String yonghuName) {
+        this.yonghuName = yonghuName;
+    }
+
+    public String getProceedsName() {
+        return proceedsName;
+    }
+
+    public void setProceedsName(String proceedsName) {
+        this.proceedsName = proceedsName;
+    }
+
+    public String getOrderYard() {
+        return orderYard;
+    }
+
+    public void setOrderYard(String orderYard) {
+        this.orderYard = orderYard;
+    }
+
+    public BigDecimal getProceedsMoney() {
+        return proceedsMoney;
+    }
+
+    public void setProceedsMoney(BigDecimal proceedsMoney) {
+        this.proceedsMoney = proceedsMoney;
+    }
+
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
     public XsProceeds() {
     }
 
@@ -63,6 +110,11 @@ public class XsProceeds implements Serializable {
         this.proceedsState = proceedsState;
     }
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
     @Override
     public String toString() {
         return "XsProceeds{" +

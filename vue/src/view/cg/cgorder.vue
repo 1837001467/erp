@@ -41,8 +41,13 @@
 				</el-table-column>
 				<el-table-column label="操作" width="200px">
 					<template #default="scope">
+<<<<<<< HEAD
 						<el-button size="medium" @click="ruku(scope.row)" :disabled="scope.row.orState==1?false:true"
 							v-show="scope.row.orState==1">生成入库单</el-button>
+=======
+						<el-button size="medium" @click="ruku(scope.row)"
+							:disabled="scope.row.orState==1?false:true" v-show="scope.row.orState==1">生成入库单</el-button>
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
 						<el-button size="medium" type="primary" plain @click="examine(scope.row)"
 							:disabled="scope.row.orState==0?false:true" v-show="scope.row.orState==0">审核
 						</el-button>
@@ -199,6 +204,7 @@
 							<el-table ref="multipleTable" :data="spudata" style="width: 100%"
 								:header-cell-style="{'text-align':'center'}" :cell-style="{'text-align':'center'}"
 								row-key="spuid" :tree-props="{children: 'children', hasChildren: 'hasChildren'}"
+								:default-sort="{prop: 'goId', order: 'descending'}"
 								@selection-change="handleSelectionChange">
 								<el-table-column type="selection" width="55">
 								</el-table-column>

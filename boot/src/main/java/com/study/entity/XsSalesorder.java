@@ -50,6 +50,25 @@ public class XsSalesorder implements Serializable {
         this.date1 = date1;
         this.date2 = date2;
     }
+<<<<<<< HEAD
+=======
+
+    public List<JcGoods> getGoods() {
+        return goods;
+    }
+
+    public void setGoods(List<JcGoods> goods) {
+        this.goods = goods;
+    }
+
+    public List<XsOrderdetails> getDetails() {
+        return details;
+    }
+
+    public void setDetails(List<XsOrderdetails> details) {
+        this.details = details;
+    }
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
 
     private static final long serialVersionUID=1L;
     @Id
@@ -94,6 +113,19 @@ public class XsSalesorder implements Serializable {
 
     private List<XsOrderdetails> details;
 
+<<<<<<< HEAD
+=======
+    private String yonghuName;
+
+    public String getYonghuName() {
+        return yonghuName;
+    }
+
+    public void setYonghuName(String yonghuName) {
+        this.yonghuName = yonghuName;
+    }
+
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
     @Override
     public String toString() {
         return "XsSalesorder{" +
@@ -117,6 +149,7 @@ public class XsSalesorder implements Serializable {
                 ", date2=" + date2 +
                 '}';
     }
+
 
     public static long getSerialVersionUID() {
         return serialVersionUID;

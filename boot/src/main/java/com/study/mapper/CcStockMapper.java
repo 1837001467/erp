@@ -14,7 +14,13 @@ import org.apache.ibatis.annotations.Param;
  */
 @Mapper
 public interface CcStockMapper{
+<<<<<<< HEAD
     CcStock  selectByWidAndGid(@Param("whId") Integer  whId,@Param("gId") Integer  gId);
 
+=======
+    //根据商品号和仓库号查询库存
+    CcStock  selectByWidAndGid(@Param("whId") Integer  whId,@Param("gId") Integer  gId);
+    //根据 库存主键写入库存
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
     Integer  updateNum(@Param("ccId") Integer ccId,@Param("ccNum") Integer ccNum);
 }

@@ -54,6 +54,10 @@ data() {
 					.then(res => {
 						if (res.status == 200) {
 							//后台返回的是PageInfo对象，当前分页数据存储在list中
+<<<<<<< HEAD
+=======
+							console.log(res.data)
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
 							this.stocks = res.data.list;
 							this.total = res.data.total;
 						}

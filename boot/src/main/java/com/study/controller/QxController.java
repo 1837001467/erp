@@ -21,6 +21,21 @@ public class QxController {
     public List<QxDepartment> qxDe(String seach){
         return  qx.selcbm(seach);
     }
+    //部门去重查询
+    @RequestMapping("bmqc")
+    public List<QxDepartment> bmqc(String bmName){
+        return  qx.bmqc(bmName);
+    }
+    //用户去重查询
+    @RequestMapping("yhqc")
+    public Integer yhqc(String yhCard){
+        return  qx.yhqc(yhCard);
+    }
+    //角色去重查询
+    @RequestMapping("jsqc")
+    public List<QxPost> jsqc(String posName){
+        return  qx.jsqc(posName);
+    }
     //日志模糊查询
     @RequestMapping("rzcx")
     public List<QxLog> logCx(String seach){
@@ -52,6 +67,7 @@ public class QxController {
         return  qx.selcUser(seach);
     }
     //新增日志
+<<<<<<< HEAD
     @RequestMapping("add-rz")
     public int addlist(@RequestBody QxLog log){
         return qx.addlist(log);
@@ -67,14 +83,35 @@ public class QxController {
     //新增修改角色
     @PostMapping("add-js")
     public boolean addlist(@RequestBody QxPost js){
+=======
+    @PostMapping("add-rz")
+    public String addlist(@RequestBody QxLog log){
+        return qx.addLog(log);
+    }
+    //新增修改部门
+    @PostMapping("add-bm")
+    public String addlist(@RequestBody QxDepartment bm){
+        return qx.bmUpdate(bm.getBmId(),bm.getBmName());
+    }
+    //新增修改角色
+    @PostMapping("add-js")
+    public String addlist(@RequestBody QxPost js){
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
         return qx.jsUpdate(js);
     }
     //新增修改用户
     @PostMapping("adu-yh")
+<<<<<<< HEAD
     public boolean addlist(@RequestBody QxUser yh){
         return qx.yhUpdate(yh);
     }
     //重置密码
+=======
+    public String addlist(@RequestBody QxUser yh){
+        return qx.yhUpdate(yh);
+    }
+    //修改密码
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
     @PostMapping("upd-yhps")
     public String addlist11(@RequestBody QxUser xx){
         return qx.updUserpsw(xx.getYhId(),xx.getYhPswd());

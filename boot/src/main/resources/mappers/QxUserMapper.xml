@@ -21,20 +21,31 @@
             </association>
         </association>
     </resultMap>
+
+
+    <!--新增用户-->
+    <insert id="addUser" useGeneratedKeys="true" keyProperty="yhId">
+        insert into qx_user values(null,#{yhCard},#{yhName},#{yhPswd},#{yhPhone},#{posId},#{yhState})
+    </insert>
+    <!-- 修改用户-->
+    <update id="updateUser">
+        update qx_user set yh_card=#{yhCard},yh_name=#{yhName},pos_id=#{posId},yh_pswd=#{yhPswd},yh_phone=#{yhPhone},yh_state=#{yhState} where yh_id=#{yhId}
+    </update>
     <select id="selectUser" resultMap="BaseResultMap">
         select * from qx_user a inner join qx_post b on a.pos_id=b.pos_id
         inner join qx_department c on b.bm_id=c.bm_id
         <where>
             <if test ="seach !=null and '' !=seach"> /*部门名字*/
-                and yh_name like'%${yhName}%'
+                 a.yh_name like'%${yhName}%'
             </if>
             <if test ="seach !=null and '' !=seach"> /*部门名字*/
-                or yh_phone like'%${yhPhone}%'
+                or a.yh_phone like'%${yhPhone}%'
             </if>
             <if test ="seach !=null and '' !=seach"> /*部门名字*/
-                or yh_card like'%${yhCard}%'
+                or a.yh_card like'%${yhCard}%'
             </if>
         </where>
+        order by yh_id desc
     </select>
     <select id="selectCgZg" resultMap="BaseResultMap">
         select * from qx_user q

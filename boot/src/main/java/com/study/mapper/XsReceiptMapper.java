@@ -1,6 +1,9 @@
 package com.study.mapper;
 
+import com.study.entity.XsReceipt;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 /**
  * <p>
@@ -12,5 +15,6 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface XsReceiptMapper {
-
+    List<XsReceipt> selectAll();
+    Integer addReceipt(XsReceipt xsReceipt);
 }

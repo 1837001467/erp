@@ -32,21 +32,12 @@
 <!--    销售订单表多条件查询-->
     <select id="selectById" resultMap="BaseResultMap" parameterType="com.study.entity.XsSalesorder">
         select order_id, yh_id, sales_id, kh_id, qx__yh_id, order_yard, order_name, goods_time,
-               order_site, order_goods, order_linkman, order_phone, order_money,
-               order_time, order_times, order_state
+        order_site, order_goods, order_linkman, order_phone, order_money,
+        order_time, order_times, order_state
         from xs_salesorder
         <where>
-            <if test="orderId!=null and orderId!=''">
-                and order_id = #{orderId}
-            </if>
-            <if test="khId!=null and khId!=''">
-                and kh_id = #{khId}
-            </if>
-            <if test="qxYhId!=null and qxYhId!=''">
-                and yh_id = #{qxYhId}
-            </if>
-            <if test="date1!=null and date1!='' and date2!=null and date2!=''">
-                and order_time > #{date1} and #{date2} > order_time
+            <if test="orderYard!=null and orderYard!=''">
+                and order_Yard like concat('%',#{orderYard},'%')
             </if>
         </where>
     </select>
@@ -75,4 +66,15 @@
         </set>
         where order_id=#{orderId}
     </update>
+<<<<<<< HEAD
+=======
+<!--    销售订单表根据orderid查询-->
+    <select id="selectByOrderId" resultMap="BaseResultMap" parameterType="com.study.entity.XsSalesorder">
+        select order_id, yh_id, sales_id, kh_id, qx__yh_id, order_yard, order_name, goods_time,
+               order_site, order_goods, order_linkman, order_phone, order_money,
+               order_time, order_times, order_state
+        from xs_salesorder
+        where order_id = #{orderId}
+    </select>
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
 </mapper>

@@ -11,7 +11,16 @@
         <result column="kh_address" property="khAddress" />
         <result column="kh_bian" property="khBian" />
         <result column="kh_city" property="khCity" />
-        <result column="kh_status" property="khStatus" />
     </resultMap>
-
+    <!--    客户查询所有-->
+    <select id="selectAll" resultMap="BaseResultMap" parameterType="com.study.entity.JcCustomer">
+        select kh_id, cp_id, kh_name, kh_tel, kh_address, kh_bian, kh_city
+        from jc_customer
+    </select>
+    <!--    客户根据id查询-->
+    <select id="selectById" resultMap="BaseResultMap" parameterType="com.study.entity.JcCustomer">
+        select kh_id, cp_id, kh_name, kh_tel, kh_address, kh_bian, kh_city
+        from jc_customer
+        where kh_id = #{khId}
+    </select>
 </mapper>

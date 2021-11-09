@@ -23,11 +23,25 @@ public class QxDepartment{
      * 部门id
      */
     @TableId(value = "bm_id",type = IdType.AUTO)
-    private Long bmId;
+    private Integer bmId;
     /**
      * 部门名称
      */
     private String bmName;
 
+    public Integer getBmId() {
+        return bmId;
+    }
 
+    public void setBmId(Integer bmId) {
+        this.bmId = bmId;
+    }
+
+    public String getBmName() {
+        return bmName;
+    }
+
+    public void setBmName(String bmName) {
+        this.bmName = bmName;
+    }
 }

@@ -1,6 +1,7 @@
 package com.study.controller;
 
 
+import com.study.entity.XsProceeds;
 import com.study.entity.XsSalesorder;
 import com.study.service.XsSalesorderService;
 import com.study.vo.XsOrderAll;
@@ -40,8 +41,12 @@ public class XsSalesorderController {
     @PostMapping("/update")
     public void updateOrderSetState(@RequestBody XsSalesorder xsSalesorder){
         System.out.println("进入修改");
+<<<<<<< HEAD
         xsSalesorderService.updateOrderSetState(xsSalesorder.getOrderState(),xsSalesorder.getQxYhId(),xsSalesorder.getOrderId());
 
+=======
+        xsSalesorderService.updateOrderSetState(xsSalesorder.getOrderState(),xsSalesorder.getQxYhId(),xsSalesorder.getOrderId(),xsSalesorder);
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
     }
 }
 

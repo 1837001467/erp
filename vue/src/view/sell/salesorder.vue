@@ -1,16 +1,9 @@
 <template>
 	<div>
 		<el-button style="background-color: #13CE66;color: black;" @click="addSorder">新增销售订单</el-button>
-		<el-input placeholder="订单编号" v-model="order.order_id" clearable style="width: 120px;">
+		<el-input placeholder="订单编号" v-model="selectorderYard" clearable style="width: 120px;">
 		</el-input>
-		<el-input placeholder="客户" v-model="order.order_name" clearable style="width: 120px;">
-		</el-input>
-		<el-input placeholder="经手人" v-model="order.order_" clearable style="width: 120px;">
-		</el-input>
-		<el-date-picker v-model="order.time" type="datetimerange" start-placeholder="Start Date"
-			end-placeholder="End Date" :default-time="defaultTime1">
-		</el-date-picker>
-		<el-button>查询</el-button>
+		<el-button @click="selectByYard">查询</el-button>
 		<div>
 			<el-table :data="tableData" style="width: 100%">
 				<el-table-column label="操作" #default="scope" width="220px">
@@ -19,17 +12,15 @@
 				</el-table-column>
 				<el-table-column prop="orderYard" label="订单编号">
 				</el-table-column>
-				<el-table-column prop="khId" label="客户">
+				<el-table-column prop="orderName" label="客户">
 				</el-table-column>
-				<el-table-column prop="khId" label="联系人">
+				<el-table-column prop="orderName" label="联系人">
 				</el-table-column>
 				<el-table-column prop="orderMoney" label="金额">
 				</el-table-column>
-				<el-table-column prop="yhId" label="申请人">
+				<el-table-column prop="yonghuName" label="申请人">
 				</el-table-column>
 				<el-table-column prop="orderTime" label="申请时间">
-				</el-table-column>
-				<el-table-column prop="qxYhId" label="审核人">
 				</el-table-column>
 				<el-table-column prop="orderTimes" label="审核时间">
 				</el-table-column>
@@ -42,34 +33,43 @@
 			<el-dialog title="新增销售订单" v-model="dialogTableVisible" width="60%" :close-on-click-modal="false">
 				<div>
 					<div style="height: 50px;">
-						<el-button @click="addOrder">保存</el-button>
+						<el-button @click="addOrder">新增采购订单</el-button>
 					</div>
 					<el-form :model="order">
 						<el-form-item>
 							<el-descriptions width="100%" v-model="taskdetails">
 								<el-descriptions-item width="600px">
 									<el-form-item label="订单编号">
-										<el-input v-model="order.orderYard"></el-input>
+										<el-input v-model="order.orderYard" disabled="false"></el-input>
 									</el-form-item>
 								</el-descriptions-item>
 								<el-descriptions-item width="300px">
 									<el-form-item label="客户">
-										<el-input v-model="order.orderName"></el-input>
+										<!-- <el-input v-model="order.orderName"></el-input> -->
+										<el-select v-model="order.khId" placeholder="请选择">
+											<el-option v-if="Customer!=null" v-for="b in Customer" :key="b.khId"
+												:label="b.khName" :value="b.khId" @click="selectCustomer(b)">
+											</el-option>
+										</el-select>
 									</el-form-item>
 								</el-descriptions-item>
 								<el-descriptions-item width="300px">
 									<el-form-item label="联系人">
+<<<<<<< HEAD
 										<el-input v-model="order.orderNames"></el-input>
+=======
+										<el-input v-model="order.orderNames" disabled="false"></el-input>
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
 									</el-form-item>
 								</el-descriptions-item>
 								<el-descriptions-item width="300px">
-									<el-form-item label="联系电话">
-										<el-input v-model="order.orderPhone"></el-input>
+									<el-form-item label="联系电话" >
+										<el-input v-model="order.orderPhone" disabled="false"></el-input>
 									</el-form-item>
 								</el-descriptions-item>
 								<el-descriptions-item width="300px">
 									<el-form-item label="订单申请人">
-										<el-input v-model="order.yhId"></el-input>
+										<el-input v-model="order.yhId" disabled="false"></el-input>
 									</el-form-item>
 								</el-descriptions-item>
 							</el-descriptions>
@@ -78,14 +78,23 @@
 				</div>
 				<div>
 					<el-button @click="addCommodity">添加商品</el-button>
+<<<<<<< HEAD
 					<el-table :data="tableCoom" style="width: 100%">
 						<el-table-column prop="gname" label="商品名称">
+=======
+					<el-table :data="xzData" style="width: 100%">
+						<el-table-column prop="gName" label="商品名称">
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
 						</el-table-column>
 						<el-table-column prop="gprice" label="单价">
 						</el-table-column>
 						<el-table-column label="数量">
 							<template #default="scope">
+<<<<<<< HEAD
 								<el-input-number v-model="scope.row.gbian" controls-position="right" :min="1">
+=======
+								<el-input-number v-model="scope.row.gBian" controls-position="right" :min="1">
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
 								</el-input-number>
 							</template>
 						</el-table-column>
@@ -110,6 +119,7 @@
 									@selection-change="handleSelectionChange">
 									<el-table-column type="selection" width="55">
 									</el-table-column>
+<<<<<<< HEAD
 									<el-table-column prop="ypcode" label="商品id" width="165px">
 									</el-table-column>
 									<el-table-column prop="gname" label="商品名称">
@@ -117,6 +127,15 @@
 									<el-table-column prop="gunit" label="单位">
 									</el-table-column>
 									<el-table-column prop="gprice" label="单价(元)">
+=======
+									<el-table-column type="index" label="id" width="165px">
+									</el-table-column>
+									<el-table-column prop="gName" label="商品名称">
+									</el-table-column>
+									<el-table-column prop="gUnit" label="单位">
+									</el-table-column>
+									<el-table-column prop="gPrice" label="单价(元)">
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
 									</el-table-column>
 								</el-table>
 							</el-container>
@@ -131,27 +150,43 @@
 							<el-descriptions width="100%" v-model="taskdetails">
 								<el-descriptions-item width="600px">
 									<el-form-item label="订单编号" prop="taskTitle">
+<<<<<<< HEAD
 										<el-input v-model="form.orderYard"></el-input>
+=======
+										<el-input v-model="form.orderYard" disabled="false"></el-input>
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
 									</el-form-item>
 								</el-descriptions-item>
 								<el-descriptions-item width="300px">
 									<el-form-item label="客户" prop="taskTitle">
+<<<<<<< HEAD
 										<el-input v-model="form.khId"></el-input>
+=======
+										<el-input v-model="form.orderName" disabled="false"></el-input>
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
 									</el-form-item>
 								</el-descriptions-item>
 								<el-descriptions-item width="300px">
 									<el-form-item label="联系人" prop="taskTitle">
+<<<<<<< HEAD
 										<el-input v-model="form.khId"></el-input>
+=======
+										<el-input v-model="form.orderName" disabled="false"></el-input>
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
 									</el-form-item>
 								</el-descriptions-item>
 								<el-descriptions-item width="300px">
 									<el-form-item label="联系电话" prop="taskTitle">
+<<<<<<< HEAD
 										<el-input v-model="form.orderPhone"></el-input>
 									</el-form-item>
 								</el-descriptions-item>
 								<el-descriptions-item width="300px">
 									<el-form-item label="订单申请人" prop="taskTitle">
 										<el-input v-model="form.yhId"></el-input>
+=======
+										<el-input v-model="form.orderPhone" disabled="false"></el-input>
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
 									</el-form-item>
 								</el-descriptions-item>
 							</el-descriptions>
@@ -163,9 +198,15 @@
 					<el-table :data="tableData2.goods" style="width: 100%">
 						<el-table-column prop="goId" label="商品编号">
 						</el-table-column>
+<<<<<<< HEAD
 						<el-table-column prop="gname" label="商品名称">
 						</el-table-column>
 						<el-table-column prop="gprice" label="单价">
+=======
+						<el-table-column prop="gName" label="商品名称">
+						</el-table-column>
+						<el-table-column prop="gPrice" label="单价">
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
 						</el-table-column>
 					</el-table>
 				</div>
@@ -192,6 +233,7 @@
 				commodityDetails: false,
 				orderDetails: false,
 				tableData: [], //销售订单
+<<<<<<< HEAD
 				tableData2:[],//销售订单详情
 				order: {
 					orderYard:'',
@@ -199,6 +241,16 @@
 				},
 				tableCoom: [], //商品详情
 
+=======
+				tableData2: [], //销售订单详情
+				order: {
+					orderYard: '',
+					yhId: '戴莉',
+				},
+				xzData: [], //商品详情
+				Customer: [], //客户
+				selectorderYard: '', //查询条件
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
 
 				//商品详情
 				filterText: '',
@@ -225,13 +277,17 @@
 				})
 			},
 			addSorder() {
-				let $this = this;
+				let $this = this;				
+				this.order.khId=this.Customer[0].khId;
+				this.order.orderNames=this.Customer[0].khName;
+				this.order.orderPhone=this.Customer[0].khTel;
 				$this.dialogTableVisible = true;
 			},
 			addOrder() {
 				let $this = this;
 				this.axios.post("/study/xsSalesorder/add", {
 					orderYard: $this.order.orderYard,
+<<<<<<< HEAD
 					orderName: $this.order.orderName,
 					orderNames: $this.order.orderNames,
 					orderPhone: $this.order.orderPhone,
@@ -241,12 +297,28 @@
 
 				})
 				this.dialogTableVisible = false;
+=======
+					khId: $this.order.khId,
+					orderNames: $this.order.orderNames,
+					orderPhone: $this.order.orderPhone,
+					yhId: 1,
+					goods: $this.xzData,
+				}).then(res => {
+					this.loadOrder();
+				})
+				this.dialogTableVisible = false;
+				this.loadOrder();
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
 			},
 			addCommodity() {
 				let $this = this;
 				$this.commodityDetails = true;
 				this.loadSpuType();
 				this.allgoods();
+<<<<<<< HEAD
+=======
+				this.typeData = [];
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
 			},
 			loadDetails(row) {
 				this.orderDetails = true
@@ -257,6 +329,7 @@
 					...row
 				}
 			},
+<<<<<<< HEAD
 			updateOrder(row){
 				console.log("ddxq:",row)
 				this.axios.post("/study/xsSalesorder/update",{
@@ -265,16 +338,77 @@
 					qxYhId:'',
 				}).then(res =>{
 					
+=======
+			updateOrder(row) {
+				console.log("ddxq:", row)
+				this.axios.post("/study/xsSalesorder/update", {
+					orderId: row.orderId,
+					orderState: row.orderState,
+					qxYhId: '',
+					khId: row.khId,
+				}).then(res => {
+					this.loadOrder();
+				})
+			},
+			//查询所有用户
+			loadCustomer() {
+				this.axios.get("/study/jcCustomer").then(res => {
+					console.log("客户：", res.data)
+					this.Customer = res.data
+				})
+			},
+			selectCustomer(row) {
+				console.log("选择的客户信息：", row)
+				this.order.orderNames = row.khName;
+				this.order.orderPhone = row.khTel;
+			},
+			selectByYard() {
+				this.axios.post("/study/xsSalesorder", {
+					orderYard: this.selectorderYard
+				}).then(res => {
+					console.log("查询的信息：", res)
+					this.tableData = res.data
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
 				})
 			},
 
 			//商品详情
 			handleSelectionChange(val) {
+<<<<<<< HEAD
 				this.tableCoom = val;
 				console.log("multipleSelection=", this.tableCoom)
 			},
 			sure() { //确定
 				this.commodityDetails = false;
+=======
+				this.xzData = val;
+				console.log("multipleSelection=", this.multipleSelection);
+			},
+			sure() { //商品数据弹框确定按钮
+				//要判断之前商品已经存在就累加数量	
+				this.commodityDetails = false;
+				console.log("修改前的商品详情=", this.xzData);
+				this.multipleSelection.forEach(v => {
+					v.gBian = 1;
+				})
+				const map = new Map();
+				for (let i = 0; i < this.xzData.length; ++i) {
+					map.set(this.xzData[i].goId, this.xzData[i])
+				}
+				for (let i = 0; i < this.multipleSelection.length; ++i) {
+					if (map.has(this.multipleSelection[i].goId)) {
+						map.get(this.multipleSelection[i].goId).gBian++
+					} else {
+						map.set(this.multipleSelection[i].goId, this.multipleSelection[i])
+					}
+				}
+				this.xzData = [];
+				map.forEach(v => {
+					console.log("v=", v);
+					this.xzData.push(v);
+				})
+				this.typeData = [];
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
 			},
 			filterNode(value, data) {
 				if (!value) return true;
@@ -323,7 +457,11 @@
 					$this.spudata = res.data;
 				})
 			},
+<<<<<<< HEAD
 			
+=======
+
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
 			// 获取当前日期的方法   随机码
 			getProjectNum() {
 				let $this = this;
@@ -356,6 +494,10 @@
 		mounted() {
 			this.loadOrder();
 			this.created();
+<<<<<<< HEAD
+=======
+			this.loadCustomer();
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
 		}
 	}
 </script>

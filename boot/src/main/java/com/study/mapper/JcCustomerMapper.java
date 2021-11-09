@@ -1,6 +1,9 @@
 package com.study.mapper;
 
+import com.study.entity.JcCustomer;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 /**
  * <p>
@@ -12,5 +15,8 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface JcCustomerMapper{
-
+    //客户查询所有
+    List<JcCustomer> selectAll();
+    //客户根据id查询
+    JcCustomer selectById(Integer khId);
 }

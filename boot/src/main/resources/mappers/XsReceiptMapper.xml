@@ -14,6 +14,14 @@
         <result column="receipt_time" property="receiptTime" />
         <result column="receipt_times" property="receiptTimes" />
         <result column="receipt_state" property="receiptState" />
+        <result column="sales_id" property="salesId" />
     </resultMap>
-
+    <select id="selectAll" resultMap="BaseResultMap" parameterType="com.study.entity.XsReceipt">
+        select receipt_id, yh_id, qx__yh_id, receipt_yary, receipt_money, receipt_type, receipt_acount, receipt_time, receipt_times, receipt_state, sales_id
+        from xs_receipt
+        order by receipt_id desc
+    </select>
+    <insert id="addReceipt" useGeneratedKeys="true" keyProperty="receiptId">
+        insert into xs_receipt values (null,#{yhId},#{qxYhId},#{receiptYary},#{receiptMoney},#{receiptType},#{receiptAcount},#{receiptTime},#{receiptTimes},#{receiptState},#{salesId})
+    </insert>
 </mapper>

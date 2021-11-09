@@ -36,20 +36,34 @@ public class KcStockService{
     @Autowired
     private CcStockMapper ccStockMapper;
 
+<<<<<<< HEAD
     public   Integer  update(Integer zcId,Integer yuId){
         //1.状态改变，写入审批人，审批时间
         zcClaimMapper.update(zcId, 1);
+=======
+    public  Integer  update(Integer zcId,Integer yuId){
+        //1.状态改变，写入审批人，审批时间
+       Integer state = zcClaimMapper.update(zcId, 1);
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
         this.adopt(zcId,yuId,new Timestamp(System.currentTimeMillis()));
         //2.生成一条库存变动记录
         this.change(zcId,"领用出库");
         //3.库存减少
         this.stockChange(zcId);
+<<<<<<< HEAD
         return 0;
+=======
+        return state;
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
     }
     public  Integer  adopt(Integer zcId,Integer yhId,Timestamp time){
         return zcClaimMapper.adopt(yhId, time, zcId);
     }
+<<<<<<< HEAD
     public  Integer  change(Integer  zcid,String  type){
+=======
+    public  void  change(Integer  zcid,String  type){
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
         ZcClaim zcClaim = zcClaimMapper.selectId(zcid);
         List<LyDetails> lyDetails = zcClaimMapper.selectById(zcid);
         if(lyDetails.size()!=0){
@@ -64,14 +78,21 @@ public class KcStockService{
                 kcStock.setKcBian(this.automatic());
                 kcStockMapper.change(kcStock);
             }
+<<<<<<< HEAD
             return 1;
         }else{
             return 0;
+=======
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
         }
     }
 
 
+<<<<<<< HEAD
     public Integer stockChange(Integer zcid){
+=======
+    public void stockChange(Integer zcid){
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
         ZcClaim zcClaim = zcClaimMapper.selectId(zcid);
         List<LyDetails> lyDetails = zcClaimMapper.selectById(zcid);
 
@@ -81,9 +102,12 @@ public class KcStockService{
                 ccStock.setCcNum(ccStock.getCcNum()-lyDetail.getLyNum());
                 ccStockMapper.updateNum(ccStock.getCcId(),ccStock.getCcNum());
             }
+<<<<<<< HEAD
             return 1;
         }else{
             return 0;
+=======
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
         }
     }
 

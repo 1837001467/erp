@@ -25,6 +25,7 @@ public class CgReturnController {
     @Autowired
     private CgReturnService service;
 
+    //查询所有
     @PostMapping("/all")
     public List<CgReturn> all(@RequestParam(value ="zt") Integer zt){
         return service.all(zt);
@@ -40,13 +41,6 @@ public class CgReturnController {
     //删除退货单（修改状态）
     public Integer updateThState(@RequestParam(value = "reid") Integer reid, @RequestParam("restate") Integer restate) {
         return service.updateThState(reid, restate);
-    }
-
-
-    @PostMapping("/tuihuo")
-    //退货操作
-    public Integer tuihuo(@RequestParam(value = "code") String code){
-        return service.tuihuo(code);
     }
 
 }

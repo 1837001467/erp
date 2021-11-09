@@ -38,9 +38,6 @@ public class ZcClaimService{
 
     public  Integer  update(Integer  zcId,Integer zcState){
         Integer  state = mapper.update(zcId, zcState);
-        if(state !=1){
-            return 0;
-        }
         return  state;
     }
 
@@ -65,8 +62,12 @@ public class ZcClaimService{
         lyDetails.setGoods(vo.getCommodity());
         lyDetails.setLyNum(vo.getLyNum());
         lyDetails.setZcId(zcClaim.getZcId());
+<<<<<<< HEAD
         mapper.addLyDetails(lyDetails);
         return 1;
+=======
+        return mapper.addLyDetails(lyDetails);
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
     }
 
 

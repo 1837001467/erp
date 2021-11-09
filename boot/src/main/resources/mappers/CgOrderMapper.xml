@@ -48,7 +48,7 @@
     <update id="updataCgStateById">
         update cg_order set or_state=2 where or_id=#{orId}
     </update>
-    <select id="list" resultMap="BaseResultMap">
+    <select id="selectlist" resultMap="BaseResultMap">
         select * from cg_order
     </select>
     <select id="searchByKeyword" resultMap="BaseResultMap">

@@ -20,6 +20,12 @@ public interface XsProceedsMapper{
     Integer addProceeds(XsProceeds xsProceeds);
     //查询所有收款单
     List<XsProceeds> selectAll();
+<<<<<<< HEAD
+=======
+    XsProceeds selectById(Integer proceedsId);
+
+    XsProceeds selectBySalesId(Integer Salesid);
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
     //收款单审核
     Integer updateProceeds(String proceedsState, Integer qxYhId, Integer proceedsId, Timestamp proceedsTimes);
 }

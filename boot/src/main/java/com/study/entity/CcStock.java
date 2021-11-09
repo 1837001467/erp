@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.*;
 
 /**
@@ -31,10 +32,19 @@ public class CcStock implements Serializable {
 
     private Integer ccNum;
 
+<<<<<<< HEAD
     public Integer getCcId() {
         return ccId;
     }
 
+=======
+    private JcGoods goods;
+
+    public Integer getCcId() {
+        return ccId;
+    }
+
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
     public void setCcId(Integer ccId) {
         this.ccId = ccId;
     }
@@ -62,4 +72,15 @@ public class CcStock implements Serializable {
     public void setCcNum(Integer ccNum) {
         this.ccNum = ccNum;
     }
+<<<<<<< HEAD
+=======
+
+    public JcGoods getGoods() {
+        return goods;
+    }
+
+    public void setGoods(JcGoods goods) {
+        this.goods = goods;
+    }
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
 }

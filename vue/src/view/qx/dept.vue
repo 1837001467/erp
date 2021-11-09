@@ -3,7 +3,11 @@
     <el-form style="padding-top: 10px">
       <el-col :span="19">
         <el-form-item  label="部门信息:" label-width="100px">
+<<<<<<< HEAD
           <el-input class="myin" @input="getData"  v-model="seach" placeholder="请输入你要查询的记录" ></el-input>
+=======
+          <el-input class="myin" @input="getData"  v-model="seach" placeholder="请输入你要查询的部门" ></el-input>
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
         </el-form-item>
       </el-col>
       <el-col :span="5" label-width="220px">
@@ -80,14 +84,25 @@ export default {
     return {
       bmbt:'',
       bmtk:false,
+<<<<<<< HEAD
       bmji:[],
       bm:{
 
+=======
+      bmji1:[],//部门单
+      bmji:[],//部门集合
+      bm:{
+        bmId:'',
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
         bmName:''
       },
       rules: {
         bmName: [
+<<<<<<< HEAD
           {required: true, message: '请输入用户名', trigger: 'blur'},
+=======
+          {required: true, message: '请输入部门', trigger: 'blur'},
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
         ]
       },
       seach: '',//查询框
@@ -116,6 +131,7 @@ export default {
       }).catch()
     },
     bmForm(formName){
+<<<<<<< HEAD
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.axios.post("http://localhost:8095/add-bm",
@@ -130,15 +146,60 @@ export default {
             }
           }).catch();
           this.bmtk=false
+=======
+      let params = {
+        bmId:this.bm.bmId,
+        bmName:this.bm.bmName,
+      }
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          //查询去重
+          this.axios.get("http://localhost:8095/bmqc", {
+            params: {
+              bmName: this.bm.bmName
+            }
+          }).then((res) => {
+            this.bmji1 = res.data;
+            let aa=res.data;
+            if(res.data=null||res.data==""){
+              this.axios.post("http://localhost:8095/add-bm",
+                  params
+              ).then((v) => {
+                if (v.data === 'ok') {
+                  this.getData()
+                  this.$refs[formName].resetFields();
+                  if(this.bmbt=="新增部门"){
+                    this.$message.success("新增成功")
+                    this.rzAdd("新增部门")
+                  }else {
+                    this.$message.success("修改成功")
+                    this.rzAdd("修改部门")
+                  }
+                } else {
+                  console.log(v.data)
+                }
+              }).catch();
+              this.bmtk=false
+            }else{
+              console.log(this.bmji1)
+              this.$message.info("已有该部门")
+            }
+          }).catch()
+
+
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
         } else {
           console.log('error submit!!');
           return false;
         }
       });
+<<<<<<< HEAD
 
       // this.axios.post("http://localhost:8095/add-bm",this.bm).then((res)=>{
       //   this.getData()
       // }).catch()
+=======
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
     },
     //部门弹框X
     xgBm(){
@@ -147,15 +208,39 @@ export default {
     },
     // 新增部门
     bmEdit(row,is){
+<<<<<<< HEAD
       this.bmbt = is == 1 ? '修改' : '新增';//设置弹框标题
       console.log(this.$store.state.token)
       if(row!=""){
+=======
+      this.bmbt = is == 1 ? '修改部门' : '新增部门';//设置弹框标题
+      console.log(this.$store.state.token)
+      if(row!=""){
+        this.bm.bmId=row.bmId
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
         this.bm.bmName=row.bmName
       }else {
         this.bm.bmName=""
       }
       this.bmtk=true
+<<<<<<< HEAD
     }
+=======
+    },//新增日志方法
+    rzAdd(action){
+      let params = {
+        logAction:action,
+        yhId:this.$store.state.token.yhId,
+        logTime:this.getNowFormatDate
+      }
+      this.axios.post("http://localhost:8095/add-rz",params).then((v) => {
+        if (v.data === 'ok') {
+        } else {
+          console.log(v.data)
+        }
+      }).catch();
+    },
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
   },
   computed:{
     //获取当前时间

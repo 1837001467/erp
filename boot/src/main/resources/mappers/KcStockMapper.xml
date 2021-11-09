@@ -26,7 +26,11 @@
     </resultMap>
     <insert id="change">
       insert into  kc_stock(kc_id, kc_bian, wh_id, kc_type, g_id, kc_num,kc_time,yh_id)  value
+<<<<<<< HEAD
       (null,#{kcBian},#{wh.whId},#{kcType},#{goods.gId},#{kcNum},#{kcTime},#{user.yhId})
+=======
+      (null,#{kcBian},#{wh.whId},#{kcType},#{goods.goId},#{kcNum},#{kcTime},#{user.yhId})
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
     </insert>
     <select id="selectAll" resultMap="all">
     select kc_id, kc_bian, wh_id, kc_type, g_id, kc_num from kc_stock  order  by kc_id  desc

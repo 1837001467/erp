@@ -3,13 +3,21 @@ package com.study.service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.study.entity.*;
+<<<<<<< HEAD
 import com.study.mapper.RkApplyMapper;
+=======
+import com.study.mapper.*;
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+<<<<<<< HEAD
+=======
+import java.util.Calendar;
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
 import java.util.Date;
 import java.util.List;
 
@@ -26,6 +34,17 @@ import java.util.List;
 public class RkApplyService{
         @Autowired
     RkApplyMapper   rkApplyMapper;
+<<<<<<< HEAD
+=======
+        @Autowired
+    KcStockMapper   kcStockMapper;
+        @Autowired
+    CcStockMapper   ccStockMapper;
+        @Autowired
+    CgStorageMapper storageMapper;
+    @Autowired
+    CgReturnMapper cgReturnMapper;
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
 
     public PageInfo<RkApply> selectByPager(Integer no, Integer size){
         PageHelper.startPage(no,size);/*开启分页模式*/
@@ -39,13 +58,21 @@ public class RkApplyService{
         List<CgStorageDetail> list  = rkApplyMapper.selectBystId(cgStorage.getStId());
         //2.生成入库申请
         RkApply rkApply = new RkApply();
+<<<<<<< HEAD
         rkApply.setRkBian(this.automatic());
+=======
+        rkApply.setRkBian(this.automatic("rk"));
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
         rkApply.setStCode(stCode);
         rkApply.setYhShen(cgStorage.getQxUser());
         rkApply.setRkApplicationtime(new Timestamp(System.currentTimeMillis()));
         rkApply.setRkType("采购入库");
         rkApply.setRkState(0);
+<<<<<<< HEAD
         rkApplyMapper.cgAdd(rkApply);
+=======
+      Integer id = rkApplyMapper.cgAdd(rkApply);
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
         //3.生成入库申请详情
         for (CgStorageDetail cgStorageDetail : list) {
             RkDetails  rkDetails  = new RkDetails();
@@ -54,14 +81,21 @@ public class RkApplyService{
             rkDetails.setGood(cgStorageDetail.getGoods());
             rkApplyMapper.addDetails(rkDetails);
         }
+<<<<<<< HEAD
         return  1;
+=======
+        return id;
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
     }
 
     public  Integer  update(Integer  rkId,Integer rkState){
         Integer  state = rkApplyMapper.update(rkId,rkState);
+<<<<<<< HEAD
         if(state !=1){
             return 0;
         }
+=======
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
         return  state;
     }
 
@@ -70,6 +104,7 @@ public class RkApplyService{
     }
 
     public Integer  updateState(Integer rkId,String stCode,Integer rkState,Integer  yhId){
+<<<<<<< HEAD
         rkApplyMapper.update(rkId,rkState);  //修改入库申请的状态
         this.adopt(rkId,yhId,new Timestamp(System.currentTimeMillis()),stCode);//添加入库申请和采购入库的审批人
         rkApplyMapper.updateTwo(stCode,rkState+1); //修改采购入库的状态
@@ -81,6 +116,59 @@ public class RkApplyService{
 //
 //        }
         return 0;
+=======
+        CgStorage cgStorage = rkApplyMapper.selectBystCode(stCode);
+        List<CgStorageDetail> list  = rkApplyMapper.selectBystId(cgStorage.getStId());
+       Integer state = rkApplyMapper.update(rkId,rkState);  //修改入库申请的状态
+        this.adopt(rkId,yhId,new Timestamp(System.currentTimeMillis()),stCode);//添加入库申请和采购入库的审批人
+        rkApplyMapper.updateTwo(stCode,rkState+1); //修改采购入库的状态
+        if(rkState == 1){
+            //成功的情况
+            //1.生成一条或则多条库存变动记录
+            for (CgStorageDetail cgStorageDetail : list) {
+                KcStock  kcStock =new KcStock();
+                kcStock.setKcNum(cgStorageDetail.getSdCount());
+                kcStock.setKcType("采购入库");
+                kcStock.setWh(cgStorage.getCk());
+                kcStock.setUser(cgStorage.getSppeo());
+                kcStock.setGoods(cgStorageDetail.getGoods());
+                kcStock.setKcTime(new Timestamp(System.currentTimeMillis()));
+                kcStock.setKcBian(this.automatic("kc"));
+                kcStockMapper.change(kcStock);
+            }
+            //2.增加库存
+            for (CgStorageDetail cgStorageDetail : list) {
+                CcStock ccStock = ccStockMapper.selectByWidAndGid(cgStorage.getCk().getWhId(),cgStorageDetail.getGoods().getGoId());
+                ccStock.setCcNum(ccStock.getCcNum()+cgStorageDetail.getSdCount());
+                ccStockMapper.updateNum(ccStock.getCcId(),ccStock.getCcNum());
+            }
+            return state;
+        }else{
+            //不通过的情况
+            //退货(入库不通过，进入退货)//新增
+            Timestamp nowtime= new Timestamp(System.currentTimeMillis());
+            //入库单
+            CgStorage rk=storageMapper.selectByCode(stCode);
+            System.out.println("rk="+rk);
+            JcSupplier supplier=rk.getJcSupplier();//供应商
+            QxUser user=rk.getQxUser();//采购员
+            JcWhinformation ck=rk.getCk();//仓库
+            //生成退货编码
+            Calendar now = Calendar.getInstance();
+            String year = String.valueOf(now.get(Calendar.YEAR));
+            String month = String.valueOf(now.get(Calendar.MONTH)+1);
+            String day = String.valueOf(now.get(Calendar.DAY_OF_MONTH));
+            String num = String.valueOf((int)((Math.random()*9+1)*1000));
+            String proceedsYard = "THD"+year+month+day+num;
+
+            CgReturn cgReturn=new CgReturn(null,proceedsYard,nowtime,"入库失败，商品有质量问题",null,null,0);
+            cgReturn.setSupplier(supplier);
+            cgReturn.setUser(user);
+            cgReturn.setCk(ck);
+            return cgReturnMapper.addTh(cgReturn);
+
+        }
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
     }
 
     public  Integer  adopt(Integer rkId,Integer yhId,Timestamp time,String stCode){
@@ -89,7 +177,11 @@ public class RkApplyService{
     }
 
     //自动生成编号
+<<<<<<< HEAD
     public   String  automatic(){
+=======
+    public   String  automatic(String head){
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
         SimpleDateFormat f = new SimpleDateFormat("yyyyMMdd");//设置日期格式
         String date = f.format(new Date());
         List<RkApply> list = rkApplyMapper.selectAll(); // 调用Service中的方法获取SQL中的数据
@@ -101,9 +193,15 @@ public class RkApplyService{
             for (int i = 0; i < 3; i++){
                 Number = Number.length() < 3 ? "0" + Number : Number;
             }
+<<<<<<< HEAD
             return ("rk" + date + Number);
         }else{
             return ( "rk" + date + "001");
+=======
+            return (head + date + Number);
+        }else{
+            return ( head + date + "001");
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
         }
     }
 }

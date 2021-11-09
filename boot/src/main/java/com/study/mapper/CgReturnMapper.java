@@ -16,11 +16,11 @@ import java.util.List;
  */
 @Mapper
 public interface CgReturnMapper{
-    List<CgReturn> all(Integer zt);
+    List<CgReturn> selectAll(Integer zt);//查询所有采购退货
 
-    Integer addTh(CgReturn cgReturn);//新增
+    Integer addTh(CgReturn cgReturn);//新增采购退货
 
-    Integer updateTh(CgReturn cgReturn);
+    Integer updateTh(CgReturn cgReturn);//修改采购退货
 
 
 }

@@ -13,6 +13,22 @@
         <result column="bill_way" property="billWay" />
         <result column="bill_account" property="billAccount" />
         <result column="bill_time" property="billTime" />
+        <result column="bill_yard" property="billYard" />
     </resultMap>
-
+    <select id="selectAll" resultMap="BaseResultMap" parameterType="com.study.entity.XsBill">
+        select bill_id, return_id, kh_id, yh_id, sales_id, bill_money, bill_way, bill_account, bill_time, bill_yard
+        from xs_bill
+        order by bill_id desc
+    </select>
+    <insert id="addBill" useGeneratedKeys="true" keyProperty="billId">
+        insert into xs_bill values (null,#{returnId},#{khId},#{yhId},#{salesId},#{billMoney},#{billWay},#{billAccount},#{billTime},#{billYard})
+    </insert>
+    <select id="selectById" resultMap="BaseResultMap" parameterType="com.study.entity.XsBill">
+        select bill_id, return_id, kh_id, yh_id, sales_id, bill_money, bill_way, bill_account, bill_time, bill_yard
+        from xs_bill
+        where bill_id = #{billId}
+    </select>
+    <select id="selecIdMax" resultType="java.lang.Integer">
+        select max(bill_id) from xs_bill
+    </select>
 </mapper>

@@ -34,7 +34,11 @@ public class CgYinpayService{
     }
 
     //付款操作
+<<<<<<< HEAD
     public Integer fukuan(Integer yiid, String way, String fktype, BigDecimal totalmoney){
+=======
+    public Integer fukuan(Integer yiid, String way, String fktype){
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
         //1、改应付款单状态
         Timestamp nowtime= new Timestamp(System.currentTimeMillis());
         CgYinpay cgYinpay=new CgYinpay();

@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.study.entity.QxDepartment;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -19,6 +20,17 @@ import java.util.List;
 public interface QxDepartmentMapper  extends BaseMapper<QxDepartment> {
     //部门查询
     List<QxDepartment> qxbm(String seach);
+<<<<<<< HEAD
     @Insert("inset into qx_department(?,?) vaues(#{bmId},#{bmName})")
     int insertbm(Long bmId,String bmName);
+=======
+    //部门去重
+    List<QxDepartment> bmqc(String bmName);
+//    新增部门
+    @Insert("insert into qx_department values (0,#{bmName})")
+    int insertbm(String bmName);
+//    修改部门
+    @Update("update qx_department set  bm_name=#{bmName} where bm_id=#{bmId}" )
+    public void  updBm(Integer bmId,String bmName);
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
 }

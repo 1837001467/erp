@@ -1,8 +1,13 @@
 <template>
 	<el-table :data="rksqs" style="width: 100%;" border :header-cell-style="{'text-align':'center'}"
 		:cell-style="{'text-align':'center'}">
+<<<<<<< HEAD
 		<el-table-column prop="rkBian" label="入库申请编号"></el-table-column>
 		<el-table-column prop="stCode" label="订单入库编号"></el-table-column>
+=======
+		<el-table-column prop="rkBian" label="入库申请编号" width="160"></el-table-column>
+		<el-table-column prop="stCode" label="订单入库编号" width="160"></el-table-column>
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
 		<el-table-column prop="rkType" label="入库类型"></el-table-column>
 		<el-table-column prop="yhShen.yhName" label="申请人"></el-table-column>
 		<el-table-column prop="rkApplicationtime" label="申请时间" width="150"></el-table-column>

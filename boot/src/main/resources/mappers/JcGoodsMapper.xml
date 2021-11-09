@@ -68,12 +68,18 @@
         </association>
     </resultMap>
 
+<<<<<<< HEAD
     <select id="selectById" resultMap="BaseResultMap" parameterType="com.study.entity.JcGoods">
         select go_id, gf_id, g_name, g_price, g_unit, g_bian from jc_goods where go_id = #{goId}
     </select>
+=======
+        <select id="selectById" resultMap="BaseResultMap" parameterType="com.study.entity.JcGoods">
+            select go_id, gf_id, g_name, g_price, g_unit, g_bian from jc_goods  where go_id = #{goId}
+        </select>
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
 
     <select id="selectAll" resultMap="BaseResultMap">
-        select * from jc_goods where g_status=0 order by go_id
+        select * from jc_goods where g_status=0 order by go_id asc
     </select>
     <select id="selectByTypeId" resultMap="BaseResultMap">
         select * from jc_goods jg

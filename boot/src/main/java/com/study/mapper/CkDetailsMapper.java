@@ -1,5 +1,7 @@
 package com.study.mapper;
 
+import com.study.entity.CkApply;
+import com.study.entity.CkDetails;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -12,5 +14,6 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface CkDetailsMapper{
+    Integer addCkDetailsMapper(CkDetails ckDetails);//新增出库详情
 
 }

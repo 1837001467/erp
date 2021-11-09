@@ -3,6 +3,7 @@ package com.study.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.study.entity.QxDepartment;
 import com.study.entity.QxLog;
+import com.study.entity.QxUser;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -19,4 +20,5 @@ import java.util.List;
 public interface QxLogMapper extends BaseMapper<QxLog> {
     //日志查询
     List<QxLog> rzcx(String seach);
+    Integer addLog(QxLog log);//新增日志
 }

@@ -3,7 +3,7 @@
     <el-form style="padding-top: 10px">
       <el-col :span="19">
         <el-form-item  label="角色信息:" label-width="100px">
-          <el-input class="myin" @input="getData"  v-model="seach" placeholder="请输入你要查询的人员" ></el-input>
+          <el-input class="myin" @input="getData"  v-model="seach" placeholder="请输入你要查询的角色" ></el-input>
         </el-form-item>
       </el-col>
       <el-col :span="5" label-width="220px">
@@ -29,7 +29,11 @@
             </el-form-item>
           </el-col>
           <el-col :span="10">
+<<<<<<< HEAD
             <el-form-item label="部门：" label-width="120px" prop="posId">
+=======
+            <el-form-item label="部门：" label-width="120px" prop="bmId">
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
               <el-select v-model="js.bmId" placeholder="请选择">
                 <el-option
                     v-for="item in bmji"
@@ -48,7 +52,11 @@
           </el-col>
           <el-col :span="10">
             <el-scrollbar style="margin-top: 10px" height="200px">
+<<<<<<< HEAD
               <el-tree ref="tree" :data="sqxji" node-key="jsdnId"
+=======
+              <el-tree ref="tree"  :data="sqxji" node-key="jsdnId"
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
                        :props="props" show-checkbox  default-expand-all
               >
               </el-tree>
@@ -104,17 +112,6 @@
   </el-row>
 
 
-  <el-dialog title="填写检查结果" v-model="txjg" width="40%" center  ><!-- 弹窗  新增   -=-=-=-=-=-=-==-=-=-=-=--=-=-=-=-=-=-检查结果填写 -->
-    <span v-for="(t,i) in aloneg" >{{t.checkName}}:<el-input  v-model="t.tjCodeIndex"></el-input></span>
-    <span style="color: red">医生建议：<el-input v-model="manProposal"  type="textarea"> </el-input></span>
-    <el-row>
-      <el-col :span="2" :offset="10">
-        <el-button type="primary" style="margin-top: 20px" @click="txjgForm">确定</el-button>
-      </el-col>
-    </el-row>
-
-  </el-dialog>
-
 </template>
 
 <script>
@@ -126,6 +123,7 @@ export default {
       dialogVisible:false,
       jstk:false,//角色弹框
       jstit:'',//角色弹框标题
+<<<<<<< HEAD
       jsji:[],
       qxji:[],
       bmji:[],
@@ -134,15 +132,33 @@ export default {
         posId:'',
         posName:'',
         bmId:''
+=======
+      jsji:[],//角色级
+      qxji:[],//权限级
+      bmji:[],//部门集合
+      sqxji:[],//树形控件集合
+      js:{
+        posId:'',
+        posName:'',
+        bmId:'',
+        qxAn:[]//权限集合
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
       },
       rulejs:{
         posName: [
           {required: true, message: '请输入角色名', trigger: 'blur'},
         ],
+<<<<<<< HEAD
         posId: [
           {required: false, message: '请选择部门', trigger: 'change'},
           {required: true, message: '请选择部门', trigger: 'blur' }
         ],
+=======
+        bmId: [
+          {required: false, message: '请选择部门', trigger:'change'},
+          {required: true, message: '请选择部门', trigger:'blur' }
+        ]
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
       },
       props: {
         id:'jsdnId',
@@ -181,11 +197,16 @@ export default {
         this.sqxji = res.data;
       }).catch()
     },
+<<<<<<< HEAD
     //角色弹框
+=======
+    //角色弹框X
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
     xgJs(){
       this.jstk=false;
       this.$refs['jsFrom'].resetFields();
     },
+<<<<<<< HEAD
     //弹框确认
     jsForm(formName){
       this.$refs[formName].validate((valid) => {
@@ -202,6 +223,44 @@ export default {
             }
           }).catch();
           this.bmtk=false
+=======
+    //角色弹框确认
+    jsForm(formName){
+       this.js.qxAn=this.$refs.tree.getCheckedKeys();
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          //查询去重
+          this.axios.get("http://localhost:8095/jsqc", {
+            params: {
+              posName:this.js.posName
+            }
+          }).then((res) => {
+            let aa=res.data;
+            if(res.data=null||res.data==""){
+              this.axios.post("http://localhost:8095/add-js",
+                  this.js
+              ).then((v) => {
+                if (v.data === 'ok') {
+                  this.getData()
+                  this.$refs[formName].resetFields();
+                  if(this.jstit=='新增角色'){
+                    this.$message.success("新增成功")
+                    this.rzAdd("新增角色")
+                  }else {
+                    this.$message.success("修改成功")
+                    this.rzAdd("修改角色")
+                  }
+                } else {
+                  console.log(v.data)
+                }
+              }).catch();
+              this.jstk=false
+            }else{
+              console.log(this.bmji1)
+              this.$message.info("已有该角色")
+            }
+          }).catch()
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
         } else {
           console.log('error submit!!');
           return false;
@@ -213,7 +272,11 @@ export default {
       this.jstit = is == 1 ? '修改角色' : '新增角色';//设置弹框标题
       if(row!=""){
         this.js.bmId=row.bmId,
+<<<<<<< HEAD
         this.posName=row.posName,
+=======
+        this.js.posName=row.posName,
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
         this.js.posId=row.posId
         //树形控件自选
         this.axios.get("http://localhost:8095/jsqx", {
@@ -228,7 +291,10 @@ export default {
           res.data.forEach(function(x){
             ww.push(x.jsdnId)
           });
+<<<<<<< HEAD
           // this.dialogVisible=true
+=======
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
           this.$nextTick(function() {
             this.$refs.tree.setCheckedKeys(ww)
           })
@@ -237,6 +303,22 @@ export default {
 
       }
       this.jstk=true
+<<<<<<< HEAD
+=======
+    },//新增日志方法
+    rzAdd(action){
+      let params = {
+        logAction:action,
+        yhId:this.$store.state.token.yhId,
+        logTime:this.getNowFormatDate
+      }
+      this.axios.post("http://localhost:8095/add-rz",params).then((v) => {
+        if (v.data === 'ok') {
+        } else {
+          console.log(v.data)
+        }
+      }).catch();
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
     },
   },
   computed:{

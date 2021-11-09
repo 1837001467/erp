@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
 	<div>
 		<el-button style="background-color: #13CE66;color: black;" @click="addSorder">新增销售单</el-button>
 		<el-input placeholder="订单编号" v-model="order.order_id" clearable style="width: 120px;">
@@ -11,6 +12,9 @@
 			end-placeholder="End Date" :default-time="defaultTime1">
 		</el-date-picker>
 		<el-button>查询</el-button>
+=======
+	<div>	
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
 		<div>
 			<el-table :data="tableData" style="width: 100%">
 				<el-table-column label="操作" #default="scope">
@@ -78,6 +82,7 @@
 				<div>
 					<el-button @click="addCommodity">添加商品</el-button><el-button></el-button>
 					<el-table :data="tableCoom" style="width: 100%">
+<<<<<<< HEAD
 						<el-table-column prop="gname" label="商品名称">
 						</el-table-column>
 						<el-table-column prop="gprice" label="单价">
@@ -85,6 +90,15 @@
 						<el-table-column label="数量">
 							<template #default="scope">
 								<el-input-number v-model="scope.row.gbian" controls-position="right" :min="1">
+=======
+						<el-table-column prop="gName" label="商品名称">
+						</el-table-column>
+						<el-table-column prop="gPrice" label="单价">
+						</el-table-column>
+						<el-table-column label="数量">
+							<template #default="scope">
+								<el-input-number v-model="scope.row.gBian" controls-position="right" :min="1">
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
 								</el-input-number>
 							</template>
 						</el-table-column>
@@ -111,11 +125,19 @@
 									</el-table-column>
 									<el-table-column prop="ypcode" label="商品id" width="165px">
 									</el-table-column>
+<<<<<<< HEAD
 									<el-table-column prop="gname" label="商品名称">
 									</el-table-column>
 									<el-table-column prop="gunit" label="单位">
 									</el-table-column>
 									<el-table-column prop="gprice" label="单价(元)">
+=======
+									<el-table-column prop="gName" label="商品名称">
+									</el-table-column>
+									<el-table-column prop="gunit" label="单位">
+									</el-table-column>
+									<el-table-column prop="gPrice" label="单价(元)">
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
 									</el-table-column>
 								</el-table>
 							</el-container>
@@ -165,9 +187,15 @@
 					<el-table :data="tableData2.goods" style="width: 100%">
 						<el-table-column prop="goId" label="商品编号">
 						</el-table-column>
+<<<<<<< HEAD
 						<el-table-column prop="gname" label="商品名称">
 						</el-table-column>
 						<el-table-column prop="gprice" label="单价">
+=======
+						<el-table-column prop="gName" label="商品名称">
+						</el-table-column>
+						<el-table-column prop="gPrice" label="单价">
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
 						</el-table-column>
 					</el-table>
 				</div>

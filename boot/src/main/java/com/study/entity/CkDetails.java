@@ -25,11 +25,43 @@ public class CkDetails implements Serializable {
     @Id
     private Integer ckdId;
 
-    private Integer gId;
+    private JcGoods goods;
 
     private Integer ckdNum;
 
     private Integer ckId;
 
+    public Integer getCkdId() {
+        return ckdId;
+    }
 
+    public JcGoods getGoods() {
+        return goods;
+    }
+
+    public void setGoods(JcGoods goods) {
+        this.goods = goods;
+    }
+
+    public void setCkdId(Integer ckdId) {
+        this.ckdId = ckdId;
+    }
+
+
+
+    public Integer getCkdNum() {
+        return ckdNum;
+    }
+
+    public void setCkdNum(Integer ckdNum) {
+        this.ckdNum = ckdNum;
+    }
+
+    public Integer getCkId() {
+        return ckId;
+    }
+
+    public void setCkId(Integer ckId) {
+        this.ckId = ckId;
+    }
 }

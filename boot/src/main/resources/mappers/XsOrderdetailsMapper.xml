@@ -11,6 +11,7 @@
         <result column="go_id" property="goId"/>
     </resultMap>
     <!--    新增订单商品详情-->
+<<<<<<< HEAD
         <insert id="addDetails" useGeneratedKeys="true" keyProperty="detailsId">
             insert into xs_orderdetails values(null,#{salesId},#{orderId},#{detailsNum},#{goId})
         </insert>
@@ -26,4 +27,21 @@
                 </if>
             </where>
         </select>
+=======
+    <insert id="addDetails" useGeneratedKeys="true" keyProperty="detailsId">
+            insert into xs_orderdetails values(null,#{salesId},#{orderId},#{detailsNum},#{goId})
+        </insert>
+    <!--    根据销售订单id或者销售单id查询商品详情-->
+    <select id="selectById" resultMap="BaseResultMap" parameterType="com.study.entity.XsOrderdetails">
+        select details_id, sales_id, order_id, details_num, go_id from xs_orderdetails
+        <where>
+            <if test="salesId!=null and salesId!=''">
+                and sales_id = #{salesId}
+            </if>
+            <if test="orderId!=null and orderId!=''">
+                and order_id = #{orderId}
+            </if>
+        </where>
+    </select>
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
 </mapper>

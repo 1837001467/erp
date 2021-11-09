@@ -56,7 +56,7 @@
 			<el-descriptions-item label="申请时间">{{sqr.zcApplicationtime}}</el-descriptions-item>
 		</el-descriptions>
 		<el-table :data="goods">
-			<el-table-column property="goods.gname" label="商品名" width="200"></el-table-column>
+			<el-table-column property="goods.gName" label="商品名" width="200"></el-table-column>
 			<el-table-column property="lyNum" label="领取数量" width="150"></el-table-column>
 		</el-table>
 	</el-dialog>

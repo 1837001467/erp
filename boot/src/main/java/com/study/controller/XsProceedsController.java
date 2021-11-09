@@ -31,7 +31,11 @@ public class XsProceedsController {
     @PostMapping("update")
     public void updateProceeds(@RequestBody XsProceeds xsProceeds){
         System.out.println("开始修改收款单");
+<<<<<<< HEAD
         xsProceedsService.updateProceeds(xsProceeds.getProceedsState(),xsProceeds.getQxYhId(),xsProceeds.getProceedsId());
+=======
+        xsProceedsService.updateProceeds(xsProceeds.getProceedsState(),xsProceeds.getQxYhId(),xsProceeds.getProceedsId(),xsProceeds);
+>>>>>>> 49a989ad24102f249fe76034f2e5cf9ccca7e375
     }
 }
 

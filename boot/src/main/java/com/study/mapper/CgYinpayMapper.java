@@ -15,11 +15,11 @@ import java.util.List;
  */
 @Mapper
 public interface CgYinpayMapper {
-    Integer addYinPay(CgYinpay yinpay);//新增
+    Integer addYinPay(CgYinpay yinpay);//新增收付记录
 
-    List<CgYinpay> selectAll();
+    List<CgYinpay> selectAll();//查询所有收付记录
 
-    Integer updateById(CgYinpay cgYinpay);
+    Integer updateById(CgYinpay cgYinpay);//修改收付记录
 
 
 }
